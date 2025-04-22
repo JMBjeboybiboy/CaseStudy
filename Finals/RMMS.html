@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RMMS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="left-section">
+        <img src="images/logo.png" alt="Logo" class="logo" />
+        <span class="title">PAMANTASAN NG LUNGSOD NG PASIG</span>
+      </div>
+      <div class="right-section">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." aria-label="Search">
+        </div>
+        <div class="hamburger-container">
+          <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <nav id="navMenu">
+            <a href="Home.html" class="btn Home-link">Home</a>
+            <a href="Reserve.html" class="btn Reserve-link">Reserve</a>
+            <a href="#">Building Layout</a>
+            <a href="#">About Us</a>
+          </nav>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="datetime">
+          <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-flex-container">
+    <div class="left-content">
+      <section class="info-section slide-in">
+        <h2 class="welcome-title">Welcome to the Room Management Monitoring System</h2>
+        <p class="school-description">Empowering students to grow, learn, and lead through innovation and care.</p>
+        <button class="navigate-btn" onclick="scrollToSection()">Navigate</button>
+      </section>
+
+      <section class="events-section slide-in">
+        <div class="event-box">
+          <div class="event-text">
+            <h2 id="eventTitle">Place Event Name</h2>
+            <p id="eventDate">Place date and time of event</p>
+          </div>
+          <div id="eventLabel" class="event-label">No image available</div>
+        </div>
+        <div class="event-image">
+          <img id="eventImage" src="images/placeholder.jpg" alt="No event image available">
+        </div>
+      </section>
+    </div>
+
+    <div class="right-switcher">
+      <div class="image-switcher">
+        <div class="image-frame">
+          <img src="images/bldg1.jpg" alt="Building Main" id="img1" class="active">
+          <img src="images/bldg2.jpg" alt="Building CIHM" id="img2">
+        </div>
+        <div class="vertical-line1" id="imageLabel">BUILDING MAIN</div>
+        <div class="swtchBtn-container">
+          <button id="swtchBtn" class="swtch-Btn">
+            <i class="fas fa-sync-alt"></i> SWITCH BUILDING
+          </button>
+        </div>
+      </div>
+      <div class="btnBooking">
+        <button class="navigate-btn1" onclick="location.href='Reserve.html';">
+          <span class="icon">🔖</span> Reserve
+        </button>
+      </div>      
+    </div>
+    
+    <footer>
+      <p>&copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || <a href="Home.html" style="color: #ccc;">H O M E</a></p>
+    </footer>
+  </main>
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click", function(event) {
+      const nav = document.getElementById("navMenu");
+      const hamburger = document.querySelector(".hamburger-container");
+      if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
+        nav.classList.remove("show");
+      }
+    });
+
+    function updateDateTime() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const date = now.toLocaleDateString('en-GB');
+      document.getElementById('datetime').textContent = `${time} // ${date}`;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    const images = [
+      {
+        element: document.getElementById('img1'),
+        label: 'BUILDING MAIN',
+        bg: 'images/bldg1.jpg'
+      },
+      {
+        element: document.getElementById('img2'),
+        label: 'BUILDING CIHM',
+        bg: 'images/bldg2.jpg'
+      }
+    ];
+
+    let currentIndex = 0;
+    const label = document.getElementById('imageLabel');
+
+    function showImage(index) {
+      images.forEach((img, i) => {
+        img.element.classList.toggle('active', i === index);
+      });
+      label.textContent = images[index].label;
+
+      document.body.style.backgroundImage = `url('${images[index].bg}')`;
+      document.body.style.backgroundSize = 'cover';
+      document.body.style.backgroundPosition = 'center';
+      document.body.style.backgroundRepeat = 'no-repeat';
+    }
+
+    document.getElementById('swtchBtn').addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    });
+
+    showImage(currentIndex);
+
+    function scrollToSection() {
+      window.scrollTo({ top: 600, behavior: 'smooth' });
+
+      setTimeout(function() {
+        window.location.href = 'Home.html';
+      }, 500);
+    }
+  
+
+    const eventImages = [
+      {
+        src: "images/placeholder.jpg",
+        title: "Place event name",
+        date: "Place date and time of event",
+        label: "No image available"
+      },
+      {
+        src: "images/placeholder.jpg",
+        title: "Sample Event Student Congress",
+        date: "April 24, 2025 - 9:00 AM",
+        label: "Congress Poster"
+      },
+      {
+        src: "images/placeholder.jpg",
+        title: "IT Exhibit",
+        date: "May 12, 2025 - 2:00 PM",
+        label: "Exhibit Flyer"
+      }
+    ];
+
+    let currentEventIndex = 0;
+
+    function rotateEvent() {
+      const event = eventImages[currentEventIndex];
+      const img = document.getElementById("eventImage");
+      img.style.opacity = 0;
+      setTimeout(() => {
+        img.src = event.src;
+        img.alt = event.label;
+        document.getElementById("eventTitle").textContent = event.title;
+        document.getElementById("eventDate").textContent = event.date;
+        document.getElementById("eventLabel").textContent = event.label;
+        img.style.opacity = 1;
+      }, 300);
+      currentEventIndex = (currentEventIndex + 1) % eventImages.length;
+    }
+
+    setInterval(rotateEvent, 3000);
+    rotateEvent();
+  </script>
+</body>
+</html>
+
+
