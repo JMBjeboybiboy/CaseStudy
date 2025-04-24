@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RMMS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <div class="left-section">
+        <img src="images/logo.png" alt="Logo" class="logo" />
+        <span class="title">PAMANTASAN NG LUNGSOD NG PASIG</span>
+      </div>
+      <div class="right-section">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." aria-label="Search">
+        </div>
+        <div class="hamburger-container">
+          <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <nav id="navMenu">
+            <a href="Home.html" class="btn Home-link">Home</a>
+            <a href="Reserve.html" class="btn Reserve-link">Reserve</a>
+            <a href="#">Building Layout</a>
+            <a href="#">About Us</a>
+          </nav>
+        </div>
+        <div class="vertical-line"></div>
+        <div class="datetime">
+          <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN AREA WITH JUST AN IMAGE -->
+  <main class="main-flex-container" style="justify-content: center; align-items: center; min-height: 80vh; display: flex;">
+    <img src="images/center-image.jpg" alt="Main Display" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" />
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || 
+      <a href="Home.html" style="color: #ccc;">H O M E</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click", function(event) {
+      const nav = document.getElementById("navMenu");
+      const hamburger = document.querySelector(".hamburger-container");
+      if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
+        nav.classList.remove("show");
+      }
+    });
+
+    function updateDateTime() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const date = now.toLocaleDateString('en-GB');
+      document.getElementById('datetime').textContent = `${time} // ${date}`;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+</body>
+</html>
