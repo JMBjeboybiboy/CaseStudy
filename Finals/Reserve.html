@@ -160,19 +160,17 @@
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" required>
 
-      <label for="timeSlots">Select Time Slot(s):</label>
-      <select id="timeSlots" multiple size="6" required>
-        <option value="07:30-09:00">07:30 - 09:00</option>
-        <option value="09:00-10:30">09:00 - 10:30</option>
-        <option value="10:30-12:00">10:30 - 12:00</option>
-        <option value="13:00-14:30">13:00 - 14:30</option>
-        <option value="14:30-16:00">14:30 - 16:00</option>
-        <option value="16:00-17:30">16:00 - 17:30</option>
-        <option value="17:30-19:00">17:30 - 19:00</option>
-        <option value="19:00-21:00">19:00 - 21:00</option>
-      </select>
+      <label>Time Slots:</label>
+     <div id="timeSlotContainer">
+     <div class="time-slot-row">
+     <input type="time" class="time-in" required> to
+     <input type="time" class="time-out" required>
+     </div>
+    </div>
+    <button type="button" onclick="addTimeSlot()">Add Time Slot</button><br>
 
-      <label for="role">Your Role:</label>
+
+     <br> <label for="role">Your Role:</label>
       <select id="role" required>
         <option value="">Select Role</option>
         <option>Student</option>
