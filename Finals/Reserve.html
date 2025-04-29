@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reservation - RMMS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: #f0f0f0;
-    }
-
-    header {
-      background-color: #004080;
-      color: white;
-      text-align: center;
-      padding: 20px;
     }
 
     .floor-container {
@@ -140,8 +135,34 @@
 <body>
 
 <header>
-  <h1>Reserve a Room</h1>
-  <p>Select a room from the floor layout below</p>
+  <div class="header-container">
+    <div class="left-section">
+      <img src="images/logo.png" alt="Logo" class="logo" />
+      <span class="title" onclick="location.href='RMMS.html'" style="cursor: pointer;">PAMANTASAN NG LUNGSOD NG PASIG</span>
+    </div>
+    <div class="right-section">
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." aria-label="Search">
+      </div>
+      <div class="hamburger-container">
+        <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <nav id="navMenu">
+          <a href="Home.html" class="btn Home-link">Home</a>
+          <a href="Reserve.html" class="btn Reserve-link">Reserve</a>
+          <a href="Buildlayout.html" class="btn Buildlayout-link">Building Layout</a>
+          <a href="#">About Us</a>
+        </nav>
+      </div>
+      <div class="vertical-line"></div>
+      <div class="datetime">
+        <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main class="floor-container"></main>
@@ -161,16 +182,15 @@
       <input type="date" id="endDate" required>
 
       <label>Time Slots:</label>
-     <div id="timeSlotContainer">
-     <div class="time-slot-row">
-     <input type="time" class="time-in" required> to
-     <input type="time" class="time-out" required>
-     </div>
-    </div>
-    <button type="button" onclick="addTimeSlot()">Add Time Slot</button><br>
+      <div id="timeSlotContainer">
+        <div class="time-slot-row">
+          <input type="time" class="time-in" required> to
+          <input type="time" class="time-out" required>
+        </div>
+      </div>
+      <button type="button" onclick="addTimeSlot()">Add Time Slot</button><br>
 
-
-     <br> <label for="role">Your Role:</label>
+      <br> <label for="role">Your Role:</label>
       <select id="role" required>
         <option value="">Select Role</option>
         <option>Student</option>
@@ -191,17 +211,39 @@
 </div>
 
 <footer>
-  <p>&copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || <a href="Home.html" style="color: #ccc;">H O M E</a></p>
+  <p>&copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || 
+    <a href="Home.html" style="color: #ccc;">H O M E</a></p>
 </footer>
 
 <script>
+  function toggleMenu() {
+    document.getElementById("navMenu").classList.toggle("show");
+  }
+
+  document.addEventListener("click", function(event) {
+    const nav = document.getElementById("navMenu");
+    const hamburger = document.querySelector(".hamburger-container");
+    if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
+      nav.classList.remove("show");
+    }
+  });
+
+  function updateDateTime() {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const date = now.toLocaleDateString('en-GB');
+    document.getElementById('datetime').textContent = `${time} // ${date}`;
+  }
+
+  setInterval(updateDateTime, 1000);
+  updateDateTime();
+
   const main = document.querySelector('.floor-container');
   const modal = document.getElementById('modalOverlay');
   const roomNumberTitle = document.getElementById('roomNumberTitle');
   const form = document.getElementById('reservationForm');
   const startDate = document.getElementById('startDate');
   const endDate = document.getElementById('endDate');
-  const timeSlots = document.getElementById('timeSlots');
   const noticeMessage = document.getElementById('noticeMessage');
 
   for (let floor = 1; floor <= 8; floor++) {
@@ -237,23 +279,15 @@
     }
   };
 
-  function checkNoticeCondition() {
-    const start = new Date(startDate.value);
-    const end = new Date(endDate.value);
-    const sameDay = start.toDateString() === end.toDateString();
-    const timeSelected = Array.from(timeSlots.selectedOptions).length > 0;
-    if (sameDay && timeSelected) {
-      noticeMessage.style.display = 'block';
-    } else {
-      noticeMessage.style.display = 'none';
-    }
+  function addTimeSlot() {
+    const container = document.getElementById('timeSlotContainer');
+    const row = document.createElement('div');
+    row.className = 'time-slot-row';
+    row.innerHTML = '<input type="time" class="time-in" required> to <input type="time" class="time-out" required>';
+    container.appendChild(row);
   }
-
-  startDate.addEventListener('change', checkNoticeCondition);
-  endDate.addEventListener('change', checkNoticeCondition);
-  timeSlots.addEventListener('change', checkNoticeCondition);
 </script>
 
 </body>
 </html>
-<!--yung time slot di pa ayos, dapat makakapagselect ng multiple time slots si user-->
+<!--pacheck nalang if tama ba yang time slot na yan-->
