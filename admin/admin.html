@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-item" id="requestBoardBtn">
+          <i class="fas fa-clipboard-list sidebar-icon"></i>
+          <span>Request Board</span>
+        </div>
+        <div class="sidebar-item" id="eventPaneBtn">
+          <i class="fas fa-calendar-check sidebar-icon"></i>
+          <span>Event Panel</span>
+        </div>
+        <div class="sidebar-item" id="calendarBtn">
+          <i class="fas fa-calendar-alt sidebar-icon"></i>
+          <span>Calendar</span>
+        </div>
+      </div>      
+
+  <div class="main">
+    <button id="backBtn" style="display: none;">← Back</button>
+    <h1>Admin Dashboard</h1>
+    
+    <div id="bookingSection" style="display: none;">
+        <div class="card-container">
+            <div class="card clickable-card" id="showPending">
+              <h2 id="pendingCount">0</h2>
+              <p>Pending Bookings</p>
+            </div>
+            <div class="card clickable-card" id="showConfirmed">
+              <h2 id="confirmedCount">0</h2>
+              <p>Confirmed Bookings</p>
+            </div>
+          </div>          
+
+      <div id="pendingTable" class="table-container" style="display: none;">
+        <table>
+          <thead>
+            <tr>
+              <th>Building Type</th>
+              <th>Room</th>
+              <th>Time In</th>
+              <th>Time Out</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Role</th>
+              <th>Name</th>
+              <th>Contact Details</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="pendingTableBody">
+            <tr>
+              <td>Main Building</td><td>Rm 304</td><td>8:30 AM</td><td>8:30 AM</td>
+              <td>01/05/2025</td><td>01/05/2025</td><td>Teacher</td><td>Marc</td>
+              <td>ang@.com</td>
+              <td>
+                <button class="approve-btn">✅</button>
+                <button class="decline-btn">❌</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Main Building</td><td>Rm 101</td><td>9:00 AM</td><td>10:00 AM</td>
+              <td>01/05/2025</td><td>01/05/2025</td><td>Student</td><td>Ana</td>
+              <td>ana@plp.edu</td>
+              <td>
+                <button class="approve-btn">✅</button>
+                <button class="decline-btn">❌</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="confirmedTable" class="table-container" style="display: none;">
+        <table>
+          <thead>
+            <tr>
+              <th>Building Type</th><th>Room</th><th>Time In</th><th>Time Out</th>
+              <th>Start Date</th><th>End Date</th><th>Role</th><th>Name</th><th>Contact Details</th>
+            </tr>
+          </thead>
+          <tbody id="confirmedTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || <a href="#">H O M E</a>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const pendingCount = document.getElementById("pendingCount");
+      const confirmedCount = document.getElementById("confirmedCount");
+      const pendingTable = document.getElementById("pendingTableBody");
+      const confirmedTable = document.getElementById("confirmedTableBody");
+
+      const updateCounts = () => {
+        pendingCount.textContent = pendingTable.rows.length;
+        confirmedCount.textContent = confirmedTable.rows.length;
+      };
+
+      const attachRowHandlers = () => {
+        document.querySelectorAll('.approve-btn').forEach(btn => {
+          btn.onclick = function () {
+            const row = this.closest("tr");
+            const clone = row.cloneNode(true);
+            clone.querySelector(".approve-btn")?.remove();
+            clone.querySelector(".decline-btn")?.remove();
+            confirmedTable.appendChild(clone);
+            row.remove();
+            updateCounts();
+          };
+        });
+
+        document.querySelectorAll('.decline-btn').forEach(btn => {
+          btn.onclick = function () {
+            this.closest("tr").remove();
+            updateCounts();
+          };
+        });
+      };
+
+      // On load
+      attachRowHandlers();
+      updateCounts();
+
+      // UI Display Logic
+      const requestBoardBtn = document.getElementById("requestBoardBtn");
+      const bookingSection = document.getElementById("bookingSection");
+      const pendingDiv = document.getElementById("pendingTable");
+      const confirmedDiv = document.getElementById("confirmedTable");
+      const showPendingBtn = document.getElementById("showPending");
+      const showConfirmedBtn = document.getElementById("showConfirmed");
+      const backBtn = document.getElementById("backBtn");
+
+      requestBoardBtn.onclick = () => {
+        bookingSection.style.display = "block";
+        pendingDiv.style.display = "none";
+        confirmedDiv.style.display = "none";
+        backBtn.style.display = "inline-block";
+      };
+
+      backBtn.onclick = () => {
+        bookingSection.style.display = "none";
+        backBtn.style.display = "none";
+      };
+
+      showPendingBtn.onclick = () => {
+        pendingDiv.style.display = "block";
+        confirmedDiv.style.display = "none";
+      };
+
+      showConfirmedBtn.onclick = () => {
+        confirmedDiv.style.display = "block";
+        pendingDiv.style.display = "none";
+      };
+    });
+  </script>
+</body>
+</html>

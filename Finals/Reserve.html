@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reservation - RMMS</title>
+  
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -207,13 +208,162 @@
       display: none;
     }
 
-    footer {
-      background: #004080;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
+    /* Footer Style */
+footer {
+  background: #004080;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  width: 100%;
+  margin: 0;
+  position: relative; /* Ensures it's not fixed at the bottom initially */
+  bottom: 0;
+}
+
+/* Body Style */
+body {
+  min-height: 100vh; /* Ensures body takes up full height of the screen */
+  margin: 0;
+  padding-bottom: 60px; /* Adds space at the bottom to avoid overlap when content is long */
+}
+
+/* Main Content Style */
+main {
+  padding-bottom: 60px; /* Prevents the content from being hidden under the footer */
+}
+
+/* Footer appears when user scrolls to bottom */
+body.scrolled footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+
+.building-button-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: nowrap; /* force horizontal layout */
+  padding: 20px 0;
+}
+
+
+.building-btn {
+  width: 200px;
+  background-color: #2786b3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s;
+  padding: 10px;
+  text-align: center;
+}
+
+
+.building-img {
+  width: 120px;      
+  height: 120px;  
+  object-fit: cover; 
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+
+
+    .building-modal {
+      display: flex;
+      justify-content: center;
+      padding: 40px 0;
+      background: transparent;
+      position: static;
     }
+
+    .building-modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 0 auto;
+    }
+
+    .building-modal-content button {
+      width: 100%;
+      padding: 25px 0;
+      margin-top: 15px;
+      font-size: 1.4em;
+      font-weight: bold;
+      background-color: #2786b3;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .building-modal-content button:hover {
+      background-color: #005bb5;
+    }
+
+    .building-btn {
+  width: 200px;
+  padding: 10px;
+  background-color: #2786b3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+
+.building-btn:hover {
+  background-color: #005bb5;
+}
+
+.building-btn span {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.building-img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+
+
+    .backButton {
+  padding: 10px 20px;
+  margin: 20px 0;
+  background-color: #2786b3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #005bb5;
+}
 
   </style>
 </head>
@@ -250,7 +400,21 @@
   </div>
 </header>
 
-<main class="floor-container"></main>
+<main class="floor-container" id="floorContainer"></main>
+
+<div class="building-modal-content">
+  <h2>Select a Building</h2>
+  <div class="building-button-group">
+    <button class="building-btn" onclick="selectBuilding('main')">
+      <img src="images/bldg1.jpg" alt="Main Building" class="building-img" />
+      <span>Main Building</span>
+    </button>
+    <button class="building-btn" onclick="selectBuilding('cihm')">
+      <img src="images/bldg2.jpg" alt="CIHM Building" class="building-img" />
+      <span>CIHM Building</span>
+    </button>
+  </div>
+</div>
 
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content">
@@ -259,13 +423,10 @@
       <input type="text" placeholder="Your Name" required>
       <input type="email" placeholder="Your Email" required>
       <input type="tel" placeholder="Contact Number" required>
-
       <label for="startDate">Start Date:</label>
       <input type="date" id="startDate" required>
-
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" required>
-
       <label>Time Slots:</label>
       <div id="timeSlotContainer">
         <div class="time-slot-row">
@@ -326,69 +487,68 @@
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-  const main = document.querySelector('.floor-container');
-  const modal = document.getElementById('modalOverlay');
-  const roomNumberTitle = document.getElementById('roomNumberTitle');
-  const form = document.getElementById('reservationForm');
-  const startDate = document.getElementById('startDate');
-  const endDate = document.getElementById('endDate');
-  const noticeMessage = document.getElementById('noticeMessage');
+    const main = document.querySelector('#floorContainer');
+    const modal = document.getElementById('modalOverlay');
+    const roomNumberTitle = document.getElementById('roomNumberTitle');
+    const form = document.getElementById('reservationForm');
+    const buildingSelectModal = document.getElementById('buildingSelectModal');
+    
+    function generateFloors(building) {
+      main.innerHTML = ''; 
+      let floorCount = building === 'main' ? 8 : 5;
 
-    // Room generation for each floor
-    for (let floor = 1; floor <= 8; floor++) {
-      const floorBox = document.createElement('div');
-      floorBox.className = 'floor-box';
+      // Create the Back Button
+      const backButton = document.createElement('button');
+      backButton.textContent = 'Back to Building Selection';
+      backButton.onclick = function() {
+        buildingSelectModal.style.display = 'flex';
+        main.style.display = 'none'; 
+      };
+      main.appendChild(backButton);
 
-      const title = document.createElement('div');
-      title.className = 'floor-title';
-      title.textContent = `Floor ${floor}`;
-      floorBox.appendChild(title);
+      for (let floor = 1; floor <= floorCount; floor++) {
+        const floorBox = document.createElement('div');
+        floorBox.className = 'floor-box';
+        const title = document.createElement('div');
+        title.className = 'floor-title';
+        title.textContent = `${building === 'main' ? 'Main' : 'CIHM'} Floor ${floor}`;
+        floorBox.appendChild(title);
 
-      const roomContainer = document.createElement('div');
-      roomContainer.className = 'room-buttons';
+        const roomContainer = document.createElement('div');
+        roomContainer.className = 'room-buttons';
 
-      if (floor === 1) {
-        const btn = document.createElement('button');
-        btn.textContent = "Function Hall";
-        btn.onclick = () => {
-          modal.style.display = 'flex';
-          roomNumberTitle.textContent = "Function Hall";
-        };
-        roomContainer.appendChild(btn);
-      } else if (floor === 2) {
-        const btn = document.createElement('button');
-        btn.textContent = "Library";
-        btn.onclick = () => {
-          modal.style.display = 'flex';
-          roomNumberTitle.textContent = "Library";
-        };
-        roomContainer.appendChild(btn);
-      } else if (floor === 8) {
-        ["Gym", "Auditorium"].forEach(name => {
+        if (building === 'main') {
+          for (let i = 0; i < 10; i++) {
+            let roomNum = floor * 100 + (i + 1);
+            const btn = document.createElement('button');
+            btn.textContent = `Room ${roomNum}`;
+            btn.onclick = () => {
+              modal.style.display = 'flex';
+              roomNumberTitle.textContent = `Room ${roomNum}`;
+            };
+            roomContainer.appendChild(btn);
+          }
+        } else {
           const btn = document.createElement('button');
-          btn.textContent = name;
+          btn.textContent = `Room ${floor}`;
           btn.onclick = () => {
             modal.style.display = 'flex';
-            roomNumberTitle.textContent = name;
-          };
-          roomContainer.appendChild(btn);
-        });
-      } else {
-        for (let i = 0; i < 10; i++) {
-          let roomNum = floor * 100 + (i + 1);
-          const btn = document.createElement('button');
-          btn.textContent = `Room ${roomNum}`;
-          btn.onclick = () => {
-            modal.style.display = 'flex';
-            roomNumberTitle.textContent = `Room ${roomNum}`;
+            roomNumberTitle.textContent = `Room ${floor}`;
           };
           roomContainer.appendChild(btn);
         }
+
+        floorBox.appendChild(roomContainer);
+        main.appendChild(floorBox);
       }
 
-      floorBox.appendChild(roomContainer);
-      main.appendChild(floorBox);
+      buildingSelectModal.style.display = 'none';
+      main.style.display = 'block';
     }
+
+    window.selectBuilding = function(building) {
+      generateFloors(building);
+    };
 
     window.onclick = function(event) {
       if (event.target === modal) {
@@ -396,22 +556,15 @@
       }
     };
 
-    document.getElementById("reservationForm").addEventListener("submit", function (e) {
+    form.addEventListener("submit", function (e) {
       e.preventDefault();
       alert("Reservation submitted!");
       modal.style.display = "none";
     });
 
-    window.addTimeSlot = function () {
-      const container = document.getElementById('timeSlotContainer');
-      const row = document.createElement('div');
-      row.className = 'time-slot-row';
-      row.innerHTML = '<input type="time" class="time-in" required> to <input type="time" class="time-out" required>';
-      container.appendChild(row);
-    };
+    buildingSelectModal.style.display = 'flex';
+    main.style.display = 'none';
   });
 </script>
-
-
 </body>
 </html>
