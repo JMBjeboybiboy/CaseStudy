@@ -6,131 +6,6 @@
   <title>Reservation - RMMS</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
-    }
-
-    .floor-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .floor-box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      animation: fadeInUp 0.5s ease forwards;
-      opacity: 0;
-    }
-
-    .floor-title {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .room-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .room-buttons button {
-      padding: 15px 30px;
-      border: none;
-      background-color: #2786b3;
-      color: white;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .room-buttons button:hover {
-      background-color: #005bb5;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      position: relative;
-      animation: fadeInUp 0.3s ease forwards;
-    }
-
-    .modal-content h2 {
-      margin-top: 0;
-    }
-
-    .modal-content input, .modal-content select, .modal-content textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .modal-content button {
-      background: #004080;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-
-    .modal-content button:hover {
-      background: #002f66;
-    }
-
-    .notice {
-      background: #ffcccc;
-      padding: 10px;
-      border: 1px solid red;
-      border-radius: 5px;
-      color: #800000;
-      display: none;
-    }
-
-    footer {
-      background: #004080;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-  </style>
 </head>
 <body>
 
@@ -242,9 +117,6 @@
   const modal = document.getElementById('modalOverlay');
   const roomNumberTitle = document.getElementById('roomNumberTitle');
   const form = document.getElementById('reservationForm');
-  const startDate = document.getElementById('startDate');
-  const endDate = document.getElementById('endDate');
-  const noticeMessage = document.getElementById('noticeMessage');
 
   for (let floor = 1; floor <= 8; floor++) {
     const floorBox = document.createElement('div');
@@ -290,4 +162,3 @@
 
 </body>
 </html>
-<!--pacheck nalang if tama ba yang time slot na yan-->
