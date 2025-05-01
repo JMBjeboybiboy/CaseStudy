@@ -338,6 +338,7 @@
         <div class="search-bar">
           <input type="text" placeholder="Search..." aria-label="Search">
         </div>
+        <div class="vertical-line"></div>
         <div class="datetime">
           <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
         </div>
@@ -461,6 +462,16 @@
     <a href="RMMS.html">M A I N</a>
   </footer>
   <script>
+    function updateDateTime() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const date = now.toLocaleDateString('en-GB');
+      document.getElementById('datetime').textContent = `${time} // ${date}`;
+    }
+    
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
     let aboutShown = false;
 
     // Show About Section when clicking the "About PLP" button
