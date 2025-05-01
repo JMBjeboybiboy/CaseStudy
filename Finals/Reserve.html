@@ -13,6 +13,90 @@
       background: #f0f0f0;
     }
 
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #155c7b;
+      padding: 10px 20px;
+      color: white;
+    }
+
+    .left-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+    }
+
+    .search-bar input {
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      z-index: 2;
+      position: relative;
+    }
+
+    .hamburger-container {
+      position: relative;
+    }
+
+    .hamburger {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+    }
+
+    #navMenu {
+      display: none;
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background-color: #155c7b;
+      padding: 10px;
+      border-radius: 8px;
+      z-index: 3;
+    }
+
+    #navMenu a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 8px 15px;
+      transition: background 0.3s;
+    }
+
+    #navMenu a:hover {
+      background-color: #004d66;
+      border-radius: 5px;
+    }
+
+    #navMenu.show {
+      display: block;
+    }
+
     .floor-container {
       display: flex;
       flex-direction: column;
@@ -130,6 +214,7 @@
       padding: 15px;
       margin-top: 40px;
     }
+
   </style>
 </head>
 <body>
@@ -151,10 +236,10 @@
           <div></div>
         </div>
         <nav id="navMenu">
-          <a href="Home.html" class="btn Home-link">Home</a>
-          <a href="Reserve.html" class="btn Reserve-link">Reserve</a>
-          <a href="Buildlayout.html" class="btn Buildlayout-link">Building Layout</a>
-          <a href="AboutUs.html" class="btn aboutus-link">About Us</a>
+          <a href="Home.html">Home</a>
+          <a href="Reserve.html">Reserve</a>
+          <a href="Buildlayout.html">Building Layout</a>
+          <a href="AboutUs.html">About Us</a>
         </nav>
       </div>
       <div class="vertical-line"></div>
@@ -221,6 +306,8 @@
       document.getElementById("navMenu").classList.toggle("show");
     }
 
+    document.querySelector(".hamburger").addEventListener("click", toggleMenu);
+
     document.addEventListener("click", function(event) {
       const nav = document.getElementById("navMenu");
       const hamburger = document.querySelector(".hamburger-container");
@@ -261,15 +348,21 @@
       roomContainer.className = 'room-buttons';
 
       if (floor === 1) {
-        ["Library", "Function Hall"].forEach(name => {
-          const btn = document.createElement('button');
-          btn.textContent = name;
-          btn.onclick = () => {
-            modal.style.display = 'flex';
-            roomNumberTitle.textContent = name;
-          };
-          roomContainer.appendChild(btn);
-        });
+        const btn = document.createElement('button');
+        btn.textContent = "Function Hall";
+        btn.onclick = () => {
+          modal.style.display = 'flex';
+          roomNumberTitle.textContent = "Function Hall";
+        };
+        roomContainer.appendChild(btn);
+      } else if (floor === 2) {
+        const btn = document.createElement('button');
+        btn.textContent = "Library";
+        btn.onclick = () => {
+          modal.style.display = 'flex';
+          roomNumberTitle.textContent = "Library";
+        };
+        roomContainer.appendChild(btn);
       } else if (floor === 8) {
         ["Gym", "Auditorium"].forEach(name => {
           const btn = document.createElement('button');
@@ -322,4 +415,3 @@
 
 </body>
 </html>
-<!--pacheck nalang if tama ba yang time slot na yan-->
