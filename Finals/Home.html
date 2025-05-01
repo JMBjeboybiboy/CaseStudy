@@ -16,6 +16,7 @@
     }
 
     body {
+      overflow-x: hidden;
       overflow-y: auto;
     }
 
@@ -69,6 +70,7 @@
 
     .main-content {
       flex: 1;
+      padding: 2rem;
     }
 
     .card-container {
@@ -78,17 +80,12 @@
       padding: 2rem;
       gap: 1.5rem;
       margin: 40px auto 20px;
+      transition: all 0.5s ease;
     }
 
     @keyframes fadeSlideUp {
-      0% {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     .card {
@@ -133,6 +130,7 @@
       border-radius: 4px;
       text-decoration: none;
       transition: background-color 0.3s ease;
+      cursor: pointer;
     }
 
     .card-button:hover {
@@ -161,11 +159,90 @@
       padding: 1rem;
       background-color: #003366;
       color: white;
+      transition: all 0.5s ease;
     }
 
     .footer a {
       color: white;
       text-decoration: underline;
+    }
+
+    .about-section {
+      display: none;
+      padding: 2rem;
+      animation: fadeSlideUp 0.8s ease forwards;
+    }
+
+    .about-section h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    .about-section .content-block {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .content-block div {
+      flex: 1 1 300px;
+    }
+
+    .about-section img, .about-section video {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* New Section Styles */
+    .extra-section {
+      display: none;
+      background-color: #f4f4f4;
+      padding: 3rem 2rem;
+      margin-bottom: 20px;
+    }
+
+    .extra-section h2 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 2rem;
+    }
+
+    .extra-section p {
+      text-align: justify;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .extra-section img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    .extra-section .content-block {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .back-button {
+      display: block;
+      margin: 2rem auto;
+      padding: 0.7rem 1.5rem;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #0052a3;
     }
 
     @media (max-width: 768px) {
@@ -176,6 +253,15 @@
 
       .card {
         width: 90%;
+      }
+
+      .content-block {
+        flex-direction: column;
+      }
+
+      .extra-section .content-block {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -199,12 +285,12 @@
   </header>
 
   <main class="main-content">
-    <section class="card-container">
+    <section class="card-container" id="mainCards">
       <div class="card">
-        <img src="images/logo.png" alt="School Introduction" loading="lazy">
+        <img src="images/logo.png" alt="PLP Buildings" loading="lazy">
         <h3>PLP Buildings</h3>
         <p>Learn more about our school’s mission, vision, and academic offerings.</p>
-        <a href="#" class="card-button">About PLP</a>
+        <span class="card-button" onclick="showAboutSection()">About PLP</span>
       </div>
 
       <div class="card">
@@ -229,26 +315,135 @@
       </div>
     </section>
 
-    <nav class="quick-links"><br>
-      <strong>Quick Actions</strong><br><br>
+    <nav class="quick-links" id="quickLinks">
+      <br><strong>Quick Actions</strong><br><br>
       <a href="Reserve.html">Book a Room</a>
       <a href="#">Check Bookings</a>
       <a href="#">Admin Login</a>
     </nav>
+
+    <section class="about-section" id="aboutSection">
+      <h2>About Pamantasan ng Lungsod ng Pasig</h2>
+      <div class="content-block">
+        <div>
+          <p>PLP is dedicated to excellence in education, offering a diverse range of programs across disciplines. Our commitment is to serve the city of Pasig by nurturing future leaders.</p>
+        </div>
+        <div>
+          <img src="images/campus.jpg" alt="Campus Image">
+        </div>
+      </div>
+      <div class="content-block">
+        <div>
+          <video controls>
+            <source src="videos/campus-tour.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div>
+          <p>Watch this short video tour of the PLP campus and get a glimpse of our student life and facilities.</p>
+        </div>
+      </div>
+    </section>
+
+        <!-- Section 1 -->
+    <section class="extra-section">
+      <h2>Campus Life</h2>
+      <div class="content-block">
+        <div>
+          <p>PLP provides a vibrant campus life with events, clubs, and student organizations that foster holistic development beyond academics.</p>
+        </div>
+        <div>
+          <img src="images/campus1.jpg" alt="Campus Life">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="extra-section">
+      <h2>Academic Excellence</h2>
+      <div class="content-block">
+        <div>
+          <img src="images/academics.jpg" alt="Academic Excellence">
+        </div>
+        <div>
+          <p>Our programs are designed to meet global standards, equipping students with knowledge and skills that prepare them for success.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="extra-section">
+      <h2>Student Services</h2>
+      <div class="content-block">
+        <div>
+          <p>From counseling to career guidance, PLP offers comprehensive support services that help students thrive throughout their academic journey.</p>
+        </div>
+        <div>
+          <img src="images/student-services.jpg" alt="Student Services">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="extra-section">
+      <h2>Community Outreach</h2>
+      <div class="content-block">
+        <div>
+          <img src="images/outreach.jpg" alt="Community Outreach">
+        </div>
+        <div>
+          <p>PLP actively engages with the community through outreach programs, volunteer efforts, and partnerships with local organizations.</p>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="footer">
     &copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System ||
     <a href="RMMS.html">M A I N</a>
   </footer>
 
   <script>
+    let lastScrollTop = 0;
+    let aboutShown = false;
+  
     function updateDateTime() {
       const now = new Date();
       document.getElementById("datetime").textContent = now.toLocaleString();
     }
     setInterval(updateDateTime, 1000);
     updateDateTime();
-  </script>
+  
+    function showAboutSection() {
+      aboutShown = true;
+      document.getElementById("mainCards").style.display = "none";
+      document.getElementById("quickLinks").style.display = "none";
+      document.getElementById("aboutSection").style.display = "block";
+      document.getElementById("extraSection").style.display = "block";
+      document.getElementById("aboutSection").scrollIntoView({ behavior: "smooth" });
+    }
+  
+    function returnToMain() {
+      aboutShown = false;
+      document.getElementById("mainCards").style.display = "flex";
+      document.getElementById("quickLinks").style.display = "block";
+      document.getElementById("aboutSection").style.display = "none";
+      document.getElementById("extraSection").style.display = "none";
+      document.getElementById("mainCards").scrollIntoView({ behavior: "smooth" });
+    }
+  
+    // Auto show main content when scrolling up
+    window.addEventListener("scroll", function () {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+  
+      // Show cards when scrolling up if about section was shown
+      if (aboutShown && st < lastScrollTop) {
+        returnToMain();
+      }
+  
+      lastScrollTop = st <= 0 ? 0 : st;
+    }, false);
+  </script>  
 </body>
 </html>
