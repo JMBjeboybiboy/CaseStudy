@@ -215,10 +215,6 @@
       margin-top: 40px;
     }
 
-    html, body {
-      height: auto;
-      overflow-y: scroll;
-    }
   </style>
 </head>
 <body>
@@ -330,9 +326,13 @@
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    const main = document.querySelector('.floor-container');
-    const modal = document.getElementById('modalOverlay');
-    const roomNumberTitle = document.getElementById('roomNumberTitle');
+  const main = document.querySelector('.floor-container');
+  const modal = document.getElementById('modalOverlay');
+  const roomNumberTitle = document.getElementById('roomNumberTitle');
+  const form = document.getElementById('reservationForm');
+  const startDate = document.getElementById('startDate');
+  const endDate = document.getElementById('endDate');
+  const noticeMessage = document.getElementById('noticeMessage');
 
     // Room generation for each floor
     for (let floor = 1; floor <= 8; floor++) {
@@ -415,3 +415,7 @@
 
 </body>
 </html>
+<<<<<<< HEAD
+=======
+<!--pacheck nalang if tama ba yang time slot na yan-->
+>>>>>>> 8b0ee6ba6ce4a926287111cbb1a521ff10f0d48d
