@@ -130,6 +130,12 @@
       padding: 15px;
       margin-top: 40px;
     }
+
+    html, body {
+  height: auto;
+  overflow-y: scroll; /* or just let it be default */
+}
+
   </style>
 </head>
 <body>
@@ -188,7 +194,7 @@
           <input type="time" class="time-out" required>
         </div>
       </div>
-      <button type="button" onclick="addTimeSlot()">Add Time Slot</button><br>
+      <button type="button" onclick="addTimeSlot()">Add Another Time Slot</button><br>
 
       <br> <label for="role">Your Role:</label>
       <select id="role" required>
@@ -216,78 +222,105 @@
 </footer>
 
 <script>
-  function toggleMenu() {
-    document.getElementById("navMenu").classList.toggle("show");
-  }
-
-  document.addEventListener("click", function(event) {
-    const nav = document.getElementById("navMenu");
-    const hamburger = document.querySelector(".hamburger-container");
-    if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
-      nav.classList.remove("show");
-    }
-  });
-
-  function updateDateTime() {
-    const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const date = now.toLocaleDateString('en-GB');
-    document.getElementById('datetime').textContent = `${time} // ${date}`;
-  }
-
-  setInterval(updateDateTime, 1000);
-  updateDateTime();
-
-  const main = document.querySelector('.floor-container');
-  const modal = document.getElementById('modalOverlay');
-  const roomNumberTitle = document.getElementById('roomNumberTitle');
-  const form = document.getElementById('reservationForm');
-  const startDate = document.getElementById('startDate');
-  const endDate = document.getElementById('endDate');
-  const noticeMessage = document.getElementById('noticeMessage');
-
-  for (let floor = 1; floor <= 8; floor++) {
-    const floorBox = document.createElement('div');
-    floorBox.className = 'floor-box';
-
-    const title = document.createElement('div');
-    title.className = 'floor-title';
-    title.textContent = `Floor ${floor}`;
-    floorBox.appendChild(title);
-
-    const roomContainer = document.createElement('div');
-    roomContainer.className = 'room-buttons';
-
-    for (let i = 0; i < 10; i++) {
-      let roomNum = floor * 100 + (i + 1);
-      const btn = document.createElement('button');
-      btn.textContent = `Room ${roomNum}`;
-      btn.onclick = () => {
-        modal.style.display = 'flex';
-        roomNumberTitle.textContent = roomNum;
-      };
-      roomContainer.appendChild(btn);
+  document.addEventListener("DOMContentLoaded", function () {
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("show");
     }
 
-    floorBox.appendChild(roomContainer);
-    main.appendChild(floorBox);
-  }
+    document.addEventListener("click", function(event) {
+      const nav = document.getElementById("navMenu");
+      const hamburger = document.querySelector(".hamburger-container");
+      if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
+        nav.classList.remove("show");
+      }
+    });
 
-  window.onclick = function(event) {
-    if (event.target === modal) {
+    function updateDateTime() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const date = now.toLocaleDateString('en-GB');
+      document.getElementById('datetime').textContent = `${time} // ${date}`;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    const main = document.querySelector('.floor-container');
+    const modal = document.getElementById('modalOverlay');
+    const roomNumberTitle = document.getElementById('roomNumberTitle');
+
+    // Room generation for each floor
+    for (let floor = 1; floor <= 8; floor++) {
+      const floorBox = document.createElement('div');
+      floorBox.className = 'floor-box';
+
+      const title = document.createElement('div');
+      title.className = 'floor-title';
+      title.textContent = `Floor ${floor}`;
+      floorBox.appendChild(title);
+
+      const roomContainer = document.createElement('div');
+      roomContainer.className = 'room-buttons';
+
+      if (floor === 1) {
+        ["Library", "Function Hall"].forEach(name => {
+          const btn = document.createElement('button');
+          btn.textContent = name;
+          btn.onclick = () => {
+            modal.style.display = 'flex';
+            roomNumberTitle.textContent = name;
+          };
+          roomContainer.appendChild(btn);
+        });
+      } else if (floor === 8) {
+        ["Gym", "Auditorium"].forEach(name => {
+          const btn = document.createElement('button');
+          btn.textContent = name;
+          btn.onclick = () => {
+            modal.style.display = 'flex';
+            roomNumberTitle.textContent = name;
+          };
+          roomContainer.appendChild(btn);
+        });
+      } else {
+        for (let i = 0; i < 10; i++) {
+          let roomNum = floor * 100 + (i + 1);
+          const btn = document.createElement('button');
+          btn.textContent = `Room ${roomNum}`;
+          btn.onclick = () => {
+            modal.style.display = 'flex';
+            roomNumberTitle.textContent = `Room ${roomNum}`;
+          };
+          roomContainer.appendChild(btn);
+        }
+      }
+
+      floorBox.appendChild(roomContainer);
+      main.appendChild(floorBox);
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    document.getElementById("reservationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Reservation submitted!");
       modal.style.display = "none";
-    }
-  };
+    });
 
-  function addTimeSlot() {
-    const container = document.getElementById('timeSlotContainer');
-    const row = document.createElement('div');
-    row.className = 'time-slot-row';
-    row.innerHTML = '<input type="time" class="time-in" required> to <input type="time" class="time-out" required>';
-    container.appendChild(row);
-  }
+    window.addTimeSlot = function () {
+      const container = document.getElementById('timeSlotContainer');
+      const row = document.createElement('div');
+      row.className = 'time-slot-row';
+      row.innerHTML = '<input type="time" class="time-in" required> to <input type="time" class="time-out" required>';
+      container.appendChild(row);
+    };
+  });
 </script>
 
+
 </body>
-</html>
-<!--pacheck nalang if tama ba yang time slot na yan-->
+</html>   
