@@ -17,7 +17,7 @@
 
     body {
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: visible;    
     }
 
     header {
@@ -168,32 +168,59 @@
     }
 
     .about-section {
-      display: none;
-      padding: 2rem;
-      animation: fadeSlideUp 0.8s ease forwards;
-    }
+  display: none;
+  padding: 60px 20px;
+  background-color: #f4f8fc;
+  animation: fadeSlideUp 0.8s ease forwards;
+}
 
-    .about-section h2 {
-      text-align: center;
-      color: #003366;
-    }
+.about-section h2 {
+  text-align: center;
+  color: #003366;
+  font-size: 2em;
+  margin-bottom: 30px;
+}
 
-    .about-section .content-block {
-      margin-top: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-    }
+.about-section .content-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-    .content-block div {
-      flex: 1 1 300px;
-    }
+.about-section .content-block.reverse {
+  flex-direction: row-reverse;
+}
 
-    .about-section img, .about-section video {
-      width: 100%;
-      border-radius: 8px;
-    }
+.about-section .content-block > div {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  text-align: justify;
+}
+
+.about-section img,
+.about-section video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.about-section img:hover,
+.about-section video:hover {
+  transform: scale(1.02);
+}
+
 
     /* New Section Styles */
     .extra-section {
@@ -230,7 +257,7 @@
 
     .back-button {
       display: block;
-      margin: 2rem auto;
+      margin: 3rem auto;
       padding: 0.7rem 1.5rem;
       background-color: #003366;
       color: white;
@@ -264,6 +291,40 @@
         align-items: center;
       }
     }
+    .extra-section {
+      padding: 60px 20px;
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .extra-section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      color: #333;
+    }
+
+    .content-block {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .content-block > div {
+      flex: 1 1 400px;
+    }
+
+    .content-block img {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      border-radius: 8px;
+    }
+
   </style>
 </head>
 <body>
@@ -321,7 +382,7 @@
       <a href="#">Check Bookings</a>
       <a href="#">Admin Login</a>
     </nav>
-
+    <!--Iaupdate pa yung contents and sections neto-->
     <section class="about-section" id="aboutSection">
       <h2>About Pamantasan ng Lungsod ng Pasig</h2>
       <div class="content-block">
@@ -343,10 +404,6 @@
           <p>Watch this short video tour of the PLP campus and get a glimpse of our student life and facilities.</p>
         </div>
       </div>
-    </section>
-
-        <!-- Section 1 -->
-    <section class="extra-section">
       <h2>Campus Life</h2>
       <div class="content-block">
         <div>
@@ -356,10 +413,7 @@
           <img src="images/campus1.jpg" alt="Campus Life">
         </div>
       </div>
-    </section>
 
-    <!-- Section 2 -->
-    <section class="extra-section">
       <h2>Academic Excellence</h2>
       <div class="content-block">
         <div>
@@ -369,10 +423,7 @@
           <p>Our programs are designed to meet global standards, equipping students with knowledge and skills that prepare them for success.</p>
         </div>
       </div>
-    </section>
-
-    <!-- Section 3 -->
-    <section class="extra-section">
+    
       <h2>Student Services</h2>
       <div class="content-block">
         <div>
@@ -382,10 +433,14 @@
           <img src="images/student-services.jpg" alt="Student Services">
         </div>
       </div>
-    </section>
+      <div class="content-block">
+        <div>
+          <video controls>
+            <source src="videos/campus-tour.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
 
-    <!-- Section 4 -->
-    <section class="extra-section">
       <h2>Community Outreach</h2>
       <div class="content-block">
         <div>
@@ -395,55 +450,50 @@
           <p>PLP actively engages with the community through outreach programs, volunteer efforts, and partnerships with local organizations.</p>
         </div>
       </div>
+      </div>
+      <div>
+        <button class="back-button" onclick="returnToMain()">Back</button>
+      </div>
     </section>
-
   </main>
-
   <footer class="footer" id="footer">
     &copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System ||
     <a href="RMMS.html">M A I N</a>
   </footer>
-
   <script>
-    let lastScrollTop = 0;
     let aboutShown = false;
-  
-    function updateDateTime() {
-      const now = new Date();
-      document.getElementById("datetime").textContent = now.toLocaleString();
-    }
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-  
+
+    // Show About Section when clicking the "About PLP" button
     function showAboutSection() {
       aboutShown = true;
-      document.getElementById("mainCards").style.display = "none";
-      document.getElementById("quickLinks").style.display = "none";
-      document.getElementById("aboutSection").style.display = "block";
-      document.getElementById("extraSection").style.display = "block";
-      document.getElementById("aboutSection").scrollIntoView({ behavior: "smooth" });
+      // Hide main content (mainCards) and show About section
+      document.getElementById("mainCards").style.display = "none"; // Hide main cards
+      document.getElementById("quickLinks").style.display = "none"; // Hide quick links (optional)
+      document.getElementById("aboutSection").style.display = "block"; // Show About section
+      document.getElementById("extraSection").style.display = "block"; // Show additional sections if necessary
+      document.getElementById("aboutSection").scrollIntoView({ behavior: "smooth" }); // Smooth scroll to About section
     }
-  
+
+    // Return to Main Content when the back button is clicked
     function returnToMain() {
       aboutShown = false;
-      document.getElementById("mainCards").style.display = "flex";
-      document.getElementById("quickLinks").style.display = "block";
-      document.getElementById("aboutSection").style.display = "none";
-      document.getElementById("extraSection").style.display = "none";
-      document.getElementById("mainCards").scrollIntoView({ behavior: "smooth" });
+      // Hide About section and show main content (mainCards)
+      document.getElementById("mainCards").style.display = "flex"; // Show main cards again
+      document.getElementById("quickLinks").style.display = "block"; // Show quick links (optional)
+      document.getElementById("aboutSection").style.display = "none"; // Hide About section
+      document.getElementById("extraSection").style.display = "none"; // Hide additional sections if necessary
+      document.getElementById("mainCards").scrollIntoView({ behavior: "smooth", block: "start" }); // Smooth scroll back to main cards
     }
-  
-    // Auto show main content when scrolling up
-    window.addEventListener("scroll", function () {
-      const st = window.pageYOffset || document.documentElement.scrollTop;
-  
-      // Show cards when scrolling up if about section was shown
-      if (aboutShown && st < lastScrollTop) {
-        returnToMain();
-      }
-  
-      lastScrollTop = st <= 0 ? 0 : st;
-    }, false);
+
+    // Trigger the About section when the "About PLP" button is clicked
+    document.getElementById("aboutButton").addEventListener("click", function() {
+      showAboutSection();
+    });
+
+    // Add an event listener to the "Back" button at the end of the About section
+    document.getElementById("backButton").addEventListener("click", function() {
+      returnToMain();
+    });
   </script>  
 </body>
 </html>

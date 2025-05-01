@@ -162,7 +162,8 @@ footer {
   background-color: white;
   padding: 60px;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-right: 6px solid #00507a;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
   max-width: 350px;
   position: absolute;
   top: 80px;
@@ -271,38 +272,6 @@ footer {
 .navigate-btn:hover {
   background-color: #7bd229;
   transform: translateY(-2px);
-}
-
-/* === Booking Button === */
-.btnBooking {
-  position: fixed;
-  top: 89px;
-  right: 39px;
-  z-index: 1000;
-}
-
-.navigate-btn1 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 15px;
-  background-color: #00507a;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  font-size: 20px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.navigate-btn1:hover {
-  background-color: #60b90d;
-  transform: translateY(-2px);
-}
-
-.icon {
-  font-size: 30px;
 }
 
 /* === Especial Events Section (Fixed) === */
