@@ -207,6 +207,7 @@
     }
 
 .modal-overlay {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -329,73 +330,73 @@
           <img src="images/vidal.jpg" alt="Member 6">
           <h4>Allen Jamir Vidal</h4>
           <p>Back-end Developer</p>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
-
-  <div class="footer">
-    &copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System ||
-    <a href="RMMS.html">M A I N</a>
-  </div>
-
-  <div class="modal-overlay" id="memberModal">
+  <div class="modal-overlay" id="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal()">&times;</span>
-      
+      <span class="close-btn" id="closeModal">&times;</span>
       <div class="modal-body">
-        <!-- Left Column -->
         <div class="modal-left">
-          <img id="modalImg" src="" alt="Member Image">
-          <h4 id="modalName">Name</h4>
-          <p id="modalCourse">BSIT - 2C</p>
-          <p id="modalRole">Role</p>
+          <img id="modalImage" src="" alt="Profile">
+          <h4 id="modalName"></h4>
+          <p id="modalRole"></p>
         </div>
-  
-        <!-- Right Column -->
         <div class="modal-right">
-          <p id="modalDescription">Short student description goes here.</p>
-          <p id="modalContact">Contact: example@email.com</p>
+          <p>This member is a vital part of the RMMS development team, contributing skills and knowledge to ensure a high-quality user experience.</p>
         </div>
       </div>
-  
     </div>
   </div>
   
-
   <script>
+    // Date and Time updater
     function updateDateTime() {
       const now = new Date();
       document.getElementById("datetime").textContent = now.toLocaleString();
     }
-
+  
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    // Modal JS
-    const modal = document.getElementById("memberModal");
-    const modalImg = document.getElementById("modalImg");
+    window.onload = function() {
+    window.scrollTo(0, 0);
+    };
+  
+    // Modal functionality
+    const modal = document.getElementById("modal");
+    const closeModal = document.getElementById("closeModal");
     const modalName = document.getElementById("modalName");
     const modalRole = document.getElementById("modalRole");
-
-    document.querySelectorAll('.team-member').forEach(member => {
-      member.addEventListener('click', () => {
-        modalImg.src = member.dataset.image;
-        modalName.textContent = member.dataset.name;
-        modalRole.textContent = member.dataset.role;
+    const modalImage = document.getElementById("modalImage");
+  
+    // Ensure modal is hidden on load
+    modal.style.display = "none";
+  
+    document.querySelectorAll(".team-member").forEach(member => {
+      member.addEventListener("click", () => {
+        modalName.textContent = member.getAttribute("data-name");
+        modalRole.textContent = member.getAttribute("data-role");
+        modalImage.src = member.getAttribute("data-image");
         modal.style.display = "flex";
       });
     });
-
-    function closeModal() {
+  
+    closeModal.addEventListener("click", () => {
       modal.style.display = "none";
-    }
-
-    window.addEventListener('click', (e) => {
+    });
+  
+    window.addEventListener("click", (e) => {
       if (e.target === modal) {
-        closeModal();
+        modal.style.display = "none";
       }
     });
   </script>
+  
+  <footer class="footer">
+    <p>&copy; 2025 RMMS Team. All rights reserved.</p>
+  </footer>
 </body>
 </html>
+
