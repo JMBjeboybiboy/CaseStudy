@@ -107,6 +107,26 @@
       transition: all 0.3s ease;
     }
 
+    .programmers-description {
+      max-width: 1000px; /* Limit content width */
+      margin: 2rem auto; /* Center the content with spacing above and below */
+      font-size: 1.05rem;
+      line-height: 1.8;
+      background: #f5f9fc; /* Light background color */
+      padding: 1.5rem 2rem; /* Add padding for a neat look */
+      text-align: justify; /* Align text to the left */
+      border-radius: 8px; /* Rounded corners */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+      transition: all 0.3s ease; /* Smooth transition for any changes */
+    }
+
+    .team-card-container {
+      background-color: #174470;
+      padding: 2rem;
+      border-radius: 10px;
+      margin-top: 45px;
+    }
+
     .team-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -123,6 +143,7 @@
       text-align: center;
       padding: 2rem 1.5rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
 
     .team-member:hover {
@@ -140,7 +161,7 @@
     }
 
     .team-member h4 {
-      margin: 0.5rem 0 0.3rem;
+      margin: 0.5rem 0 0.5rem;
       font-size: 1.1rem;
       color: #003366;
     }
@@ -184,6 +205,65 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 700px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.modal-left, .modal-right {
+  flex: 1;
+}
+
+.modal-left img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #003366;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.modal-left h4,
+.modal-left p {
+  margin: 5px 0;
+}
+
+.modal-right p {
+  margin-bottom: 10px;
+}
+
   </style>
 </head>
 <body>
@@ -210,47 +290,46 @@
 
   <div class="main-content">
     <h2>Meet the Programmers</h2>
-    <p>
-      We are a team of enthusiastic and skilled programmers collaborating on the development of an advanced
-      Room Management System, aimed at streamlining and automating the entire process of room booking, scheduling, 
-      and administration. Recognizing the common challenges in managing room availability, overlapping reservations, 
-      and inefficient manual tracking, our goal is to create a smart, scalable solution that caters to the needs of institutions, 
-      organizations, and businesses alike. Our system is designed not only to simplify the reservation process but also to enhance transparency, 
-      improve time management, and optimize resource utilization. With a focus on usability, performance, and security, 
-      we are committed to building a reliable, efficient, and user-centered application that delivers a seamless experience to both administrators and end-users. 
-      Through teamwork, innovation, and a shared passion for technology, we aim to deliver a solution that can make a meaningful impact in real-world environments.
+    <p class="programmers-description">
+      A team of skilled programmers has developed an advanced Room Management System designed to streamline and automate the processes of room booking, 
+      scheduling, and administration. By addressing common challenges such as managing room availability, overlapping reservations, and inefficient 
+      manual tracking, the system offers a smart, scalable solution tailored to the needs of institutions, organizations, and businesses. The system 
+      not only simplifies the reservation process but also enhances transparency, improves time management, and optimizes resource utilization. With a 
+      focus on usability, performance, and security, the application ensures a reliable, efficient, and user-centered experience for both administrators 
+      and end-users. Through innovation and a passion for technology, this solution aims to make a meaningful impact in real-world environments.
     </p>
-
-    <div class="team-container clearfix">
-      <div class="team-member">
-        <img src="images/ferdinand.jpg" alt="Member 1">
-        <h4>Marc Ferdinand Beringuela</h4>
-        <p>Team Leader</p>
-      </div>
-      <div class="team-member">
-        <img src="images/Aruiz.jpg" alt="Member 2">
-        <h4>Aruiz Guerrero</h4>
-        <p>Front-end Developer</p>
-      </div>
-      <div class="team-member">
-        <img src="images/belleza.jpg" alt="Member 3">
-        <h4>Jose Miguel Belleza</h4>
-        <p>Database Admin</p>
-      </div>
-      <div class="team-member">
-        <img src="images/ang.jpg" alt="Member 4">
-        <h4>Marc Louise Ang</h4>
-        <p>UI/UX Designer</p>
-      </div>
-      <div class="team-member">
-        <img src="images/fransjie.jpg" alt="Member 5">
-        <h4>Michael Fransjie Obligado</h4>
-        <p>Back-end Developer</p>
-      </div>
-      <div class="team-member">
-        <img src="images/vidal.jpg" alt="Member 6">
-        <h4>Allen Jamir Vidal</h4>
-        <p>Back-end Developer</p>
+    <div class="team-card-container">
+      <div class="team-container clearfix">
+        <div class="team-member" data-name="Marc Ferdinand Beringuela" data-role="Team Leader" data-image="images/ferdinand.jpg">
+          <img src="images/ferdinand.jpg" alt="Member 1">
+          <h4>Marc Ferdinand Beringuela</h4>
+          <p>Team Leader</p>
+        </div>
+        <div class="team-member" data-name="Aruiz Guerrero" data-role="Front-end Developer" data-image="images/Aruiz.jpg">
+          <img src="images/Aruiz.jpg" alt="Member 2">
+          <h4>Aruiz Guerrero</h4>
+          <p>Front-end Developer</p>
+        </div>
+        <div class="team-member" data-name="Jose Miguel Belleza" data-role="Database Admin" data-image="images/belleza.jpg">
+          <img src="images/belleza.jpg" alt="Member 3">
+          <h4>Jose Miguel Belleza</h4>
+          <p>Database Admin</p>
+        </div>
+        <div class="team-member" data-name="Marc Louise Ang" data-role="UI/UX Designer" data-image="images/ang.jpg">
+          <img src="images/ang.jpg" alt="Member 4">
+          <h4>Marc Louise Ang</h4>
+          <p>UI/UX Designer</p>
+        </div>
+        <div class="team-member" data-name="Michael Fransjie Obligado" data-role="Back-end Developer" data-image="images/fransjie.jpg">
+          <img src="images/fransjie.jpg" alt="Member 5">
+          <h4>Michael Fransjie Obligado</h4>
+          <p>Back-end Developer</p>
+        </div>
+        <div class="team-member" data-name="Allen Jamir Vidal" data-role="Back-end Developer" data-image="images/vidal.jpg">
+          <img src="images/vidal.jpg" alt="Member 6">
+          <h4>Allen Jamir Vidal</h4>
+          <p>Back-end Developer</p>
+        </div>
       </div>
     </div>
   </div>
@@ -260,6 +339,30 @@
     <a href="RMMS.html">M A I N</a>
   </div>
 
+  <div class="modal-overlay" id="memberModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      
+      <div class="modal-body">
+        <!-- Left Column -->
+        <div class="modal-left">
+          <img id="modalImg" src="" alt="Member Image">
+          <h4 id="modalName">Name</h4>
+          <p id="modalCourse">BSIT - 2C</p>
+          <p id="modalRole">Role</p>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="modal-right">
+          <p id="modalDescription">Short student description goes here.</p>
+          <p id="modalContact">Contact: example@email.com</p>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+
   <script>
     function updateDateTime() {
       const now = new Date();
@@ -268,6 +371,31 @@
 
     setInterval(updateDateTime, 1000);
     updateDateTime();
+
+    // Modal JS
+    const modal = document.getElementById("memberModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalName = document.getElementById("modalName");
+    const modalRole = document.getElementById("modalRole");
+
+    document.querySelectorAll('.team-member').forEach(member => {
+      member.addEventListener('click', () => {
+        modalImg.src = member.dataset.image;
+        modalName.textContent = member.dataset.name;
+        modalRole.textContent = member.dataset.role;
+        modal.style.display = "flex";
+      });
+    });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
