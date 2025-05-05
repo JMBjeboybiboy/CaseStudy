@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Building UI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+    }
+    .header {
+      background-color: #1f4fa3;
+      color: white;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 20px;
+      height: 60px;
+    }
+    .login-button {
+      background-color: #0c8f3b;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+    .logo-bar {
+      background-color: #d1d1d1;
+      width: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 5px;
+      gap: 15px;
+    }
+    .hamburger, .building-icon {
+      font-size: 24px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border: 1px solid gray;
+      border-radius: 6px;
+      background-color: white;
+      color: black;
+    }
+    .sidebar {
+      background-color: #d1d1d1;
+      width: 260px;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+    }
+    .section-title { font-weight: bold; margin-bottom: 10px; }
+    .dropdown {
+      background-color: #bcbcbc;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      background-color: #dedede;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+    }
+    .dropdown-content div { padding: 5px 0; cursor: pointer; }
+    .view-rooms {
+      background-color: #bcbcbc;
+      padding: 10px 15px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      display: none;
+    }
+    .reserve-section {
+      margin-top: 60px;
+      font-size: 12px;
+      text-align: center;
+    }
+    .reserve-section a {
+      color: #0033cc;
+      text-decoration: none;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 25px;
+      display: none;
+    }
+    .breadcrumb {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .breadcrumb u { color: black; }
+    .floor-map {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      background-color: #cce4ff;
+      margin: 40px auto;
+      border: 4px solid #333;
+      border-radius: 10px;
+      display: none;
+    }
+    .room {
+      position: absolute;
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    .library {
+      top: 40%;
+      left: 45%;
+      background-color: #ffe0b2;
+    }
+    .conference {
+      top: 30%;
+      left: 15%;
+      background-color: #f3e5f5;
+      width: 100px;
+      height: 60px;
+    }
+    .room1 {
+      top: 60%;
+      left: 55%;
+      background-color: #c8e6c9;
+      width: 80px;
+      height: 50px;
+    }
+    .room2 {
+      top: 20%;
+      left: 75%;
+      background-color: #ffcdd2;
+      width: 70px;
+      height: 50px;
+    }
+    .room3 {
+      top: 20%;
+      left: 85%;
+      background-color: #ffcdd2;
+      width: 70px;
+      height: 50px;
+    }
+    .footer-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #003a80;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 20px;
+      font-size: 12px;
+    }
+    .time-btn {
+      background-color: #ffc107;
+      border-radius: 20px;
+      padding: 5px 15px;
+      font-weight: bold;
+      color: black;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 80px auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 20px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: black;
+    }
+
+    .room.active {
+  border: 2px solid red !important;
+}
+
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button class="login-button">Log in</button>
+  </div>
+  <div class="container">
+    <div class="logo-bar">
+      <div class="hamburger">☰</div>
+      <div class="building-icon" onclick="toggleSidebar()">🏛</div>
+    </div>
+    <div id="sidebar" class="sidebar">
+      <div class="section-title">BUILDING NAME</div>
+      <div class="dropdown" onclick="toggleDropdown('buildingList')">🏢 Building</div>
+      <div id="buildingList" class="dropdown-content">
+        <div>Building (M A I N)</div>
+        <div>Building (C I H M)</div>
+      </div>
+      <div class="dropdown" onclick="toggleDropdown('floorList')">🏬 Floors</div>
+      <div id="floorList" class="dropdown-content">
+        <div onclick="showFloor2Layout()">8ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">7ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">6ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">5ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">4ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">3ʳᵉ Floor</div>
+        <div onclick="showFloor2Layout()">2ⁿ️ Floor</div>
+        <div onclick="showFloor2Layout()">Ground Floor</div>
+      </div>
+      <div id="viewRooms" class="view-rooms">▶ VIEW ROOMS</div>
+      <div class="reserve-section">
+        <p>Reserve a room?<br><a href="#">Sign In Here!</a></p>
+        <p>Don't have an account?<br><a href="#">Create Here!</a></p>
+      </div>
+    </div>
+    <div id="main-content" class="main-content">
+      <div class="breadcrumb">Main Building &gt; <u>2nd Floor</u></div>
+      <div id="floor2Layout" class="floor-map">
+        <div class="room library" onclick="openModal('Library')">Library</div>
+        <div class="room conference" onclick="openModal('Conference Area')">Conference Area</div>
+        <div class="room room1" onclick="openModal('Room1')">Room1</div>
+        <div class="room room2" onclick="openModal('Room2')">Room2</div>
+        <div class="room room3" onclick="openModal('Room3')">Room3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div><strong>Tips:</strong><br><strong>Heads up:</strong></div>
+    <div class="time-btn">🕒 Time and Date</div>
+  </div>
+
+  <!-- Reservation Modal -->
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 style="text-align:center; font-weight:bold;">ROOM RESERVATION SCHEDULE</h2>
+      <div style="text-align:right; margin-bottom:10px;">
+        <label for="date-select">🗓</label>
+        <select id="date-select">
+          <option>May 5, 2025</option>
+          <option>May 6, 2025</option>
+          <option>May 7, 2025</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:40px; flex-wrap:wrap;">
+        <!-- Left: dynamic room info -->
+        <div style="min-width:250px; font-family:monospace;">
+          <p><strong>Room Name:</strong><br><span id="modalRoomName"></span></p>
+          <p><strong>Room Category:</strong><br><span id="modalRoomCategory"></span></p>
+          <p><strong>Capacity:</strong><br><span id="modalRoomCapacity"></span></p>
+          <p><strong>Status:</strong><br><span id="modalRoomStatus"></span></p>
+          <button style="
+            background-color:#4CAF50;
+            color:white;
+            font-weight:bold;
+            padding:10px 25px;
+            border:none;
+            border-radius:30px;
+            font-size:14px;
+            cursor:pointer;
+            margin-top:10px;">RESERVE</button>
+        </div>
+        <!-- Right: static schedule table -->
+        <div style="flex:1; overflow-x:auto; min-width:600px;">
+          <table border="1" style="
+            width:100%;
+            border-collapse:collapse;
+            border:3px solid black;
+            font-family:monospace;
+            text-align:center;">
+            <thead style="background-color:#004aad; color:white; height:40px;">
+              <tr>
+                <th style="padding:8px;">Time Slots</th>
+                <th style="padding:8px;">Date</th>
+                <th style="padding:8px;">Reserved By</th>
+                <th style="padding:8px;">Client ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>08:00 - 10:00</td><td>May 5, 2025</td><td style="color:red;">PLPian</td><td>25 - 00001</td></tr>
+              <tr><td>10:00 - 12:00</td><td>May 5, 2025</td><td style="color:red;">PLPian</td><td>25 - 00213</td></tr>
+              <tr><td>01:00 - 03:00</td><td>May 5, 2025</td><td style="color:red;">Guest</td><td>25 - 00991</td></tr>
+              <tr><td>03:00 - 05:00</td><td>May 5, 2025</td><td style="color:red;">Guest</td><td>25 - 00441</td></tr>
+              <tr><td>05:00 - 07:00</td><td>May 5, 2025</td><td style="color:green;">(Available)</td><td>25 - 10291</td></tr>
+              <tr><td>07:00 - 09:00</td><td>May 5, 2025</td><td style="color:green;">(Available)</td><td>25 - 00011</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // data for each room
+    const roomInfo = {
+      "Library":            { name: "2nd Floor – Library",         category: "Academic",     capacity: "20 People", status: "<span style='color:green;'><strong>Available (2/6)</strong></span>" },
+      "Conference Area":    { name: "2nd Floor – Conference Area", category: "Meeting",      capacity: "50 People", status: "<span style='color:green;'><strong>Available (5/8)</strong></span>" },
+      "Room1":              { name: "2nd Floor – Room 1",         category: "Study Room",   capacity: "6 People",  status: "<span style='color:red;'><strong>Occupied (6/6)</strong></span>" },
+      "Room2":              { name: "2nd Floor – Room 2",         category: "Group Room",   capacity: "8 People",  status: "<span style='color:green;'><strong>Available (3/8)</strong></span>" },
+      "Room3":              { name: "2nd Floor – Room 3",         category: "Meeting Room", capacity: "10 People", status: "<span style='color:green;'><strong>Available (2/10)</strong></span>" }
+    };
+
+    function toggleSidebar() {
+      const sb = document.getElementById('sidebar'),
+            mc = document.getElementById('main-content'),
+            vr = document.getElementById('viewRooms'),
+            show = sb.style.display !== 'flex';
+      sb.style.display = show ? 'flex' : 'none';
+      mc.style.display = show ? 'block': 'none';
+      vr.style.display = show ? 'block': 'none';
+      document.getElementById('buildingList').style.display = 'none';
+      document.getElementById('floorList').style.display = 'none';
+    }
+
+    function toggleDropdown(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function showFloor2Layout() {
+      document.getElementById('floor2Layout').style.display = 'block';
+      document.getElementById('main-content').style.display = 'block';
+    }
+  function openModal(roomName) {
+    // Remove active class from all rooms
+    const rooms = document.querySelectorAll('.room');
+    rooms.forEach(room => room.classList.remove('active'));
+
+    // Find the clicked room and add active class
+    const clickedRoom = Array.from(rooms).find(r => r.textContent.trim() === roomName);
+    if (clickedRoom) {
+      clickedRoom.classList.add('active');
+    }
+
+    // Open the modal (you can expand this logic later)
+    const modal = document.getElementById('reservationModal');
+    modal.style.display = 'block';
+  }
+
+  // Optional: Close modal when clicking outside or on close span
+  window.onclick = function(event) {
+    const modal = document.getElementById('reservationModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
+</script>
+</body>
+</html>
