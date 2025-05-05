@@ -195,6 +195,41 @@
       color: #222;
       font-weight: 600;
     }
+
+    .booking-section {
+   text-align: center; 
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #97cbff;
+  border-radius: 8px;
+}
+
+.booking-content {
+  width: 100%;
+  text-align: center;
+}
+
+.booking-content p {
+  margin: 1rem auto 1.5rem;
+  max-width: 90%;
+  text-align: center;
+}
+
+.booking-button {
+  display: inline-block;
+  background-color: #00507a;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.booking-button:hover {
+  background-color: #0078b4;
+}
+
   </style>
 </head>
 <body>
@@ -241,17 +276,165 @@
     </div>
   </section>
 
-  <section class="content-section">
-    <div class="text-content">
-      <h1>HEADER</h1>
-      <p>
-        Describe Pamantasan ng Lungsod ng Pasig, as a university, home, and pillar for students
-      </p>
-    </div>
-    <div class="side-image">
-      <img src="images/Aruiz.jpg" alt="PLP Tower" />
-    </div>
-  </section>
+    <nav class="quick-links" id="quickLinks">
+      <br><strong>Do you want to reserve a room?</strong><br><br>
+      <a href="Reserve.html">Book Here</a>
+    </nav>
+    
+    
+    <!--Iaupdate pa yung contents and sections neto-->
+    <section class="about-section" id="aboutSection">
+      <div class="header-wrapper">
+        <h2>WELCOME TO</h2>
+        <h1>PAMANTASAN NG LUNGSOD NG PASIG</h1>
+      </div>
+    
+      <div class="centered-wrapper">
+        <div class="image-container" id="aboutImage">
+          <img src="images/background2.jpg" alt="Campus Image">
+        </div>
+    
+        <div class="info-box" id="infoBox">
+          <p>
+            PLP is dedicated to excellence in education, offering a diverse range of programs across disciplines.
+            Our commitment is to serve the city of Pasig by nurturing future leaders.
+          </p>
+        </div>
+      </div>
+    
+      <div class="video-slider-section">
+        <div class="video-column">
+          <div class="content-block">
+            <p>Watch this short video tour of the PLP campus and get a glimpse of our student life and facilities.</p>
+          </div>
+          <div class="image-container">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/zXevSZh2Xcg?si=ZkChBGn-ZJuEMNNd" title="PLP Campus Tour" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      
+        <div class="slider-column">
+          <div class="slider-container">
+            <button class="arrow arrow-left" onclick="prevCard()">&#10094;</button>
+            <div class="card-wrapper" id="cardWrapper">
+              
+              <!-- Card 1 -->
+              <div class="info-card">
+                <img src="images/SampleEvent2.png" alt="Campus Life" class="card-image">
+                <div class="card-content">
+                  <div class="card-title">Campus Life</div>
+                  <div class="card-text">
+                    PLP provides a vibrant campus life with events, clubs, and student organizations that foster holistic development beyond academics.
+                  </div>
+                  <div class="card-date">Updated: May 2025</div>
+                </div>
+              </div>
+      
+              <!-- Card 2 -->
+              <div class="info-card">
+                <img src="images/SampleEvent4.png" alt="Academic Excellence" class="card-image">
+                <div class="card-content">
+                  <div class="card-title">Academic Excellence</div>
+                  <div class="card-text">
+                    Our programs are designed to meet global standards, equipping students with knowledge and skills that prepare them for success.
+                  </div>
+                  <div class="card-date">Updated: May 2025</div>
+                </div>
+              </div>
+      
+              <!-- Card 3 -->
+              <div class="info-card">
+                <img src="images/SampleEvent3.png" alt="Student Services" class="card-image">
+                <div class="card-content">
+                  <div class="card-title">Student Services</div>
+                  <div class="card-text">
+                    From counseling to career guidance, PLP offers comprehensive support services that help students thrive throughout their academic journey.
+                  </div>
+                  <div class="card-date">Updated: May 2025</div>
+                </div>
+              </div>
+      
+              <!-- Card 4 -->
+              <div class="info-card">
+                <img src="images/SampleEvent1.png" alt="Research & Innovation" class="card-image">
+                <div class="card-content">
+                  <div class="card-title">Research & Innovation</div>
+                  <div class="card-text">
+                    PLP encourages research-driven education, offering platforms and grants for student and faculty innovations.
+                  </div>
+                  <div class="card-date">Updated: May 2025</div>
+                </div>
+              </div>
+      
+              <!-- Card 5 -->
+              <div class="info-card">
+                <img src="images/SampleEvent4.png" alt="Community Engagement" class="card-image">
+                <div class="card-content">
+                  <div class="card-title">Community Engagement</div>
+                  <div class="card-text">
+                    We build connections through outreach programs, volunteer work, and partnerships that benefit both students and society.
+                  </div>
+                  <div class="card-date">Updated: May 2025</div>
+                </div>
+              </div>
+      
+            </div>
+            <button class="arrow arrow-right" onclick="nextCard()">&#10095;</button>
+          </div>
+        </div>
+      </div>      
+    
+      <!-- PLP Hymn -->
+      <section class="plp-hymn-section">
+        <h2>PLP HYMN - SINAG NG PAG-ASA</h2>
+        <div class="content-block">
+          <p>Listen to the official hymn of Pamantasan ng Lungsod ng Pasig.</p>
+        </div>
+        <div class="image-container">
+          <iframe width="760" height="428" src="https://www.youtube.com/embed/qil-bUCcOP0?si=qkz38wfqGZ-Hs9LO" title="PLP Hymn" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </section>
+
+    
+      <!-- Featured Highlight Section -->
+      <section class="about-feature-section">
+        <div class="feature-box" id="featureBox">
+          <h2 class="feature-header">Featured Highlight</h2>
+          <div class="image-container" id="mediaContainer">
+            <!-- Image or video will go here -->
+          </div>
+          <div class="content-block">
+            <h3 class="feature-title" id="featureTitle">Loading title...</h3>
+            <p class="feature-description" id="featureDescription">Loading description...</p>
+          </div>
+        </div>
+      </section>
+    
+      <!-- Mission, Vision, Core Values Section -->
+      <div class="mvc-section">
+        <div class="mvc-column">
+          <h2>M I S S I O N</h2>
+          <p>To provide an inclusive and transformative education that empowers students to succeed in an ever-changing world. Through community engagement, we foster a culturally diverse and globally aware learning environment equipping students with the knowledge, skills, and values necessary for total human development.</p>
+        </div>
+    
+        <div class="mvc-column">
+          <h2>V I S I O N</h2>
+          <p>An empowered Pasig Community through excellent education focused on future-proofed student success and improved quality of life anchored on the common good in a multicultural world.</p>
+        </div>
+    
+        <div class="mvc-column">
+          <h2>C O R E V A L U E S</h2>
+          <p>Academic Excellence, Cultural Identity, Peace Education, Sustainable Development, Social Equity and Responsibility, and Global Competitiveness.</p>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="back-button-container">
+        <button class="back-button" onclick="returnToMain()">Back</button>
+      </div>
+    
+    </section>
+    
+  </main>
 
   <script>
     function updateDateTime() {

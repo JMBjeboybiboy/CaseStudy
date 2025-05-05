@@ -244,11 +244,10 @@ body.scrolled footer {
 .building-button-group {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: nowrap; /* force horizontal layout */
-  padding: 20px 0;
+  gap: 20px;
+  flex-direction: row;
 }
+
 
 
 .building-btn {
@@ -274,8 +273,6 @@ body.scrolled footer {
   margin-bottom: 10px;
   border-radius: 8px;
 }
-
-
 
     .building-modal {
       display: flex;
@@ -347,9 +344,7 @@ body.scrolled footer {
   margin-bottom: 10px;
 }
 
-
-
-    .backButton {
+.backButton {
   padding: 10px 20px;
   margin: 20px 0;
   background-color: #2786b3;
@@ -359,10 +354,25 @@ body.scrolled footer {
   font-size: 1.2em;
   cursor: pointer;
   transition: background-color 0.3s;
+  align-self: start;
 }
+
 
 .backButton:hover {
   background-color: #005bb5;
+}
+
+.building-selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.building-button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }
 
   </style>
@@ -402,17 +412,19 @@ body.scrolled footer {
 
 <main class="floor-container" id="floorContainer"></main>
 
-<div class="building-modal-content">
-  <h2>Select a Building</h2>
-  <div class="building-button-group">
-    <button class="building-btn" onclick="selectBuilding('main')">
-      <img src="images/bldg1.jpg" alt="Main Building" class="building-img" />
-      <span>Main Building</span>
-    </button>
-    <button class="building-btn" onclick="selectBuilding('cihm')">
-      <img src="images/bldg2.jpg" alt="CIHM Building" class="building-img" />
-      <span>CIHM Building</span>
-    </button>
+<div class="building-modal-content" id="buildingSelectModal">
+  <div class="building-selection-wrapper">
+    <h2>Select a Building</h2>
+    <div class="building-button-group">
+      <button class="building-btn" onclick="selectBuilding('main')">
+        <img src="images/bldg1.jpg" alt="Main Building" class="building-img" />
+        <span>Main Building</span>
+      </button>
+      <button class="building-btn" onclick="selectBuilding('cihm')">
+        <img src="images/bldg2.jpg" alt="CIHM Building" class="building-img" />
+        <span>CIHM Building</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -502,14 +514,21 @@ body.scrolled footer {
       main.innerHTML = ''; 
       let floorCount = building === 'main' ? 8 : 5;
 
-      // Create the Back Button
       const backButton = document.createElement('button');
-      backButton.textContent = 'Back to Building Selection';
-      backButton.onclick = function() {
-        buildingSelectModal.style.display = 'flex';
-        main.style.display = 'none'; 
-      };
-      main.appendChild(backButton);
+backButton.textContent = 'Back to Building Selection';
+backButton.className = 'backButton'; // ✅ make sure this is present
+backButton.onclick = function () {
+  document.getElementById('buildingSelectModal').style.display = 'flex';
+  main.style.display = 'none';
+};
+main.appendChild(backButton);
+
+backButton.onclick = function () {
+  console.log("Back button clicked"); // ✅ Debug log
+  document.getElementById('buildingSelectModal').style.display = 'flex';
+  main.style.display = 'none';
+};
+
 
       for (let floor = 1; floor <= floorCount; floor++) {
         const floorBox = document.createElement('div');
