@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserve Room - Library</title>
+  <style>
+    body {
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 30px;
+      width: 550px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 22px;
+      letter-spacing: 3px;
+    }
+
+    h2 {
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .form-row label {
+      width: 140px;
+      font-weight: bold;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="email"],
+    .form-row input[type="tel"],
+    .form-row input[type="date"],
+    .form-row select {
+      flex: 1;
+      padding: 6px;
+    }
+
+    .form-row select {
+      width: 100%;
+    }
+
+    .form-row .participants-slider {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .form-row .participants-slider span {
+      margin: 0 5px;
+    }
+
+    .form-row .equipment {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .form-row .equipment label {
+      font-weight: normal;
+      margin-top: 3px;
+    }
+
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      margin: 0 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cancel {
+      background-color: #ccc;
+    }
+
+    .submit {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+  .form-row input.underline {
+    border: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .form-row input.underline:focus {
+    outline: none;
+    border-bottom: 2px solid #4CAF50;
+  }
+</style>
+
+  </style>
+</head>
+<body>
+<!-- Confirmation Modal -->
+<div id="confirmation-modal" style="
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+">
+  <div style="
+    background: white;
+    width: 550px;
+    height: 730px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    padding: 60px 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  ">
+    <h2 style="letter-spacing: 4px; font-size: 28px; margin-bottom: 30px;">RESERVATION</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Yes_Check_Circle.svg/2048px-Yes_Check_Circle.svg.png"
+         alt="checkmark" style="width: 140px; height: 140px; margin-bottom: 30px;">
+    <h2 style="letter-spacing: 4px; font-size: 26px; margin-bottom: 40px;">SUBMITTED</h2>
+    <button onclick="closeModal()" style="
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+    ">OKAY</button>
+  </div>
+</div>
+
+
+<div class="form-container">
+  <h1>RESERVE ROOM</h1>
+  <h2>[2<sup>nd</sup> FLOOR - LIBRARY]</h2>
+
+  <form>
+
+    <div class="section">
+        <strong>Client Information:</strong>
+        <div class="form-row">
+          <label>Full Name:</label>
+          <input type="text" class="underline" placeholder="Your Name" required>
+        </div>
+        <div class="form-row">
+          <label>Email Address:</label>
+          <input type="email" class="underline" placeholder="Your Email Address" required>
+        </div>
+        <div class="form-row">
+          <label>Contact Number:</label>
+          <input type="tel" class="underline" placeholder="Your Contact Number" required>
+        </div>
+        <div class="form-row">
+          <label>Client Role:</label>
+          <select required>
+            <option value="">Select Role</option>
+            <option>Student</option>
+            <option>Faculty</option>
+            <option>Staff</option>
+          </select>
+        </div>
+      </div>
+
+    <div class="section">
+      <strong>Reservation Details:</strong>
+      <div class="form-row">
+        <label>Starting Date:</label>
+        <input type="date" required>
+      </div>
+      <div class="form-row">
+        <label>End Date:</label>
+        <input type="date" required>
+      </div>
+      <div class="form-row">
+        <label>Time Slot:</label>
+        <select required>
+          <option value="">Select Time Slot</option>
+          <option value="5-7">05:00 - 07:00 PM</option>
+          <option value="7-9">07:00 - 09:00 PM</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+        <label>No. of Participants:</label>
+        <div class="participants-slider" style="border: 1px solid #000; border-radius: 3px; padding: 10px; width: 100%; max-width: 280px;">
+          <span id="participant-count" style="font-weight: bold; font-size: 16px; display: block; text-align: center; margin-bottom: 8px;">10</span>
+          <div class="slider-row" style="display: flex; align-items: center; justify-content: space-between;">
+            <span>1</span>
+            <input
+              type="range"
+              min="1"
+              max="20"
+              value="10"
+              title=""
+              style="width: 140px;"
+              oninput="document.getElementById('participant-count').innerText = this.value">
+            <span>20</span>
+          </div>
+        </div>
+      </div>      
+      
+      <div class="form-row">
+        <label>Equipment Needed:</label>
+        <div class="equipment">
+          <label><input type="checkbox"> Projector</label>
+          <label><input type="checkbox"> Sound Sys</label>
+          <label><input type="checkbox"> Mic</label>
+          <label><input type="checkbox"> White Board</label>
+          <label><input type="checkbox"> Extension Cord & Marker/s</label>
+        </div>
+      </div>
+    <div class="buttons">
+        <button type="reset" class="cancel">Cancel</button>
+        <button type="submit" class="submit">Submit</button>
+      </div>  
+  </form>
+</div>
+<script>
+    const form = document.querySelector("form");
+    const modal = document.getElementById("confirmation-modal");
+  
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent actual submission
+      modal.style.display = "flex"; // show modal
+    });
+  
+    function closeModal() {
+      modal.style.display = "none";
+      form.reset(); // optional: clear form after submission
+    }
+  </script>
+  
+</body>
+</html>
