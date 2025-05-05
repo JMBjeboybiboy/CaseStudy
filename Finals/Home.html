@@ -171,6 +171,156 @@
       color: #222;
       font-weight: 600;
     }
+/* Main Container */
+.media-container {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Video Section (Left) */
+.video-section {
+  flex: 1;
+  min-width: 0; /* Fixes flexbox overflow */
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-info {
+  margin-top: 1.5rem;
+}
+
+.video-info h1 {
+  color: #00507a;
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.video-info p {
+  color: #333;
+  line-height: 1.6;
+}
+
+.date {
+  color: #666;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Image Switcher (Right) */
+.switcher-section {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-slider {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.image-frame {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  position: relative;
+}
+
+.image-frame img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.image-frame img.active {
+  opacity: 1;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,80,122,0.8);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow:hover {
+  background-color: #00507a;
+}
+
+.arrow-left {
+  left: 15px;
+}
+
+.arrow-right {
+  right: 15px;
+}
+
+/* Switcher Info Styles */
+.switcher-info {
+  background: #f8f9fa;
+}
+
+.info-title {
+  color: #00507a;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-description {
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.info-date {
+  color: #666;
+  font-style: italic;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .media-container {
+    flex-direction: column;
+  }
+  
+  .video-wrapper {
+    padding-bottom: 75%; /* Square aspect on mobile */
+  }
+}
   </style>
 </head>
 <body>
@@ -223,6 +373,36 @@
     <div class="side-image">
       <img src="images/logo.png" alt="PLP Tower" />
     </div>
+    <div class="media-container">
+      <!-- Video Section (Left) -->
+      <div class="video-section">
+        <div class="video-wrapper">
+          <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="video-info">
+          <h1>PAMANTASAN NG LUNGSOD NG PASIG</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+          <div class="date">May 2024</div>
+        </div>
+      </div>
+    
+<!-- Image Switcher (Right) -->
+<div class="switcher-section">
+  <div class="image-slider">
+    <button class="arrow arrow-left">&#10094;</button>
+    <div class="image-frame">
+      <img src="images/SampleEvent1.png" alt="PLP 25th Anniversary" class="active" data-index="0">
+      <img src="images/SampleEvent2.png" alt="PLP 23rd Gawad Parangal" data-index="1">
+      <img src="images/SampleEvent3.png" alt="PLP 24th Anniversary" data-index="2">
+    </div>
+    <button class="arrow arrow-right">&#10095;</button>
+  </div>
+  <div class="switcher-info">
+    <h2 class="info-title">25th Silver Anniversary of PLP</h2>
+    <p class="info-description">The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025</p>
+    <p class="info-date">March 15 2025</p>
+  </div>
+</div>
   </section>
 
   <script>
@@ -230,6 +410,58 @@
       const sidebar = document.getElementById('sidebar');
       sidebar.classList.toggle('open');
     }
+    document.addEventListener('DOMContentLoaded', function() {
+  const images = document.querySelectorAll('.image-frame img');
+  const arrowLeft = document.querySelector('.arrow-left');
+  const arrowRight = document.querySelector('.arrow-right');
+  const infoTitle = document.querySelector('.info-title');
+  const infoDescription = document.querySelector('.info-description');
+  const infoDate = document.querySelector('.info-date');
+  let currentIndex = 0;
+
+  // Content data for each image
+  const contentData = [
+    {
+      title: "25th Silver Anniversary of PLP",
+      description: "The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025",
+      date: "March 15 2025"
+    },
+    {
+      title: "23rd Anniversary of PLP Gawad Parangal",
+      description: "Gave light to those who achieved greatness on the 23rd anniversary of Pamantasan ng Lungsod ng Pasig",
+      date: "March 15 2023"
+    },
+    {
+      title: "24th Anniversary of PLP",
+      description: "Mangarap, Manindigan, Magtagumpay HIRAYA MANAWARI",
+      date: "March 15 2024"
+    }
+  ];
+
+  // Initialize first image and content
+  updateContent(0);
+
+  arrowLeft.addEventListener('click', function() {
+    navigate(-1);
+  });
+
+  arrowRight.addEventListener('click', function() {
+    navigate(1);
+  });
+
+  function navigate(direction) {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    images[currentIndex].classList.add('active');
+    updateContent(currentIndex);
+  }
+
+  function updateContent(index) {
+    infoTitle.textContent = contentData[index].title;
+    infoDescription.textContent = contentData[index].description;
+    infoDate.textContent = contentData[index].date;
+  }
+});
   </script>
 </body>
 </html>
