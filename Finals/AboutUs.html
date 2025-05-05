@@ -16,8 +16,28 @@
     }
 
     body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
       overflow-y: auto;
       background-color: #f5f9fc;
+    }
+
+    nav {
+      background-color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
     }
 
     header {
@@ -106,6 +126,89 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
     }
+
+    header img {
+      width: 100%;
+      height: auto;
+      max-height: 550px;
+      object-fit: cover;
+      display: block;
+    }
+
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+
+    .content {
+      flex: 2;
+      min-width: 300px;
+      margin-right: 200px;
+    }
+
+
+    .sidebar {
+      flex: 1;
+      min-width: 350px;
+      margin-right: -150px;
+    }
+
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 35px;
+    }
+
+
+    h2 {
+      color: #1a1a1a;
+      font-size: 30px;
+    }
+
+
+    ul {
+      padding-left: 20px;
+      font-size: 20px;
+    }
+
+
+    p {
+      font-size: 20px;
+    }
+    .box {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+    }
+
+
+    .button {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
 
     .programmers-description {
       max-width: 1000px; /* Limit content width */
@@ -286,8 +389,77 @@
           <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
         </div>
       </div>
+      <img src="images/background2.jpg" alt="Campus Building">
+      <h1>About RMMS</h1>
+      <p>Room Management & Monitoring System</p>
     </div>
   </header>
+
+  <main>
+    <div class="content">
+      <section>
+        <h2>What is RMMS?</h2>
+        <p>RMMS is a system to streamline the management and monitoring of rooms, allowing users to view availability and facilitate reservations easily.</p>
+      </section>
+
+
+      <section>
+        <h2>Key Features</h2>
+        <ul>
+          <li>Reservation system</li>
+          <li>Room availability checker</li>
+          <li>Equipment monitoring</li>
+          <li>Building navigation tools</li>
+          <li>Real-time updates</li>
+        </ul>
+      </section>
+
+
+      <section>
+        <h2>Importance</h2>
+          <p style="text-align: justify;">The Room Management and Monitoring System (RMMS) is essential for efficiently organizing and utilizing rooms within an institution. It centralizes room reservations, helping prevent double bookings and scheduling conflicts. By providing real-time availability and usage data, it supports better planning and decision-making. Overall, RMMS enhances productivity and ensures a well-managed learning environment.</p>
+      </section>
+
+
+      <section>
+        <h2>User Roles</h2>
+        <ul>
+          <li>Admin</li>
+          <li>Reservation Manager</li>
+          <li>Room Inspector</li>
+          <li>Clients (PLPlans & Guests)</li>
+        </ul>
+      </section>
+    </div>
+
+
+    <aside class="sidebar">
+      <div class="box">
+        <h3>Quick Facts</h3>
+        <ul>
+          <li>System launched (Date)</li>
+          <li>Rooms tracked (Number)</li>
+          <li>Registered users (Number)</li>
+        </ul>
+      </div>
+
+
+      <div class="box">
+        <h3>Navigation Tips</h3>
+        <ul>
+          <li>Use the building layout to view all rooms.</li>
+          <li>Use filters to find specific categories.</li>
+        </ul>
+      </div>
+
+
+      <div class="box">
+        <h3>Feedback / Contact Info</h3>
+        <a class="button" href="#">Report an issue</a>
+        <p>Email: support@rmms.plp.edu</p>
+      </div>
+    </aside>
+  </main>
 
   <div class="main-content">
     <h2>Meet the Programmers</h2>
@@ -394,8 +566,42 @@
     });
   </script>
   
-  <footer class="footer">
-    <p>&copy; 2025 RMMS Team. All rights reserved.</p>
+  <footer style="background-color: #1d3557; color: white; padding: 20px 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
+     
+ 
+      <div style="flex: 1; padding: 10px; text-align: left; margin-left: -2in;">
+        <h4>CONTACT US:</h4>
+        <p>(04) 298 3985 2092<br>
+        +76 209 1092 4095<br>
+        bldgAdmin@sample.com</p>
+      </div>
+ 
+
+
+      <div style="flex: 1; text-align: center; padding: 10px;">
+        <h4>QUICK LINKS:</h4>
+        <a href="#" style="color: white; text-decoration: underline;">PAMANTASAN</a><br>
+        <a href="#" style="color: white; text-decoration: underline;">VIEW BUILDINGS</a><br>
+        <a href="#" style="color: white; text-decoration: underline;">RESERVATION</a><br>
+        <a href="#" style="color: white; text-decoration: underline;">ABOUT US</a>
+      </div>
+ 
+      <div style="flex: 1; text-align: justify; padding: 10px; margin-left: 100px";>
+        <p style="font-size: 15px; margin-top: 5px;">Empowering learning through organized spaces – RMMS of Pamantasan ng Lungsod ng Pasig ensures every room is a step toward excellence.</p>
+      </div>
+
+
+      <div style="flex: 1; text-align: right; padding: 10px;">
+        <h1>PLP</h1>
+      </div>
+
+
+      <div style="flex: 1; padding: 10px; text-align: right; margin-right: -2in;">
+        <img src="images/logo.png" alt="PLP Logo" style="height: 150px;"><br>
+      </div>
+ 
+    </div>
   </footer>
 </body>
 </html>
