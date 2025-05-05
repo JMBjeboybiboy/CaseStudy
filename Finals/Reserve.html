@@ -2,593 +2,374 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reservation - RMMS</title>
-  
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <title>Building UI</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
     }
-
-    .header-container {
+    .header {
+      background-color: #1f4fa3;
+      color: white;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 20px;
+      height: 60px;
+    }
+    .login-button {
+      background-color: #0c8f3b;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+    .logo-bar {
+      background-color: #d1d1d1;
+      width: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 5px;
+      gap: 15px;
+    }
+    .hamburger, .building-icon {
+      font-size: 24px;
+      cursor: pointer;
+      padding: 6px 10px;
+      border: 1px solid gray;
+      border-radius: 6px;
+      background-color: white;
+      color: black;
+    }
+    .sidebar {
+      background-color: #d1d1d1;
+      width: 260px;
+      padding: 15px;
+      display: none;
+      flex-direction: column;
+    }
+    .section-title { font-weight: bold; margin-bottom: 10px; }
+    .dropdown {
+      background-color: #bcbcbc;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .dropdown-content {
+      display: none;
+      background-color: #dedede;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+    }
+    .dropdown-content div { padding: 5px 0; cursor: pointer; }
+    .view-rooms {
+      background-color: #bcbcbc;
+      padding: 10px 15px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+      display: none;
+    }
+    .reserve-section {
+      margin-top: 60px;
+      font-size: 12px;
+      text-align: center;
+    }
+    .reserve-section a {
+      color: #0033cc;
+      text-decoration: none;
+    }
+    .main-content {
+      flex-grow: 1;
+      padding: 25px;
+      display: none;
+    }
+    .breadcrumb {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .breadcrumb u { color: black; }
+    .floor-map {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      background-color: #cce4ff;
+      margin: 40px auto;
+      border: 4px solid #333;
+      border-radius: 10px;
+      display: none;
+    }
+    .room {
+      position: absolute;
+      padding: 10px;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+    .library {
+      top: 40%;
+      left: 45%;
+      background-color: #ffe0b2;
+    }
+    .conference {
+      top: 30%;
+      left: 15%;
+      background-color: #f3e5f5;
+      width: 100px;
+      height: 60px;
+    }
+    .room1 {
+      top: 60%;
+      left: 55%;
+      background-color: #c8e6c9;
+      width: 80px;
+      height: 50px;
+    }
+    .room2 {
+      top: 20%;
+      left: 75%;
+      background-color: #ffcdd2;
+      width: 70px;
+      height: 50px;
+    }
+    .room3 {
+      top: 20%;
+      left: 85%;
+      background-color: #ffcdd2;
+      width: 70px;
+      height: 50px;
+    }
+    .footer-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #003a80;
+      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: #155c7b;
-      padding: 10px 20px;
-      color: white;
+      padding: 5px 20px;
+      font-size: 12px;
     }
-
-    .left-section {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo {
-      height: 40px;
-      margin-right: 10px;
-    }
-
-    .title {
+    .time-btn {
+      background-color: #ffc107;
+      border-radius: 20px;
+      padding: 5px 15px;
       font-weight: bold;
-      font-size: 1.2em;
-    }
-
-    .right-section {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      position: relative;
-    }
-
-    .search-bar input {
-      padding: 6px 10px;
-      border-radius: 5px;
-      border: none;
-      z-index: 2;
-      position: relative;
-    }
-
-    .hamburger-container {
-      position: relative;
-    }
-
-    .hamburger {
+      color: black;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
     }
-
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background: white;
-    }
-
-    #navMenu {
+    .modal {
       display: none;
-      position: absolute;
-      top: 40px;
-      right: 0;
-      background-color: #155c7b;
-      padding: 10px;
-      border-radius: 8px;
-      z-index: 3;
-    }
-
-    #navMenu a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      padding: 8px 15px;
-      transition: background 0.3s;
-    }
-
-    #navMenu a:hover {
-      background-color: #004d66;
-      border-radius: 5px;
-    }
-
-    #navMenu.show {
-      display: block;
-    }
-
-    .floor-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .floor-box {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      animation: fadeInUp 0.5s ease forwards;
-      opacity: 0;
-    }
-
-    .floor-title {
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .room-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .room-buttons button {
-      padding: 15px 30px;
-      border: none;
-      background-color: #2786b3;
-      color: white;
-      border-radius: 6px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    .room-buttons button:hover {
-      background-color: #005bb5;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .modal-overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
       z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
     }
-
     .modal-content {
-      background: white;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      position: relative;
-      animation: fadeInUp 0.3s ease forwards;
+      background-color: #fefefe;
+      margin: 80px auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      border-radius: 20px;
     }
-
-    .modal-content h2 {
-      margin-top: 0;
-    }
-
-    .modal-content input, .modal-content select, .modal-content textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .modal-content button {
-      background: #004080;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1em;
-    }
-
-    .modal-content button:hover {
-      background: #002f66;
-    }
-
-    .notice {
-      background: #ffcccc;
-      padding: 10px;
-      border: 1px solid red;
-      border-radius: 5px;
-      color: #800000;
-      display: none;
-    }
-
-    /* Footer Style */
-footer {
-  background: #004080;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  width: 100%;
-  margin: 0;
-  position: relative; /* Ensures it's not fixed at the bottom initially */
-  bottom: 0;
-}
-
-/* Body Style */
-body {
-  min-height: 100vh; /* Ensures body takes up full height of the screen */
-  margin: 0;
-  padding-bottom: 60px; /* Adds space at the bottom to avoid overlap when content is long */
-}
-
-/* Main Content Style */
-main {
-  padding-bottom: 60px; /* Prevents the content from being hidden under the footer */
-}
-
-/* Footer appears when user scrolls to bottom */
-body.scrolled footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-
-.building-button-group {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-direction: row;
-}
-
-
-
-.building-btn {
-  width: 200px;
-  background-color: #2786b3;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: background-color 0.3s;
-  padding: 10px;
-  text-align: center;
-}
-
-
-.building-img {
-  width: 120px;      
-  height: 120px;  
-  object-fit: cover; 
-  margin-bottom: 10px;
-  border-radius: 8px;
-}
-
-    .building-modal {
-      display: flex;
-      justify-content: center;
-      padding: 40px 0;
-      background: transparent;
-      position: static;
-    }
-
-    .building-modal-content {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin: 0 auto;
-    }
-
-    .building-modal-content button {
-      width: 100%;
-      padding: 25px 0;
-      margin-top: 15px;
-      font-size: 1.4em;
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
       font-weight: bold;
-      background-color: #2786b3;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+    }
+    .close:hover {
+      color: black;
     }
 
-    .building-modal-content button:hover {
-      background-color: #005bb5;
-    }
-
-    .building-btn {
-  width: 200px;
-  padding: 10px;
-  background-color: #2786b3;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: background-color 0.3s;
-}
-
-
-.building-btn:hover {
-  background-color: #005bb5;
-}
-
-.building-btn span {
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-.building-img {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.backButton {
-  padding: 10px 20px;
-  margin: 20px 0;
-  background-color: #2786b3;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  align-self: start;
-}
-
-
-.backButton:hover {
-  background-color: #005bb5;
-}
-
-.building-selection-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.building-button-group {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
+    .room.active {
+  border: 2px solid red !important;
 }
 
   </style>
 </head>
 <body>
-
-<header>
-  <div class="header-container">
-    <div class="left-section">
-      <img src="images/logo.png" alt="Logo" class="logo" />
-      <span class="title" onclick="location.href='RMMS.html'" style="cursor: pointer;">PAMANTASAN NG LUNGSOD NG PASIG</span>
+  <div class="header">
+    <button class="login-button">Log in</button>
+  </div>
+  <div class="container">
+    <div class="logo-bar">
+      <div class="hamburger">☰</div>
+      <div class="building-icon" onclick="toggleSidebar()">🏛</div>
     </div>
-    <div class="right-section">
-      <div class="search-bar">
-        <input type="text" placeholder="Search..." aria-label="Search">
+    <div id="sidebar" class="sidebar">
+      <div class="section-title">BUILDING NAME</div>
+      <div class="dropdown" onclick="toggleDropdown('buildingList')">🏢 Building</div>
+      <div id="buildingList" class="dropdown-content">
+        <div>Building (M A I N)</div>
+        <div>Building (C I H M)</div>
       </div>
-      <div class="hamburger-container">
-        <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-          <div></div>
-          <div></div>
-          <div></div>
+      <div class="dropdown" onclick="toggleDropdown('floorList')">🏬 Floors</div>
+      <div id="floorList" class="dropdown-content">
+        <div onclick="showFloor2Layout()">8ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">7ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">6ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">5ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">4ᵗ️ Floor</div>
+        <div onclick="showFloor2Layout()">3ʳᵉ Floor</div>
+        <div onclick="showFloor2Layout()">2ⁿ️ Floor</div>
+        <div onclick="showFloor2Layout()">Ground Floor</div>
+      </div>
+      <div id="viewRooms" class="view-rooms">▶ VIEW ROOMS</div>
+      <div class="reserve-section">
+        <p>Reserve a room?<br><a href="#">Sign In Here!</a></p>
+        <p>Don't have an account?<br><a href="#">Create Here!</a></p>
+      </div>
+    </div>
+    <div id="main-content" class="main-content">
+      <div class="breadcrumb">Main Building &gt; <u>2nd Floor</u></div>
+      <div id="floor2Layout" class="floor-map">
+        <div class="room library" onclick="openModal('Library')">Library</div>
+        <div class="room conference" onclick="openModal('Conference Area')">Conference Area</div>
+        <div class="room room1" onclick="openModal('Room1')">Room1</div>
+        <div class="room room2" onclick="openModal('Room2')">Room2</div>
+        <div class="room room3" onclick="openModal('Room3')">Room3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <div><strong>Tips:</strong><br><strong>Heads up:</strong></div>
+    <div class="time-btn">🕒 Time and Date</div>
+  </div>
+
+  <!-- Reservation Modal -->
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 style="text-align:center; font-weight:bold;">ROOM RESERVATION SCHEDULE</h2>
+      <div style="text-align:right; margin-bottom:10px;">
+        <label for="date-select">🗓</label>
+        <select id="date-select">
+          <option>May 5, 2025</option>
+          <option>May 6, 2025</option>
+          <option>May 7, 2025</option>
+        </select>
+      </div>
+      <div style="display:flex; gap:40px; flex-wrap:wrap;">
+        <!-- Left: dynamic room info -->
+        <div style="min-width:250px; font-family:monospace;">
+          <p><strong>Room Name:</strong><br><span id="modalRoomName"></span></p>
+          <p><strong>Room Category:</strong><br><span id="modalRoomCategory"></span></p>
+          <p><strong>Capacity:</strong><br><span id="modalRoomCapacity"></span></p>
+          <p><strong>Status:</strong><br><span id="modalRoomStatus"></span></p>
+          <button style="
+            background-color:#4CAF50;
+            color:white;
+            font-weight:bold;
+            padding:10px 25px;
+            border:none;
+            border-radius:30px;
+            font-size:14px;
+            cursor:pointer;
+            margin-top:10px;">RESERVE</button>
         </div>
-        <nav id="navMenu">
-          <a href="Home.html">Home</a>
-          <a href="Reserve.html">Reserve</a>
-          <a href="Buildlayout.html">Building Layout</a>
-          <a href="AboutUs.html">About Us</a>
-        </nav>
-      </div>
-      <div class="vertical-line"></div>
-      <div class="datetime">
-        <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main class="floor-container" id="floorContainer"></main>
-
-<div class="building-modal-content" id="buildingSelectModal">
-  <div class="building-selection-wrapper">
-    <h2>Select a Building</h2>
-    <div class="building-button-group">
-      <button class="building-btn" onclick="selectBuilding('main')">
-        <img src="images/bldg1.jpg" alt="Main Building" class="building-img" />
-        <span>Main Building</span>
-      </button>
-      <button class="building-btn" onclick="selectBuilding('cihm')">
-        <img src="images/bldg2.jpg" alt="CIHM Building" class="building-img" />
-        <span>CIHM Building</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-content">
-    <h2>Reserve Room <span id="roomNumberTitle"></span></h2>
-    <form id="reservationForm">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <input type="tel" placeholder="Contact Number" required>
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" required>
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" required>
-      <label>Time Slots:</label>
-      <div id="timeSlotContainer">
-        <div class="time-slot-row">
-          <input type="time" class="time-in" required> to
-          <input type="time" class="time-out" required>
+        <!-- Right: static schedule table -->
+        <div style="flex:1; overflow-x:auto; min-width:600px;">
+          <table border="1" style="
+            width:100%;
+            border-collapse:collapse;
+            border:3px solid black;
+            font-family:monospace;
+            text-align:center;">
+            <thead style="background-color:#004aad; color:white; height:40px;">
+              <tr>
+                <th style="padding:8px;">Time Slots</th>
+                <th style="padding:8px;">Date</th>
+                <th style="padding:8px;">Reserved By</th>
+                <th style="padding:8px;">Client ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>08:00 - 10:00</td><td>May 5, 2025</td><td style="color:red;">PLPian</td><td>25 - 00001</td></tr>
+              <tr><td>10:00 - 12:00</td><td>May 5, 2025</td><td style="color:red;">PLPian</td><td>25 - 00213</td></tr>
+              <tr><td>01:00 - 03:00</td><td>May 5, 2025</td><td style="color:red;">Guest</td><td>25 - 00991</td></tr>
+              <tr><td>03:00 - 05:00</td><td>May 5, 2025</td><td style="color:red;">Guest</td><td>25 - 00441</td></tr>
+              <tr><td>05:00 - 07:00</td><td>May 5, 2025</td><td style="color:green;">(Available)</td><td>25 - 10291</td></tr>
+              <tr><td>07:00 - 09:00</td><td>May 5, 2025</td><td style="color:green;">(Available)</td><td>25 - 00011</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <button type="button" onclick="addTimeSlot()">Add Another Time Slot</button><br>
-
-      <br> <label for="role">Your Role:</label>
-      <select id="role" required>
-        <option value="">Select Role</option>
-        <option>Student</option>
-        <option>Professor</option>
-        <option>Admin</option>
-        <option>School Staff</option>
-        <option>Guest</option>
-        <option>Visitor</option>
-      </select>
-
-      <div class="notice" id="noticeMessage">
-        Note: Reservation takes 3-5 working days to be processed if scheduled within the reserved dates.
-      </div>
-
-      <button type="submit">Confirm Reservation</button>
-    </form>
+    </div>
   </div>
-</div>
 
-<footer>
-  <p>&copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System || 
-    <a href="Home.html" style="color: #ccc;">H O M E</a></p>
-</footer>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("show");
-    }
-
-    document.querySelector(".hamburger").addEventListener("click", toggleMenu);
-
-    document.addEventListener("click", function(event) {
-      const nav = document.getElementById("navMenu");
-      const hamburger = document.querySelector(".hamburger-container");
-      if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
-        nav.classList.remove("show");
-      }
-    });
-
-    window.onload = function() {
-    window.scrollTo(0, 0);
+  <script>
+    // data for each room
+    const roomInfo = {
+      "Library":            { name: "2nd Floor – Library",         category: "Academic",     capacity: "20 People", status: "<span style='color:green;'><strong>Available (2/6)</strong></span>" },
+      "Conference Area":    { name: "2nd Floor – Conference Area", category: "Meeting",      capacity: "50 People", status: "<span style='color:green;'><strong>Available (5/8)</strong></span>" },
+      "Room1":              { name: "2nd Floor – Room 1",         category: "Study Room",   capacity: "6 People",  status: "<span style='color:red;'><strong>Occupied (6/6)</strong></span>" },
+      "Room2":              { name: "2nd Floor – Room 2",         category: "Group Room",   capacity: "8 People",  status: "<span style='color:green;'><strong>Available (3/8)</strong></span>" },
+      "Room3":              { name: "2nd Floor – Room 3",         category: "Meeting Room", capacity: "10 People", status: "<span style='color:green;'><strong>Available (2/10)</strong></span>" }
     };
 
-
-    function updateDateTime() {
-      const now = new Date();
-      const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const date = now.toLocaleDateString('en-GB');
-      document.getElementById('datetime').textContent = `${time} // ${date}`;
+    function toggleSidebar() {
+      const sb = document.getElementById('sidebar'),
+            mc = document.getElementById('main-content'),
+            vr = document.getElementById('viewRooms'),
+            show = sb.style.display !== 'flex';
+      sb.style.display = show ? 'flex' : 'none';
+      mc.style.display = show ? 'block': 'none';
+      vr.style.display = show ? 'block': 'none';
+      document.getElementById('buildingList').style.display = 'none';
+      document.getElementById('floorList').style.display = 'none';
     }
 
-    setInterval(updateDateTime, 1000);
-    updateDateTime();
-
-    const main = document.querySelector('#floorContainer');
-    const modal = document.getElementById('modalOverlay');
-    const roomNumberTitle = document.getElementById('roomNumberTitle');
-    const form = document.getElementById('reservationForm');
-    const buildingSelectModal = document.getElementById('buildingSelectModal');
-    
-    function generateFloors(building) {
-      main.innerHTML = ''; 
-      let floorCount = building === 'main' ? 8 : 5;
-
-      const backButton = document.createElement('button');
-backButton.textContent = 'Back to Building Selection';
-backButton.className = 'backButton'; // ✅ make sure this is present
-backButton.onclick = function () {
-  document.getElementById('buildingSelectModal').style.display = 'flex';
-  main.style.display = 'none';
-};
-main.appendChild(backButton);
-
-backButton.onclick = function () {
-  console.log("Back button clicked"); // ✅ Debug log
-  document.getElementById('buildingSelectModal').style.display = 'flex';
-  main.style.display = 'none';
-};
-
-
-      for (let floor = 1; floor <= floorCount; floor++) {
-        const floorBox = document.createElement('div');
-        floorBox.className = 'floor-box';
-        const title = document.createElement('div');
-        title.className = 'floor-title';
-        title.textContent = `${building === 'main' ? 'Main' : 'CIHM'} Floor ${floor}`;
-        floorBox.appendChild(title);
-
-        const roomContainer = document.createElement('div');
-        roomContainer.className = 'room-buttons';
-
-        if (building === 'main') {
-          for (let i = 0; i < 10; i++) {
-            let roomNum = floor * 100 + (i + 1);
-            const btn = document.createElement('button');
-            btn.textContent = `Room ${roomNum}`;
-            btn.onclick = () => {
-              modal.style.display = 'flex';
-              roomNumberTitle.textContent = `Room ${roomNum}`;
-            };
-            roomContainer.appendChild(btn);
-          }
-        } else {
-          const btn = document.createElement('button');
-          btn.textContent = `Room ${floor}`;
-          btn.onclick = () => {
-            modal.style.display = 'flex';
-            roomNumberTitle.textContent = `Room ${floor}`;
-          };
-          roomContainer.appendChild(btn);
-        }
-
-        floorBox.appendChild(roomContainer);
-        main.appendChild(floorBox);
-      }
-
-      buildingSelectModal.style.display = 'none';
-      main.style.display = 'block';
+    function toggleDropdown(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    window.selectBuilding = function(building) {
-      generateFloors(building);
-    };
+    function showFloor2Layout() {
+      document.getElementById('floor2Layout').style.display = 'block';
+      document.getElementById('main-content').style.display = 'block';
+    }
+  function openModal(roomName) {
+    // Remove active class from all rooms
+    const rooms = document.querySelectorAll('.room');
+    rooms.forEach(room => room.classList.remove('active'));
 
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    };
+    // Find the clicked room and add active class
+    const clickedRoom = Array.from(rooms).find(r => r.textContent.trim() === roomName);
+    if (clickedRoom) {
+      clickedRoom.classList.add('active');
+    }
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Reservation submitted!");
-      modal.style.display = "none";
-    });
+    // Open the modal (you can expand this logic later)
+    const modal = document.getElementById('reservationModal');
+    modal.style.display = 'block';
+  }
 
-    buildingSelectModal.style.display = 'flex';
-    main.style.display = 'none';
-  });
+  // Optional: Close modal when clicking outside or on close span
+  window.onclick = function(event) {
+    const modal = document.getElementById('reservationModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  }
 </script>
 </body>
 </html>

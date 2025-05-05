@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLP Building Navigation</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #003366;
+            --accent-color: #ffcc00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            margin-left: 0.5rem;
+        }
+        
+        .logo span {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #e6b800;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: var(--secondary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: all 0.3s ease;
+            z-index: 90;
+            padding-top: 80px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-nav {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-nav li:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-left: 2.2rem;
+        }
+        
+        .sidebar-nav li.active {
+            background-color: var(--primary-color);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .main-content {
+            margin-left: 0;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .main-content.shifted {
+            margin-left: 250px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1200x400') no-repeat center center;
+            background-size: cover;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .buildings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .building-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+        }
+        
+        .building-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .building-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .building-info {
+            padding: 1.5rem;
+        }
+        
+        .building-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-buttons {
+                display: none;
+            }
+            
+            .main-content.shifted {
+                margin-left: 0;
+            }
+            
+            .sidebar.active ~ .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Pamantasan ng Lungsod ng Pasig || <span>PLP SPACE</span></h1>
+        </div>
+        <div class="hamburger">☰</div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="loginBtn">Login</button>
+            <button class="btn btn-primary">ENTER</button>
+        </div>
+    </header>
+    
+    <aside class="sidebar">
+        <ul class="sidebar-nav">
+            <li class="active">PAMANTASAN NG LUNGSOD NG PASIG - BUILDINGS</li>
+            <li>MAIN BUILDING</li>
+            <li>CHIM BUILDING</li>
+            <li>LIBRARY</li>
+            <li>SCIENCE LABORATORIES</li>
+            <li>ADMINISTRATION BUILDING</li>
+            <li>AUDITORIUM</li>
+            <li>GYMNASIUM</li>
+        </ul>
+    </aside>
+    
+    <main class="main-content">
+        <section class="hero" style="background-image: url('images/logo2.png'); background-size: cover; background-position: center; object-fit: fill;">
+            <h2>PLP BUILDING NAVIGATION</h2>
+            <p>Find your way around the Pamantasan ng Lungsod ng Pasig campus with our interactive building navigation system.</p>
+        </section>          
+        
+        <section class="buildings">
+            <div class="building-card">
+                <div class="building-img" style="background-image: url('images/bldg1.JPG');"></div>
+                <div class="building-info">
+                    <h3>MAIN BUILDING</h3>
+                    <p>The central hub of PLP, housing most administrative offices and classrooms.</p>
+                </div>
+            </div>
+            
+            <div class="building-card">
+                <div class="building-img" style="background-image: url('images/bldg2.JPG');"></div>
+                <div class="building-info">
+                    <h3>CHIM BUILDING</h3>
+                    <p>Home to the College of Hospitality and Industry Management programs.</p>
+                </div>
+            </div>
+            
+            <div class="building-card">
+                <div class="building-img" style="background-image: url('images/SampleEvent1.png');"></div>
+                <div class="building-info">
+                    <h3>LIBRARY</h3>
+                    <p>The university's knowledge center with extensive academic resources.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+          <span class="close-btn">&times;</span>
+          <h2>Login to PLP SPACE</h2>
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" required>
+            </div>
+            <button type="submit" class="submit-btn">Login</button>
+            <p id="loginError" style="color: red; display: none;">Incorrect username or password</p>
+          </form>
+        </div>
+      </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+            // Hardcoded credentials
+            const validUsername = "PLPadmin";
+            const validPassword = "admin123";
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('loginError');
+
+            if (username === validUsername && password === validPassword) {
+            // Clear the form
+            document.getElementById('loginForm').reset();
+            // Redirect on success
+            window.location.href = "reserve.html";
+            } else {
+            // Show error message
+            errorMsg.style.display = "block";
+            }
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            const hamburger = document.querySelector('.hamburger');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            
+            hamburger.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                mainContent.classList.toggle('shifted');
+            });
+            
+            // Login modal
+            const loginBtn = document.getElementById('loginBtn');
+            const loginModal = document.getElementById('loginModal');
+            const closeBtn = document.querySelector('.close-btn');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'flex';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+            });
+            
+            // Form submission
+            const loginForm = document.getElementById('loginForm');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Here you would typically send this data to a server
+                console.log('Login attempt:', { username, password });
+                
+                // For demo purposes, just close the modal
+                loginModal.style.display = 'none';
+                alert('Login functionality would be implemented here');
+            });
+            
+            // Building navigation
+            const buildingItems = document.querySelectorAll('.sidebar-nav li');
+            
+            buildingItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    buildingItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would load the selected building's content
+                    const buildingName = this.textContent.trim();
+                    console.log('Selected building:', buildingName);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
