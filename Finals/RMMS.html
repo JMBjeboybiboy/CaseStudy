@@ -15,21 +15,14 @@
         <span class="title" onclick="location.href='RMMS.html'" style="cursor: pointer;">PAMANTASAN NG LUNGSOD NG PASIG</span>
       </div>
       <div class="right-section">
+        <nav class="main-nav">
+          <a href="Home.html" class="nav-link">Home</a>
+          <a href="Reserve.html" class="nav-link">Reserve</a>
+          <a href="Buildlayout.html" class="nav-link">Building Layout</a>
+          <a href="AboutUs.html" class="nav-link">About Us</a>
+        </nav>
         <div class="search-bar">
           <input type="text" placeholder="Search..." aria-label="Search">
-        </div>
-        <div class="hamburger-container">
-          <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-          <nav id="navMenu">
-            <a href="Home.html" class="btn Home-link">Home</a>
-            <a href="Reserve.html" class="btn Reserve-link">Reserve</a>
-            <a href="Buildlayout.html" class = "btn Buildlayout-link"> Building Layout</a>
-            <a href="AboutUs.html" class="btn aboutus-link">About Us</a>
-          </nav>
         </div>
         <div class="vertical-line"></div>
         <div class="datetime">
@@ -37,7 +30,7 @@
         </div>
       </div>
     </div>
-  </header>
+  </header>  
 
   <main class="main-flex-container">
     <div class="left-content">
@@ -46,6 +39,7 @@
         <p class="school-description">Empowering students to grow, learn, and lead through innovation and care.</p>
         <button class="navigate-btn" onclick="scrollToSection()">Navigate</button>
       </section>
+
 
       <section class="events-section slide-in">
         <div class="event-box">
@@ -60,6 +54,7 @@
         </div>
       </section>
     </div>
+
 
     <div class="right-switcher">
       <div class="image-switcher">
@@ -77,18 +72,6 @@
     </div>
   </main>
   <script>
-    function toggleMenu() {
-      document.getElementById("navMenu").classList.toggle("show");
-    }
-
-    document.addEventListener("click", function(event) {
-      const nav = document.getElementById("navMenu");
-      const hamburger = document.querySelector(".hamburger-container");
-      if (!hamburger.contains(event.target) && !nav.contains(event.target)) {
-        nav.classList.remove("show");
-      }
-    });
-
     function updateDateTime() {
       const now = new Date();
       const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -96,8 +79,10 @@
       document.getElementById('datetime').textContent = `${time} // ${date}`;
     }
 
+
     setInterval(updateDateTime, 1000);
     updateDateTime();
+
 
     const images = [
       {
@@ -112,8 +97,10 @@
       }
     ];
 
+
     let currentIndex = 0;
     const label = document.getElementById('imageLabel');
+
 
     function showImage(index) {
       images.forEach((img, i) => {
@@ -121,27 +108,32 @@
       });
       label.textContent = images[index].label;
 
+
       document.body.style.backgroundImage = `url('${images[index].bg}')`;
       document.body.style.backgroundSize = 'cover';
       document.body.style.backgroundPosition = 'center';
       document.body.style.backgroundRepeat = 'no-repeat';
     }
 
+
     document.getElementById('swtchBtn').addEventListener('click', () => {
       currentIndex = (currentIndex + 1) % images.length;
       showImage(currentIndex);
     });
 
+
     showImage(currentIndex);
+
 
     function scrollToSection() {
       window.scrollTo({ top: 600, behavior: 'smooth' });
+
 
       setTimeout(function() {
         window.location.href = 'Home.html';
       }, 500);
     }
-  
+
 
     const eventImages = [
       {
@@ -164,7 +156,9 @@
       }
     ];
 
+
     let currentEventIndex = 0;
+
 
     function rotateEvent() {
       const event = eventImages[currentEventIndex];
@@ -180,6 +174,7 @@
       }, 300);
       currentEventIndex = (currentEventIndex + 1) % eventImages.length;
     }
+
 
     setInterval(rotateEvent, 3000);
     rotateEvent();

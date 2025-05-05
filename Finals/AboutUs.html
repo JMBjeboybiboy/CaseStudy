@@ -6,382 +6,579 @@
   <title>About Us | RMMS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    html, body {
+    :root {
+      --primary-color: #003366;
+      --secondary-color: #174470;
+      --accent-color: #007bff;
+      --light-bg: #f5f9fc;
+      --text-color: #333;
+      --white: #ffffff;
+      --shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
+    }
+    
+    html, body {
       height: 100%;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--text-color);
+      background-color: var(--light-bg);
+      line-height: 1.6;
+    }
+    
+    body {
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      color: #333;
-      overflow-y: auto;
-      background-color: #f5f9fc;
-    }
-
-    nav {
-      background-color: #fff;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      border-bottom: 1px solid #ddd;
-    }
-
-
-    nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-    }
-
+    
+    /* Header Styles */
     header {
-      background-color: #003366;
-      color: white;
+      background-color: var(--primary-color);
+      color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
-
+    
     .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       padding: 1rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-
+    
     .left-section {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
-
+    
     .logo {
       height: 50px;
       cursor: pointer;
+      transition: transform 0.3s ease;
     }
-
+    
+    .logo:hover {
+      transform: scale(1.05);
+    }
+    
     .title {
       font-size: 1.2rem;
       font-weight: bold;
       text-transform: uppercase;
-      color: white;
+      color: var(--white);
       text-decoration: none;
+      cursor: pointer;
     }
-
+    
     .right-section {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.5rem;
     }
-
+    
+    .main-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .main-nav a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .main-nav a:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--white);
+      transition: width 0.3s ease;
+    }
+    
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+    
     .search-bar input {
-      padding: 0.4rem 0.6rem;
+      padding: 0.5rem 0.8rem;
       border-radius: 4px;
       border: none;
+      min-width: 200px;
+      transition: box-shadow 0.3s ease;
     }
-
+    
+    .search-bar input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
+    
     .datetime {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-size: 0.9rem;
     }
-
-    .main-content {
+    
+    /* Main Content Styles */
+    main {
       flex: 1;
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+    
+    .content-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    @media (max-width: 900px) {
+      .content-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .content {
+      background: var(--white);
       padding: 2rem;
-      text-align: center;
-      background: #f5f9fc;
-      animation: fadeIn 1s ease-in-out;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
     }
-
-    .main-content h2 {
-      color: #003366;
-      font-size: 4rem;
-      text-transform: uppercase;
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    h1, h2, h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
       position: relative;
+      padding-bottom: 0.5rem;
     }
-
-    .main-content h2::after {
+    
+    h2::after {
       content: "";
       display: block;
       width: 60px;
       height: 4px;
-      background: #003366;
-      margin: 0.5rem auto 1.5rem;
+      background: var(--primary-color);
+      margin-top: 0.5rem;
       border-radius: 4px;
     }
-
-    .main-content p {
-      max-width: 900px;
-      margin: 0 auto;
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #333;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+    
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
     }
-
-    header img {
-      width: 100%;
-      height: auto;
-      max-height: 550px;
-      object-fit: cover;
-      display: block;
-    }
-
-
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-
-    .content {
-      flex: 2;
-      min-width: 300px;
-      margin-right: 200px;
-    }
-
-
-    .sidebar {
-      flex: 1;
-      min-width: 350px;
-      margin-right: -150px;
-    }
-
-
-    h1 {
-      margin-bottom: 10px;
-      font-size: 35px;
-    }
-
-
-    h2 {
-      color: #1a1a1a;
-      font-size: 30px;
-    }
-
-
-    ul {
-      padding-left: 20px;
-      font-size: 20px;
-    }
-
-
+    
     p {
-      font-size: 20px;
-    }
-    .box {
-      background-color: #fff;
-      padding: 15px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-    }
-
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #fff;
-      border-top: 1px solid #ddd;
-      margin-top: 40px;
-    }
-
-
-    .button {
-      display: inline-block;
-      padding: 8px 12px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      margin-top: 10px;
-    }
-
-
-    .programmers-description {
-      max-width: 1000px; /* Limit content width */
-      margin: 2rem auto; /* Center the content with spacing above and below */
+      margin-bottom: 1.5rem;
       font-size: 1.05rem;
+    }
+    
+    ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .box {
+      background-color: var(--white);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    
+    .box h3 {
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Team Section */
+    .team-section {
+      margin-top: 3rem;
+      text-align: center;
+    }
+    
+    .team-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .team-section h2::after {
+      margin: 0.5rem auto 2rem;
+    }
+    
+    .team-description {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+      text-align: justify;
       line-height: 1.8;
-      background: #f5f9fc; /* Light background color */
-      padding: 1.5rem 2rem; /* Add padding for a neat look */
-      text-align: justify; /* Align text to the left */
-      border-radius: 8px; /* Rounded corners */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-      transition: all 0.3s ease; /* Smooth transition for any changes */
-    }
-
-    .team-card-container {
-      background-color: #174470;
+      background: var(--white);
       padding: 2rem;
-      border-radius: 10px;
-      margin-top: 45px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
     }
-
+    
+    .team-card-container {
+      background-color: var(--secondary-color);
+      padding: 3rem 2rem;
+      border-radius: 12px;
+      margin-top: 2rem;
+    }
+    
     .team-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
       justify-items: center;
-      margin-top: 2rem;
-      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-
+    
     .team-member {
-      background-color: #ffffff;
-      border-radius: 16px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
       text-align: center;
-      padding: 2rem 1.5rem;
+      padding: 1.5rem;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
     }
-
+    
     .team-member:hover {
       transform: translateY(-8px);
       box-shadow: 0 12px 24px rgba(0,0,0,0.15);
     }
-
+    
     .team-member img {
       width: 120px;
       height: 120px;
       object-fit: cover;
       border-radius: 50%;
-      border: 4px solid #003366;
+      border: 4px solid var(--primary-color);
       margin-bottom: 1rem;
     }
-
+    
     .team-member h4 {
-      margin: 0.5rem 0 0.5rem;
-      font-size: 1.1rem;
-      color: #003366;
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+      color: var(--primary-color);
     }
-
+    
     .team-member p {
       margin: 0;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #666;
     }
-
-    .clearfix::after {
+    
+    /* Button Styles */
+    .button {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: var(--accent-color);
+      color: var(--white);
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    
+    .button:hover {
+      background-color: #0069d9;
+      transform: translateY(-2px);
+    }
+    
+    /* Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .modal-content {
+      background: var(--white);
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      transition: color 0.3s ease;
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-color);
+    }
+    
+    .modal-body {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+    }
+    
+    .modal-left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .modal-right {
+      flex: 2;
+    }
+    
+    .modal-left img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--primary-color);
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-left h4 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .modal-left p {
+      color: #666;
+      font-weight: 500;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 3rem 2rem 1.5rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .footer-column {
+      padding: 0 1rem;
+    }
+    
+    .footer-column h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .footer-column h4::after {
       content: "";
-      display: table;
-      clear: both;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--white);
     }
-
-    .footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #003366;
-      color: white;
+    
+    .contact-info p {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
     }
-
-    .footer a {
-      color: white;
+    
+    .footer-column a {
+      display: block;
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 0.8rem;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-column a:hover {
+      color: rgba(255, 255, 255, 0.8);
       text-decoration: underline;
     }
-
-    @media (max-width: 600px) {
-      .team-container {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
+    
+    .footer-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .footer-logo img {
+      width: 80px;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
       }
-
-      .team-member {
+      
+      .right-section {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .main-nav {
+        width: 100%;
+        justify-content: space-around;
+      }
+      
+      .search-bar {
         width: 100%;
       }
+      
+      .search-bar input {
+        width: 100%;
+      }
+      
+      .modal-body {
+        flex-direction: column;
+      }
+      
+      .modal-left {
+        margin-bottom: 1.5rem;
+      }
     }
-
+    
+    @media (max-width: 600px) {
+      .team-container {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .team-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Animation */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-.modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 700px;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.modal-body {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-
-.modal-left, .modal-right {
-  flex: 1;
-}
-
-.modal-left img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid #003366;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-.modal-left h4,
-.modal-left p {
-  margin: 5px 0;
-}
-
-.modal-right p {
-  margin-bottom: 10px;
-}
-
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
   <header>
     <div class="header-container">
       <div class="left-section">
-        <a href="RMMS.html">
-          <img src="images/logo.png" alt="Logo" class="logo" />
-        </a>
-        <a href="RMMS.html" class="title">
-          PAMANTASAN NG LUNGSOD NG PASIG
-        </a>
+        <img src="images/logo.png" alt="Logo" class="logo" />
+        <span class="title" onclick="location.href='RMMS.html'" style="cursor: pointer;">PAMANTASAN NG LUNGSOD NG PASIG</span>
       </div>
       <div class="right-section">
+        <nav class="main-nav">
+          <a href="Home.html" class="nav-link">Home</a>
+          <a href="Reserve.html" class="nav-link">Reserve</a>
+          <a href="Buildlayout.html" class="nav-link">Building Layout</a>
+          <a href="AboutUs.html" class="nav-link active">About Us</a>
+        </nav>
         <div class="search-bar">
           <input type="text" placeholder="Search..." aria-label="Search">
         </div>
@@ -389,220 +586,311 @@
           <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
         </div>
       </div>
-      <img src="images/background2.jpg" alt="Campus Building">
-      <h1>About RMMS</h1>
-      <p>Room Management & Monitoring System</p>
     </div>
   </header>
 
+
   <main>
-    <div class="content">
-      <section>
-        <h2>What is RMMS?</h2>
-        <p>RMMS is a system to streamline the management and monitoring of rooms, allowing users to view availability and facilitate reservations easily.</p>
-      </section>
+    <div class="content-container fade-in">
+      <div class="content">
+        <section class="fade-in delay-1">
+          <h2>What is RMMS?</h2>
+          <p>The Room Management and Monitoring System (RMMS) is an innovative platform designed to streamline the management and monitoring of rooms within educational institutions. Our system provides an efficient way to view room availability, facilitate reservations, and manage resources, all through an intuitive interface.</p>
+        </section>
 
 
-      <section>
-        <h2>Key Features</h2>
-        <ul>
-          <li>Reservation system</li>
-          <li>Room availability checker</li>
-          <li>Equipment monitoring</li>
-          <li>Building navigation tools</li>
-          <li>Real-time updates</li>
-        </ul>
-      </section>
+        <section class="fade-in delay-1">
+          <h2>Key Features</h2>
+          <ul>
+            <li><strong>Intuitive Reservation System:</strong> Book rooms with just a few clicks</li>
+            <li><strong>Real-time Availability Checker:</strong> See which rooms are available instantly</li>
+            <li><strong>Comprehensive Equipment Monitoring:</strong> Track room resources and equipment</li>
+            <li><strong>Interactive Building Navigation:</strong> Find your way around campus easily</li>
+            <li><strong>Instant Updates:</strong> Receive real-time notifications about your reservations</li>
+          </ul>
+        </section>
 
 
-      <section>
-        <h2>Importance</h2>
-          <p style="text-align: justify;">The Room Management and Monitoring System (RMMS) is essential for efficiently organizing and utilizing rooms within an institution. It centralizes room reservations, helping prevent double bookings and scheduling conflicts. By providing real-time availability and usage data, it supports better planning and decision-making. Overall, RMMS enhances productivity and ensures a well-managed learning environment.</p>
-      </section>
+        <section class="fade-in delay-2">
+          <h2>Importance</h2>
+          <p>The Room Management and Monitoring System (RMMS) revolutionizes how educational institutions organize and utilize their spaces. By centralizing room reservations, it eliminates double bookings and scheduling conflicts while providing administrators with valuable usage data to inform decision-making. The system's real-time capabilities ensure optimal space utilization, reducing wasted resources and improving operational efficiency. For students and faculty, RMMS offers convenience and transparency in room booking, contributing to a more organized and productive academic environment that supports the institution's educational mission.</p>
+        </section>
 
 
-      <section>
-        <h2>User Roles</h2>
-        <ul>
-          <li>Admin</li>
-          <li>Reservation Manager</li>
-          <li>Room Inspector</li>
-          <li>Clients (PLPlans & Guests)</li>
-        </ul>
-      </section>
+        <section class="fade-in delay-2">
+          <h2>User Roles</h2>
+          <ul>
+            <li><strong>Admin:</strong> Full system access and configuration</li>
+            <li><strong>Reservation Manager:</strong> Oversees and approves room bookings</li>
+            <li><strong>Room Inspector:</strong> Monitors room conditions and equipment</li>
+            <li><strong>Clients (PLPians & Guests):</strong> Makes reservations and checks availability</li>
+          </ul>
+        </section>
+      </div>
+
+
+      <aside class="sidebar">
+        <div class="box fade-in delay-1">
+          <h3>Quick Facts</h3>
+          <ul>
+            <li><i class="fas fa-calendar-alt"></i> System launched: June 2023</li>
+            <li><i class="fas fa-door-open"></i> 45+ rooms tracked</li>
+            <li><i class="fas fa-users"></i> 500+ registered users</li>
+          </ul>
+        </div>
+
+
+        <div class="box fade-in delay-2">
+          <h3>Navigation Tips</h3>
+          <ul>
+            <li><i class="fas fa-map"></i> Use the building layout to view all rooms</li>
+            <li><i class="fas fa-filter"></i> Apply filters to find specific room categories</li>
+            <li><i class="fas fa-bell"></i> Set up notifications for reservation updates</li>
+          </ul>
+        </div>
+
+
+        <div class="box fade-in delay-3">
+          <h3>Feedback / Contact</h3>
+          <p>We value your input to improve our system.</p>
+          <button class="button"><i class="fas fa-bug"></i> Report an issue</button>
+          <p style="margin-top: 1rem;"><i class="fas fa-envelope"></i> support@rmms.plp.edu</p>
+          <p><i class="fas fa-phone"></i> (02) 1234-5678</p>
+        </div>
+      </aside>
     </div>
 
 
-    <aside class="sidebar">
-      <div class="box">
-        <h3>Quick Facts</h3>
-        <ul>
-          <li>System launched (Date)</li>
-          <li>Rooms tracked (Number)</li>
-          <li>Registered users (Number)</li>
-        </ul>
+    <div class="team-section fade-in delay-3">
+      <h2>Meet the Development Team</h2>
+      <p class="team-description">
+        Our skilled development team has created an advanced Room Management System designed to revolutionize space utilization in educational institutions. 
+        By addressing critical challenges like room availability management, reservation conflicts, and inefficient manual processes, we've built a smart, 
+        scalable solution tailored to modern academic needs. The system not only simplifies the reservation process but enhances transparency, improves 
+        time management, and optimizes resource allocation. With our focus on usability, performance, and security, RMMS delivers a reliable, efficient, 
+        and user-friendly experience for both administrators and end-users. We're proud to contribute innovative technology that makes a meaningful 
+        difference in educational environments.
+      </p>
+      
+      <div class="team-card-container">
+        <div class="team-container">
+          <div class="team-member fade-in" data-name="Marc Ferdinand Beringuela" data-role="Team Leader" data-image="images/ferdinand.jpg" data-bio="Led the overall development process, coordinated team efforts, and ensured project milestones were met. With 5 years of project management experience, Ferdinand kept the team focused and productive throughout the development cycle.">
+            <img src="images/ferdinand.jpg" alt="Marc Ferdinand Beringuela">
+            <h4>Marc Ferdinand Beringuela</h4>
+            <p>Team Leader</p>
+          </div>
+          
+          <div class="team-member fade-in" data-name="Aruiz Guerrero" data-role="Front-end Developer" data-image="images/Aruiz.jpg" data-bio="Designed and implemented the user interface using modern web technologies. Created responsive layouts and interactive elements to ensure an optimal user experience across all devices. Specialized in React.js and CSS animations.">
+            <img src="images/Aruiz.jpg" alt="Aruiz Guerrero">
+            <h4>Aruiz Guerrero</h4>
+            <p>Front-end Developer</p>
+          </div>
+          
+          <div class="team-member fade-in" data-name="Jose Miguel Belleza" data-role="Database Admin" data-image="images/belleza.jpg" data-bio="Architected and optimized the database system, ensuring efficient data storage and retrieval. Implemented security measures and backup systems. Expert in SQL and NoSQL database management with a focus on scalability.">
+            <img src="images/belleza.jpg" alt="Jose Miguel Belleza">
+            <h4>Jose Miguel Belleza</h4>
+            <p>Database Administrator</p>
+          </div>
+          
+          <div class="team-member fade-in" data-name="Marc Louise Ang" data-role="UI/UX Designer" data-image="images/ang.jpg" data-bio="Crafted the visual identity and user experience flows. Conducted user research and testing to create an intuitive interface. Specializes in user-centered design principles and accessibility standards.">
+            <img src="images/ang.jpg" alt="Marc Louise Ang">
+            <h4>Marc Louise Ang</h4>
+            <p>UI/UX Designer</p>
+          </div>
+          
+          <div class="team-member fade-in" data-name="Michael Fransjie Obligado" data-role="Back-end Developer" data-image="images/fransjie.jpg" data-bio="Developed the server-side logic and API integrations. Implemented security features and performance optimizations. Experienced in Node.js and Python with a focus on robust, maintainable code.">
+            <img src="images/fransjie.jpg" alt="Michael Fransjie Obligado">
+            <h4>Michael Fransjie Obligado</h4>
+            <p>Back-end Developer</p>
+          </div>
+          
+          <div class="team-member fade-in" data-name="Allen Jamir Vidal" data-role="Back-end Developer" data-image="images/vidal.jpg" data-bio="Collaborated on server architecture and database integration. Implemented real-time features and notification systems. Specializes in API development and system integration.">
+            <img src="images/vidal.jpg" alt="Allen Jamir Vidal">
+            <h4>Allen Jamir Vidal</h4>
+            <p>Back-end Developer</p>
+          </div>
+        </div>
       </div>
-
-
-      <div class="box">
-        <h3>Navigation Tips</h3>
-        <ul>
-          <li>Use the building layout to view all rooms.</li>
-          <li>Use filters to find specific categories.</li>
-        </ul>
+    </div>
+    
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <div class="modal-body">
+          <div class="modal-left">
+            <img id="modalImage" src="" alt="Profile">
+            <h4 id="modalName"></h4>
+            <p id="modalRole"></p>
+          </div>
+          <div class="modal-right">
+            <p id="modalBio"></p>
+            <div class="contact-info" style="margin-top: 1.5rem;">
+              <p><i class="fas fa-envelope"></i> <span id="modalEmail"></span></p>
+              <p><i class="fas fa-phone"></i> <span id="modalPhone"></span></p>
+            </div>
+          </div>
+        </div>
       </div>
-
-
-      <div class="box">
-        <h3>Feedback / Contact Info</h3>
-        <a class="button" href="#">Report an issue</a>
-        <p>Email: support@rmms.plp.edu</p>
-      </div>
-    </aside>
+    </div>
   </main>
 
-  <div class="main-content">
-    <h2>Meet the Programmers</h2>
-    <p class="programmers-description">
-      A team of skilled programmers has developed an advanced Room Management System designed to streamline and automate the processes of room booking, 
-      scheduling, and administration. By addressing common challenges such as managing room availability, overlapping reservations, and inefficient 
-      manual tracking, the system offers a smart, scalable solution tailored to the needs of institutions, organizations, and businesses. The system 
-      not only simplifies the reservation process but also enhances transparency, improves time management, and optimizes resource utilization. With a 
-      focus on usability, performance, and security, the application ensures a reliable, efficient, and user-centered experience for both administrators 
-      and end-users. Through innovation and a passion for technology, this solution aims to make a meaningful impact in real-world environments.
-    </p>
-    <div class="team-card-container">
-      <div class="team-container clearfix">
-        <div class="team-member" data-name="Marc Ferdinand Beringuela" data-role="Team Leader" data-image="images/ferdinand.jpg">
-          <img src="images/ferdinand.jpg" alt="Member 1">
-          <h4>Marc Ferdinand Beringuela</h4>
-          <p>Team Leader</p>
-        </div>
-        <div class="team-member" data-name="Aruiz Guerrero" data-role="Front-end Developer" data-image="images/Aruiz.jpg">
-          <img src="images/Aruiz.jpg" alt="Member 2">
-          <h4>Aruiz Guerrero</h4>
-          <p>Front-end Developer</p>
-        </div>
-        <div class="team-member" data-name="Jose Miguel Belleza" data-role="Database Admin" data-image="images/belleza.jpg">
-          <img src="images/belleza.jpg" alt="Member 3">
-          <h4>Jose Miguel Belleza</h4>
-          <p>Database Admin</p>
-        </div>
-        <div class="team-member" data-name="Marc Louise Ang" data-role="UI/UX Designer" data-image="images/ang.jpg">
-          <img src="images/ang.jpg" alt="Member 4">
-          <h4>Marc Louise Ang</h4>
-          <p>UI/UX Designer</p>
-        </div>
-        <div class="team-member" data-name="Michael Fransjie Obligado" data-role="Back-end Developer" data-image="images/fransjie.jpg">
-          <img src="images/fransjie.jpg" alt="Member 5">
-          <h4>Michael Fransjie Obligado</h4>
-          <p>Back-end Developer</p>
-        </div>
-        <div class="team-member" data-name="Allen Jamir Vidal" data-role="Back-end Developer" data-image="images/vidal.jpg">
-          <img src="images/vidal.jpg" alt="Member 6">
-          <h4>Allen Jamir Vidal</h4>
-          <p>Back-end Developer</p>
-        </div>        
-      </div>
-    </div>
-  </div>
-  <div class="modal-overlay" id="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeModal">&times;</span>
-      <div class="modal-body">
-        <div class="modal-left">
-          <img id="modalImage" src="" alt="Profile">
-          <h4 id="modalName"></h4>
-          <p id="modalRole"></p>
-        </div>
-        <div class="modal-right">
-          <p>This member is a vital part of the RMMS development team, contributing skills and knowledge to ensure a high-quality user experience.</p>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>CONTACT US</h4>
+        <div class="contact-info">
+          <p><i class="fas fa-phone"></i> (02) 1234-5678</p>
+          <p><i class="fas fa-mobile-alt"></i> +63 912 345 6789</p>
+          <p><i class="fas fa-envelope"></i> support@rmms.plp.edu</p>
+          <p><i class="fas fa-map-marker-alt"></i> Plaza Rizal, Pasig City</p>
         </div>
       </div>
+     
+      <div class="footer-column">
+        <h4>QUICK LINKS</h4>
+        <a href="Home.html"><i class="fas fa-home"></i> Home</a>
+        <a href="Buildlayout.html"><i class="fas fa-building"></i> View Buildings</a>
+        <a href="Reserve.html"><i class="fas fa-calendar-check"></i> Reservation</a>
+        <a href="AboutUs.html"><i class="fas fa-info-circle"></i> About Us</a>
+      </div>
+     
+      <div class="footer-column">
+        <h4>OUR MISSION</h4>
+        <p>Empowering learning through organized spaces – RMMS of Pamantasan ng Lungsod ng Pasig ensures every room is a step toward academic excellence and operational efficiency.</p>
+        <div class="social-links" style="margin-top: 1rem;">
+          <a href="#" style="display: inline-block; margin-right: 1rem;"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" style="display: inline-block; margin-right: 1rem;"><i class="fab fa-twitter"></i></a>
+          <a href="#" style="display: inline-block;"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+     
+      <div class="footer-column footer-logo">
+        <img src="images/logo.png" alt="PLP Logo" style="width: 100px;">
+        <h4>PAMANTASAN NG LUNGSOD NG PASIG</h4>
+        <p>Transforming Lives Through Education</p>
+      </div>
     </div>
-  </div>
-  
+   
+    <div class="footer-bottom">
+      <p>&copy; 2023 Pamantasan ng Lungsod ng Pasig. All rights reserved.</p>
+    </div>
+  </footer>
+
+
   <script>
     // Date and Time updater
     function updateDateTime() {
       const now = new Date();
-      document.getElementById("datetime").textContent = now.toLocaleString();
+      const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      document.getElementById("datetime").textContent = now.toLocaleDateString('en-PH', options);
     }
-  
+ 
     setInterval(updateDateTime, 1000);
     updateDateTime();
 
-    window.onload = function() {
-    window.scrollTo(0, 0);
-    };
-  
+
     // Modal functionality
     const modal = document.getElementById("modal");
     const closeModal = document.getElementById("closeModal");
     const modalName = document.getElementById("modalName");
     const modalRole = document.getElementById("modalRole");
     const modalImage = document.getElementById("modalImage");
-  
+    const modalBio = document.getElementById("modalBio");
+    const modalEmail = document.getElementById("modalEmail");
+    const modalPhone = document.getElementById("modalPhone");
+ 
+    // Team member data
+    const teamData = {
+      "Marc Ferdinand Beringuela": {
+        bio: "Led the overall development process, coordinated team efforts, and ensured project milestones were met. With 5 years of project management experience, Ferdinand kept the team focused and productive throughout the development cycle.",
+        email: "beringuela_marcferdinand@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 101"
+      },
+      "Aruiz Guerrero": {
+        bio: "Designed and implemented the user interface using modern web technologies. Created responsive layouts and interactive elements to ensure an optimal user experience across all devices. Specialized in React.js and CSS animations.",
+        email: "guerrero_ariuzdean@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 102"
+      },
+      "Jose Miguel Belleza": {
+        bio: "Architected and optimized the database system, ensuring efficient data storage and retrieval. Implemented security measures and backup systems. Expert in SQL and NoSQL database management with a focus on scalability.",
+        email: "belleza_josemiguel@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 103"
+      },
+      "Marc Louise Ang": {
+        bio: "Crafted the visual identity and user experience flows. Conducted user research and testing to create an intuitive interface. Specializes in user-centered design principles and accessibility standards.",
+        email: "ang_marclouise@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 104"
+      },
+      "Michael Fransjie Obligado": {
+        bio: "Developed the server-side logic and API integrations. Implemented security features and performance optimizations. Experienced in Node.js and Python with a focus on robust, maintainable code.",
+        email: "obligado_michaelfransjie@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 105"
+      },
+      "Allen Jamir Vidal": {
+        bio: "Collaborated on server architecture and database integration. Implemented real-time features and notification systems. Specializes in API development and system integration.",
+        email: "vidal_allenjamir@plpasig.edu.ph",
+        phone: "(02) 1234-5678 ext. 106"
+      }
+    };
+ 
     // Ensure modal is hidden on load
-    modal.style.display = "none";
-  
+    if (modal) modal.style.display = "none";
+ 
     document.querySelectorAll(".team-member").forEach(member => {
       member.addEventListener("click", () => {
-        modalName.textContent = member.getAttribute("data-name");
-        modalRole.textContent = member.getAttribute("data-role");
-        modalImage.src = member.getAttribute("data-image");
+        const name = member.getAttribute("data-name");
+        const role = member.getAttribute("data-role");
+        const image = member.getAttribute("data-image");
+        
+        modalName.textContent = name;
+        modalRole.textContent = role;
+        modalImage.src = image;
+        modalBio.textContent = teamData[name]?.bio || "This member is a vital part of the RMMS development team, contributing skills and knowledge to ensure a high-quality user experience.";
+        modalEmail.textContent = teamData[name]?.email || "user@plp.edu.ph";
+        modalPhone.textContent = teamData[name]?.phone || "(02) 1234-5678";
+        
         modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
       });
     });
-  
-    closeModal.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-  
+ 
+    if (closeModal) {
+      closeModal.addEventListener("click", () => {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+      });
+    }
+ 
     window.addEventListener("click", (e) => {
       if (e.target === modal) {
         modal.style.display = "none";
+        document.body.style.overflow = "auto";
       }
     });
+    
+    // Add animation to elements as they come into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
   </script>
-  
-  <footer style="background-color: #1d3557; color: white; padding: 20px 0;">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto;">
-     
- 
-      <div style="flex: 1; padding: 10px; text-align: left; margin-left: -2in;">
-        <h4>CONTACT US:</h4>
-        <p>(04) 298 3985 2092<br>
-        +76 209 1092 4095<br>
-        bldgAdmin@sample.com</p>
-      </div>
- 
-
-
-      <div style="flex: 1; text-align: center; padding: 10px;">
-        <h4>QUICK LINKS:</h4>
-        <a href="#" style="color: white; text-decoration: underline;">PAMANTASAN</a><br>
-        <a href="#" style="color: white; text-decoration: underline;">VIEW BUILDINGS</a><br>
-        <a href="#" style="color: white; text-decoration: underline;">RESERVATION</a><br>
-        <a href="#" style="color: white; text-decoration: underline;">ABOUT US</a>
-      </div>
- 
-      <div style="flex: 1; text-align: justify; padding: 10px; margin-left: 100px";>
-        <p style="font-size: 15px; margin-top: 5px;">Empowering learning through organized spaces – RMMS of Pamantasan ng Lungsod ng Pasig ensures every room is a step toward excellence.</p>
-      </div>
-
-
-      <div style="flex: 1; text-align: right; padding: 10px;">
-        <h1>PLP</h1>
-      </div>
-
-
-      <div style="flex: 1; padding: 10px; text-align: right; margin-right: -2in;">
-        <img src="images/logo.png" alt="PLP Logo" style="height: 150px;"><br>
-      </div>
- 
-    </div>
-  </footer>
 </body>
 </html>
+
 

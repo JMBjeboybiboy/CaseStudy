@@ -53,6 +53,27 @@ header {
   flex-wrap: wrap;
 }
 
+.main-nav {
+  display: flex;
+  gap: 15px;
+  margin-right: 20px;
+}
+
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+
+.main-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+
 /* === Search Bar === */
 .search-bar input {
   padding: 6px 10px;
@@ -61,66 +82,6 @@ header {
   font-size: 0.95em;
   width: 180px;
   max-width: 100%;
-}
-
-/* === Hamburger Menu === */
-.hamburger-container {
-  position: relative;
-}
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.hamburger div {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  border-radius: 2px;
-}
-
-/* === Dropdown Navigation === */
-nav {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: #25556f;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  flex-direction: column;
-  border-radius: 4px;
-  z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  min-width: 160px;
-}
-
-nav.show {
-  max-height: 500px;
-  opacity: 1;
-}
-
-nav a {
-  padding: 10px 16px;
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
-  display: block;
-  transition: background 0.3s;
-}
-
-nav a:hover {
-  background-color: #02626d;
-}
-
-.search-bar input:focus,
-nav a:focus {
-  outline: 2px solid #007bff;
-  outline-offset: 2px;
 }
 
 /* === Header Utilities === */

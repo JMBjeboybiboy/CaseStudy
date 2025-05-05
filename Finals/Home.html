@@ -4,465 +4,1146 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PLP Building Navigation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-color: #173468;
+      --secondary-color: #00507a;
+      --accent-color: #ffe49c;
+      --text-color: #333;
+      --light-bg: #f8f9fa;
+      --white: #ffffff;
+    }
+    
     html, body {
       height: 100%;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: white;
-      color: #111;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--white);
+      color: var(--text-color);
       overflow-x: hidden;
+      line-height: 1.6;
+      padding-top: 70px; /* Added to prevent content from going under header */
     }
 
-    /* Header */
-    .top-bar {
+
+    /* Header Styles */
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
+      z-index: 1000;
+      height: 70px;
+    }
+    
+    .header-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #173468;
-      padding: 10px 20px;
-      height: 60px;
-      z-index: 1000;
+      flex-wrap: wrap;
+      padding: 0.5rem 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
     }
+    
     .left-section {
       display: flex;
       align-items: center;
+      gap: 1rem;
     }
+    
     .logo {
-      height: 40px;
-      margin-right: 10px;
+      height: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
-    .nav-title {
-      font-weight: bold;
-      font-size: 18px;
-      color: #ffffff;
+    
+    .logo:hover {
+      transform: scale(1.05);
     }
-    .time-btn {
-      background-color: #ffe49c;
-      color: #222;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
+    
+    .title {
+      font-size: 1.2rem;
       font-weight: bold;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
       cursor: pointer;
     }
+    
+    .main-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    .main-nav a {
+      text-decoration: none;
+      color: var(--white);
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .main-nav a:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--white);
+      transition: width 0.3s ease;
+    }
+    
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* CHANGED: Search bar moved to right section */
+    .right-section {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    .search-bar input {
+      padding: 0.5rem 0.8rem;
+      border-radius: 4px;
+      border: none;
+      min-width: 200px;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .search-bar input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    .datetime {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .datetime:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .datetime i {
+      color: var(--accent-color);
+    }
+
 
     /* Sidebar */
     .sidebar {
       position: fixed;
-      top: 60px;
-      bottom: 60px;
+      top: 70px;
+      bottom: 0;
       width: 80px;
-      background-color: #173468;
+      background-color: var(--primary-color);
       padding-top: 20px;
       border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
       overflow-x: hidden;
       z-index: 1000;
+      transition: all 0.3s ease;
     }
-
+    
+    .sidebar:hover {
+      width: 220px;
+    }
+    
     .nav-item {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      background-color: white;
+      background-color: var(--white);
       margin: 10px;
-      padding: 10px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: 0.2s;
+      transition: all 0.3s ease;
       width: 60px;
       height: 60px;
+      overflow: hidden;
     }
-
+    
+    .sidebar:hover .nav-item {
+      width: 200px;
+      justify-content: flex-start;
+    }
+    
     .nav-item:hover {
       background-color: #e0ecfa;
+      transform: translateX(5px);
     }
-
+    
     .nav-item img {
       width: 25px;
       height: 25px;
-      margin-right: 8px;
+      min-width: 25px;
     }
+    
+    .nav-item span {
+      color: var(--text-color);
+      font-weight: 600;
+      margin-left: 15px;
+      white-space: nowrap;
+      display: none;
+    }
+    
+    .sidebar:hover .nav-item span {
+      display: inline;
+    }
+
 
     /* Hero Section */
     .hero {
       margin-left: 80px;
       position: relative;
     }
-
+    
     .hero-img {
       width: 100%;
-      max-height: 450px;
+      height: 700px;
       object-fit: fill;
-      margin-top: 4rem;
+      display: block;
     }
-
+    
     .overlay-text {
       position: absolute;
-      top: 20px;
-      width: 100%;
+      bottom: 0;
+      left: 0;
+      right: 0;
       text-align: center;
-      font-size: 28px;
-      font-weight: bold;
-      color: #173468;
-      letter-spacing: 10px;
-      background-color: rgba(255, 255, 255, 0.7);
-      margin-top: 390px;
-      padding: 10px 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 20px 0;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      line-height: 1.4;
     }
+    
+    /* NEW: College name switcher */
+    .college-switcher {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background-color: rgba(23, 52, 104, 0.8);
+      padding: 20px 40px;
+      border-radius: 10px;
+      color: white;
+      width: 80%;
+      max-width: 600px;
+    }
+    
+    .college-switcher h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    
+    .college-switcher p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
 
     /* Main Content */
     .content-section {
       display: flex;
       justify-content: space-between;
-      padding: 20px 60px 40px 100px;
+      padding: 40px 60px;
       flex-wrap: wrap;
-      align-items: center;
+      margin-left: 80px;
     }
-
+    
     .text-content {
-      max-width: 60%;
-      margin-left: 10rem;
+      flex: 1;
+      min-width: 300px;
+      padding-right: 40px;
+    }
+    
+    .text-content h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    
+    .text-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    }
+    
+    .side-image {
+      flex: 0 0 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .side-image img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .side-image img:hover {
+      transform: scale(1.03);
     }
 
-    .text-content h1 {
-      font-size: 40px;
-      font-weight: bold;
+
+    /* Media Container */
+    .media-container {
+      display: flex;
+      gap: 60px;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 60px;
+      flex-wrap: wrap;
+      margin-left: 100px;
+    }
+    
+    /* Video Section */
+    .video-section {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .video-info {
+      margin-top: 25px;
+    }
+    
+    .video-info h1 {
+      color: var(--secondary-color);
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    
+    .video-info p {
+      color: var(--text-color);
+      line-height: 1.8;
       margin-bottom: 10px;
     }
-
-    .text-content p {
-      font-size: 20px;
-      line-height: 1.6;
-      letter-spacing: 1px;
+    
+    .date {
+      color: #666;
+      font-style: italic;
+      font-size: 0.9rem;
     }
 
-    .side-image img {
-      width: 250px;
-      border-radius: 10px;
-    }
 
-    .sidebar:hover {
-      width: 200px;
+    /* Image Switcher */
+    .switcher-section {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
     }
-
-    .sidebar:hover .nav-item {
-      width: 180px;
+    
+    .image-slider {
+      position: relative;
+      margin-bottom: 25px;
     }
-
-    .sidebar:hover .nav-item span {
-      display: inline;
+    
+    .image-frame {
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      position: relative;
     }
-
-    .nav-item span {
-      display: none;
-      color: #222;
+    
+    .image-frame img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    
+    .image-frame img.active {
+      opacity: 1;
+    }
+    
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,80,122,0.8);
+      color: white;
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .arrow:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .arrow-left {
+      left: 15px;
+    }
+    
+    .arrow-right {
+      right: 15px;
+    }
+    
+    /* Switcher Info */
+    .switcher-info {
+      background: var(--light-bg);
+      padding: 0;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+    
+    .switcher-info:hover {
+      transform: translateY(-5px);
+    }
+    
+    .info-title {
+      color: var(--secondary-color);
+      font-size: 1.5rem;
+      margin-bottom: 10px;
       font-weight: 600;
+      transition: color 0.3s ease;
     }
-/* Main Container */
-.media-container {
-  display: flex;
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
+    
+    .info-title:hover {
+      color: var(--primary-color);
+    }
+    
+    .info-description {
+      color: var(--text-color);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    
+    .info-date {
+      color: #666;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
 
-/* Video Section (Left) */
-.video-section {
-  flex: 1;
-  min-width: 0; /* Fixes flexbox overflow */
-}
+    /* Indicators */
+    .slider-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ccc;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .indicator.active {
+      background-color: var(--secondary-color);
+      transform: scale(1.2);
+    }
 
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
-  height: 0;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
 
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 30px 0;
+      text-align: center;
+      margin-left: 80px;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      height: 60px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .footer-logo:hover {
+      transform: scale(1.1);
+    }
+    
+    .footer-text {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
 
-.video-info {
-  margin-top: 1.5rem;
-}
 
-.video-info h1 {
-  color: #00507a;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .content-section {
+        flex-direction: column;
+        padding: 40px 30px;
+      }
+      
+      .text-content {
+        padding-right: 0;
+        margin-bottom: 30px;
+        max-width: 100%;
+      }
+      
+      .side-image {
+        margin-top: 30px;
+      }
+      
+      .media-container {
+        padding: 0 30px;
+      }
+      
+      .header-container {
+        padding: 0.5rem;
+      }
+      
+      .search-bar input {
+        min-width: 150px;
+      }
+      
+      .college-switcher {
+        width: 90%;
+        padding: 15px 20px;
+      }
+      
+      .college-switcher h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+      
+      header {
+        height: 60px;
+      }
+      
+      .sidebar {
+        width: 60px;
+        top: 60px;
+      }
+      
+      .sidebar:hover {
+        width: 200px;
+      }
+      
+      .hero, .content-section, .media-container, footer {
+        margin-left: 60px;
+      }
+      
+      .overlay-text {
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        padding: 15px 0;
+      }
+      
+      .datetime {
+        display: none;
+      }
+      
+      .logo {
+        height: 40px;
+      }
+      
+      .title {
+        font-size: 1rem;
+      }
+      
+      .college-switcher h1 {
+        font-size: 1.5rem;
+      }
+      
+      .college-switcher p {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      body {
+        padding-top: 50px;
+      }
+      
+      header {
+        height: 50px;
+      }
+      
+      .sidebar {
+        width: 50px;
+        top: 50px;
+      }
+      
+      .sidebar:hover {
+        width: 180px;
+      }
+      
+      .hero-img {
+        height: 300px;
+      }
+      
+      .overlay-text {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        padding: 10px 0;
+      }
+      
+      .text-content h1 {
+        font-size: 2rem;
+      }
+      
+      .content-section, .media-container {
+        padding: 30px 20px;
+      }
+      
+      .hero, .content-section, .media-container, footer {
+        margin-left: 50px;
+      }
+      
+      .nav-item {
+        width: 40px;
+        height: 40px;
+        margin: 8px;
+        padding: 8px;
+      }
+      
+      .sidebar:hover .nav-item {
+        width: 160px;
+      }
+      
+      .nav-item img {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .search-bar {
+        display: none;
+      }
+      
+      .college-switcher {
+        padding: 10px 15px;
+      }
+      
+      .college-switcher h1 {
+        font-size: 1.2rem;
+      }
+      
+      .college-switcher p {
+        font-size: 0.9rem;
+      }
+    }
+/* College Switcher Section */
+.college-switcher-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 60px;
+      margin-left: 100px;
+    }
+    
+    .college-switcher-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--primary-color);
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    
+    .college-title {
+      color: var(--white);
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0 30px;
+      flex: 1;
+    }
+    
+    .college-name-display {
+      color: var(--accent-color);
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      flex: 1;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+    }
+    
+    .college-switcher-arrows {
+      display: flex;
+      gap: 15px;
+      flex: 1;
+      justify-content: flex-end;
+    }
+    
+    .college-switcher-arrow {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .college-switcher-arrow:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .college-switcher-section {
+        padding: 0 30px;
+        margin-left: 80px;
+      }
+      
+      .college-switcher-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+      }
+      
+      .college-title, 
+      .college-name-display,
+      .college-switcher-arrows {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      
+      .college-switcher-arrows {
+        margin-top: 10px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .college-switcher-section {
+        margin-left: 50px;
+        padding: 0 20px;
+      }
+      
+      .college-title {
+        font-size: 1.5rem;
+      }
+      
+      .college-name-display {
+        font-size: 1.8rem;
+      }
+    }
+    .college-logo-container {
+      width: 150px; /* or any fixed width you prefer */
+      height: 150px; /* or match aspect ratio */
+      margin: 0 120px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #f4f4f4; /* optional: gives a background */
+      border-radius: 8px; /* optional: for rounded corners */
+    }
 
-.video-info p {
-  color: #333;
-  line-height: 1.6;
-}
-
-.date {
-  color: #666;
-  font-style: italic;
-  margin-top: 0.5rem;
-}
-
-/* Image Switcher (Right) */
-.switcher-section {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.image-slider {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.image-frame {
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  position: relative;
-}
-
-.image-frame img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.image-frame img.active {
-  opacity: 1;
-}
-
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0,80,122,0.8);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.arrow:hover {
-  background-color: #00507a;
-}
-
-.arrow-left {
-  left: 15px;
-}
-
-.arrow-right {
-  right: 15px;
-}
-
-/* Switcher Info Styles */
-.switcher-info {
-  background: #f8f9fa;
-}
-
-.info-title {
-  color: #00507a;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.info-description {
-  color: #333;
-  line-height: 1.5;
-  margin-bottom: 0.5rem;
-}
-
-.info-date {
-  color: #666;
-  font-style: italic;
-}
-/* Responsive Design */
-@media (max-width: 768px) {
-  .media-container {
-    flex-direction: column;
-  }
-  
-  .video-wrapper {
-    padding-bottom: 75%; /* Square aspect on mobile */
-  }
-}
+    .college-logo-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; /* keeps image aspect ratio while fitting */
+    }
   </style>
 </head>
 <body>
-  <!-- Top Bar -->
-  <header class="top-bar">
-    <div class="left-section">
-      <img src="images/logo.png" alt="PLP Logo" class="logo" />
-      <span class="nav-title">PLP BUILDING NAVIGATION</span>
+  <!-- CHANGED: Header with search and time on the right -->
+  <header>
+    <div class="header-container">
+      <div class="left-section">
+        <img src="images/logo.png" alt="Logo" class="logo" />
+        <span class="title" onclick="location.href='RMMS.html'" style="cursor: pointer;">PAMANTASAN NG LUNGSOD NG PASIG</span>
+      </div>
+      <div class="right-section">
+        <div class="search-bar">
+          <input type="text" placeholder="Search..." aria-label="Search">
+        </div>
+        <div class="datetime">
+          <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
+        </div>
+      </div>
     </div>
-    <button class="time-btn">🕒 Time and Date</button>
   </header>
+
 
   <!-- Side Navigation -->
   <div id="sidebar" class="sidebar">
-    <button class="toggle-btn" onclick="toggleSidebar()">&#x25C0;</button>
-  
     <div class="nav-item" onclick="location.href='RMMS.html'">
-      <img src="images/logo.png" alt="Home" />
+      <img src="images/home-icon.png" alt="Home" />
       <span>Landing Page</span>
     </div>
-  
+    
     <div class="nav-item" onclick="location.href='LayoutReservation.html'">
-      <img src="images/logo.png" alt="Layout" />
-      <span>Layout & Reservation</span>
+      <img src="images/layout-icon.png" alt="Layout" />
+      <span>University Building</span>
     </div>
-  
+    
     <div class="nav-item" onclick="location.href='AboutUs.html'">
-      <img src="images/logo.png" alt="About Us" />
+      <img src="images/about-icon.png" alt="About Us" />
       <span>About Us</span>
     </div>
   </div>
-  
+
 
   <!-- Main Section -->
   <section class="hero">
     <img src="images/background2.jpg" alt="PLP Building" class="hero-img" />
     <div class="overlay-text">
-      P A M A N T A S A N &nbsp;&nbsp; N G<br/>
-      L U N G S O D &nbsp;&nbsp; N G &nbsp;&nbsp; P A S I G
+      PAMANTASAN NG LUNGSOD NG PASIG
     </div>
   </section>
+
 
   <section class="content-section">
     <div class="text-content">
-      <h1>HEADER</h1>
+      <h1>Welcome to PLP</h1>
       <p>
-        Describe Pamantasan ng Lungsod ng Pasig, as a university, home, and pillar for students
+        Pamantasan ng Lungsod ng Pasig (PLP) is a beacon of quality education in Pasig City. 
+        Established in 1999, our university has grown to become a home for thousands of students 
+        seeking academic excellence and personal growth.
+      </p>
+      <p>
+        Our institution stands as a pillar of the community, offering various undergraduate 
+        programs and fostering an environment that nurtures creativity, critical thinking, 
+        and social responsibility. At PLP, we don't just educate students - we shape future leaders.
       </p>
     </div>
     <div class="side-image">
-      <img src="images/logo.png" alt="PLP Tower" />
+      <img src="images/bldg1.JPG" alt="PLP Building" />
     </div>
-    <div class="media-container">
-      <!-- Video Section (Left) -->
-      <div class="video-section">
-        <div class="video-wrapper">
-          <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="video-info">
-          <h1>PAMANTASAN NG LUNGSOD NG PASIG</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
-          <div class="date">May 2024</div>
-        </div>
-      </div>
-    
-<!-- Image Switcher (Right) -->
-<div class="switcher-section">
-  <div class="image-slider">
-    <button class="arrow arrow-left">&#10094;</button>
-    <div class="image-frame">
-      <img src="images/SampleEvent1.png" alt="PLP 25th Anniversary" class="active" data-index="0">
-      <img src="images/SampleEvent2.png" alt="PLP 23rd Gawad Parangal" data-index="1">
-      <img src="images/SampleEvent3.png" alt="PLP 24th Anniversary" data-index="2">
-    </div>
-    <button class="arrow arrow-right">&#10095;</button>
-  </div>
-  <div class="switcher-info">
-    <h2 class="info-title">25th Silver Anniversary of PLP</h2>
-    <p class="info-description">The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025</p>
-    <p class="info-date">March 15 2025</p>
-  </div>
-</div>
   </section>
 
+
+  <div class="media-container">
+    <!-- Video Section (Left) -->
+    <div class="video-section">
+      <div class="video-wrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/zXevSZh2Xcg?si=7zP7vpXlijrFqwXG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>      </div>
+      <div class="video-info">
+        <h1>Discover PLP: Your Future Starts Here</h1>
+        <p>
+          Take a virtual tour of our campus and see what makes Pamantasan ng Lungsod ng Pasig 
+          the perfect place to pursue your academic dreams. Our state-of-the-art facilities, 
+          dedicated faculty, and vibrant student life create an environment where excellence thrives.
+        </p>
+        <div class="date">May 2024</div>
+      </div>
+    </div>
+    
+    <!-- Image Switcher (Right) -->
+    <div class="switcher-section">
+      <div class="image-slider">
+        <button class="arrow arrow-left">&#10094;</button>
+        <div class="image-frame">
+          <img src="images/SampleEvent1.png" alt="PLP 25th Anniversary" class="active" data-index="0">
+          <img src="images/SampleEvent2.png" alt="PLP 23rd Gawad Parangal" data-index="1">
+          <img src="images/SampleEvent3.png" alt="PLP 24th Anniversary" data-index="2">
+        </div>
+        <button class="arrow arrow-right">&#10095;</button>
+        <div class="slider-indicators">
+          <div class="indicator active" data-index="0"></div>
+          <div class="indicator" data-index="1"></div>
+          <div class="indicator" data-index="2"></div>
+        </div>
+      </div>
+      <div class="switcher-info">
+        <h2 class="info-title">25th Silver Anniversary of PLP</h2>
+        <p class="info-description">The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025</p>
+        <p class="info-date">March 15 2025</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- College Switcher Section -->
+  <div class="college-switcher-section">
+    <div class="college-switcher-container">
+      <h2 class="college-title">PLP Colleges</h2>
+      
+      <div class="college-logo-container">
+        <img id="collegeLogo" src="images/PLP.png" alt="College Logo">
+      </div>
+      
+      <div class="college-name-display" id="collegeName">PLP</div>
+      
+      <div class="college-switcher-arrows">
+        <button class="college-switcher-arrow" id="collegePrevBtn">&#10094;</button>
+        <button class="college-switcher-arrow" id="collegeNextBtn">&#10095;</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  <footer>
+    <div class="footer-content">
+      <img src="images/logo.png" alt="PLP Logo" class="footer-logo" />
+      <p class="footer-text">Pamantasan ng Lungsod ng Pasig. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+
   <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.classList.toggle('open');
-    }
     document.addEventListener('DOMContentLoaded', function() {
-  const images = document.querySelectorAll('.image-frame img');
-  const arrowLeft = document.querySelector('.arrow-left');
-  const arrowRight = document.querySelector('.arrow-right');
-  const infoTitle = document.querySelector('.info-title');
-  const infoDescription = document.querySelector('.info-description');
-  const infoDate = document.querySelector('.info-date');
-  let currentIndex = 0;
+      // Update time display
+      function updateDateTime() {
+        const now = new Date();
+        const options = { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        };
+        document.getElementById('datetime').textContent = now.toLocaleDateString('en-PH', options);
+      }
+      
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+      
+      // Image slider functionality
+      const images = document.querySelectorAll('.image-frame img');
+      const arrowLeft = document.querySelector('.arrow-left');
+      const arrowRight = document.querySelector('.arrow-right');
+      const indicators = document.querySelectorAll('.indicator');
+      const infoTitle = document.querySelector('.info-title');
+      const infoDescription = document.querySelector('.info-description');
+      const infoDate = document.querySelector('.info-date');
+      let currentIndex = 0;
+      let slideInterval;
+      
+      // Content data for each image
+      const contentData = [
+        {
+          title: "25th Silver Anniversary of PLP",
+          description: "The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025",
+          date: "March 15 2025"
+        },
+        {
+          title: "23rd Anniversary of PLP Gawad Parangal",
+          description: "Gave light to those who achieved greatness on the 23rd anniversary of Pamantasan ng Lungsod ng Pasig",
+          date: "March 15 2023"
+        },
+        {
+          title: "24th Anniversary of PLP",
+          description: "Mangarap, Manindigan, Magtagumpay HIRAYA MANAWARI",
+          date: "March 15 2024"
+        }
+      ];
+      
+      // Initialize first image and content
+      updateContent(0);
+      
+      // Navigation functions
+      arrowLeft.addEventListener('click', function() {
+        resetInterval();
+        navigate(-1);
+      });
+      
+      arrowRight.addEventListener('click', function() {
+        resetInterval();
+        navigate(1);
+      });
+      
+      // Indicator click events
+      indicators.forEach(indicator => {
+        indicator.addEventListener('click', function() {
+          resetInterval();
+          const targetIndex = parseInt(this.getAttribute('data-index'));
+          navigateTo(targetIndex);
+        });
+      });
+      
+      function navigate(direction) {
+        images[currentIndex].classList.remove('active');
+        indicators[currentIndex].classList.remove('active');
+        
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        
+        images[currentIndex].classList.add('active');
+        indicators[currentIndex].classList.add('active');
+        updateContent(currentIndex);
+      }
+      
+      function navigateTo(index) {
+        images[currentIndex].classList.remove('active');
+        indicators[currentIndex].classList.remove('active');
+        
+        currentIndex = index;
+        
+        images[currentIndex].classList.add('active');
+        indicators[currentIndex].classList.add('active');
+        updateContent(currentIndex);
+      }
+      
+      function updateContent(index) {
+        infoTitle.textContent = contentData[index].title;
+        infoDescription.textContent = contentData[index].description;
+        infoDate.textContent = contentData[index].date;
+      }
+      
+      function resetInterval() {
+        clearInterval(slideInterval);
+        startSlideShow();
+      }
+      
+      function startSlideShow() {
+        slideInterval = setInterval(() => navigate(1), 5000);
+      }
+      
+      // Start the slideshow
+      startSlideShow();
+      
+      // College Switcher Functionality
+      const colleges = [
+        { name: "PLP", logo: "images/logo.png" },
+        { name: "CBA", logo: "images/CBA.png" },
+        { name: "CAS", logo: "images/CAS.jpg" },
+        { name: "CIHM", logo: "images/CIHM.png" },
+        { name: "CCS", logo: "images/CCS.png" },
+        { name: "COED", logo: "images/COED.png" },
+        { name: "COE", logo: "images/COE.jpg" },
+        { name: "CON", logo: "images/C_O_N.png" }
+      ];
+      const collegeNameDisplay = document.getElementById('collegeName');
+      const collegePrevBtn = document.getElementById('collegePrevBtn');
+      const collegeNextBtn = document.getElementById('collegeNextBtn');
+      let collegeIndex = 0;
+      let collegeInterval;
+      
+      // Update college name display
+      const collegeLogo = document.getElementById('collegeLogo');
 
-  // Content data for each image
-  const contentData = [
-    {
-      title: "25th Silver Anniversary of PLP",
-      description: "The 25th anniversary of Pamantasan ng Lungsod ng Pasig celebrated on March 15 2025",
-      date: "March 15 2025"
-    },
-    {
-      title: "23rd Anniversary of PLP Gawad Parangal",
-      description: "Gave light to those who achieved greatness on the 23rd anniversary of Pamantasan ng Lungsod ng Pasig",
-      date: "March 15 2023"
-    },
-    {
-      title: "24th Anniversary of PLP",
-      description: "Mangarap, Manindigan, Magtagumpay HIRAYA MANAWARI",
-      date: "March 15 2024"
-    }
-  ];
+      function updateCollegeDisplay() {
+        collegeNameDisplay.textContent = colleges[collegeIndex].name;
+        collegeLogo.src = colleges[collegeIndex].logo;
+        collegeLogo.alt = `${colleges[collegeIndex].name} Logo`;
 
-  // Initialize first image and content
-  updateContent(0);
-
-  arrowLeft.addEventListener('click', function() {
-    navigate(-1);
-  });
-
-  arrowRight.addEventListener('click', function() {
-    navigate(1);
-  });
-
-  function navigate(direction) {
-    images[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + direction + images.length) % images.length;
-    images[currentIndex].classList.add('active');
-    updateContent(currentIndex);
-  }
-
-  function updateContent(index) {
-    infoTitle.textContent = contentData[index].title;
-    infoDescription.textContent = contentData[index].description;
-    infoDate.textContent = contentData[index].date;
-  }
-});
+        // Optional animation
+        collegeNameDisplay.classList.add('animate');
+        setTimeout(() => {
+          collegeNameDisplay.classList.remove('animate');
+        }, 500);
+      }
+      
+      // Navigate through colleges
+      function navigateCollege(direction) {
+        collegeIndex = (collegeIndex + direction + colleges.length) % colleges.length;
+        updateCollegeDisplay();
+        resetCollegeInterval();
+      }
+      
+      // Reset interval when manually navigating
+      function resetCollegeInterval() {
+        clearInterval(collegeInterval);
+        startCollegeSlideShow();
+      }
+      
+      // Start the college slideshow
+      function startCollegeSlideShow() {
+        collegeInterval = setInterval(() => navigateCollege(1), 5000);
+      }
+      
+      // Button event listeners
+      collegePrevBtn.addEventListener('click', () => navigateCollege(-1));
+      collegeNextBtn.addEventListener('click', () => navigateCollege(1));
+      
+      // Initialize
+      updateCollegeDisplay();
+      startCollegeSlideShow();
+      
+      // Pause on hover
+      const collegeSwitcher = document.querySelector('.college-switcher-container');
+      collegeSwitcher.addEventListener('mouseenter', () => clearInterval(collegeInterval));
+      collegeSwitcher.addEventListener('mouseleave', startCollegeSlideShow);
+    });
+    
   </script>
 </body>
 </html>
