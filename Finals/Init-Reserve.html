@@ -5,82 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLP Building Navigation</title>
     <style>
-        :root {
-            --primary-color: #0056b3;
-            --secondary-color: #003366;
-            --accent-color: #ffcc00;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
         }
         
         body {
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            line-height: 1.6;
+            background-color: #f5f5f5;
         }
         
         header {
-            background-color: var(--primary-color);
+            background-color: #004aad;
             color: white;
-            padding: 1rem 2rem;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow);
-            position: relative;
-            z-index: 100;
-        }
-        
-        .logo {
-            display: flex;
             align-items: center;
         }
         
         .logo h1 {
-            font-size: 1.5rem;
-            margin-left: 0.5rem;
+            font-size: 1.2rem;
         }
         
         .logo span {
-            font-weight: bold;
-            color: var(--accent-color);
+            color: #ffcc00;
         }
         
         .hamburger {
-            display: none;
-            cursor: pointer;
             font-size: 1.5rem;
+            cursor: pointer;
         }
         
         .nav-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 10px;
         }
         
         .btn {
-            padding: 0.5rem 1rem;
+            padding: 8px 15px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
         }
         
         .btn-primary {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: #e6b800;
+            background-color: #ffcc00;
+            color: #004aad;
         }
         
         .btn-secondary {
@@ -88,23 +61,137 @@
             color: white;
             border: 1px solid white;
         }
+
+        /* New Buildings Section */
+        .buildings-section {
+            padding: 20px;
+            margin: 20px 0;
+        }
         
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .section-title {
+            color: #004aad;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ffcc00;
+        }
+        
+        .buildings-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 10px 0;
+            scrollbar-width: thin;
+            scrollbar-color: #004aad #f5f5f5;
+        }
+        
+        .buildings-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .buildings-container::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        
+        .buildings-container::-webkit-scrollbar-thumb {
+            background-color: #004aad;
+            border-radius: 10px;
+        }
+        
+        .building-card {
+            flex: 0 0 300px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .building-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        
+        .building-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .building-info {
+            padding: 15px;
+        }
+        
+        .building-info h3 {
+            margin-bottom: 10px;
+            color: #004aad;
+        }
+        
+        .building-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* New Offices Section */
+        .offices-section {
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .office-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .office-category {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .category-title {
+            color: #004aad;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #ffcc00;
+        }
+        
+        .office-list {
+            list-style-type: none;
+        }
+        
+        .office-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .office-item:last-child {
+            border-bottom: none;
+        }
+        
+        .office-icon {
+            margin-right: 10px;
+            color: #004aad;
         }
         
         .sidebar {
             width: 250px;
-            height: 100vh;
-            background-color: var(--secondary-color);
-            color: white;
+            background-color: white;
+            height: calc(100vh - 60px);
             position: fixed;
-            top: 0;
             left: -250px;
-            transition: all 0.3s ease;
-            z-index: 90;
-            padding-top: 80px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            top: 60px;
+            transition: left 0.3s;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            z-index: 1000;
         }
         
         .sidebar.active {
@@ -116,26 +203,24 @@
         }
         
         .sidebar-nav li {
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-nav li:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding-left: 2.2rem;
+            border-bottom: 1px solid #eee;
         }
         
         .sidebar-nav li.active {
-            background-color: var(--primary-color);
-            border-left: 4px solid var(--accent-color);
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        
+        .sidebar-nav li:hover {
+            background-color: #f5f5f5;
         }
         
         .main-content {
             margin-left: 0;
-            padding: 2rem;
-            transition: all 0.3s ease;
+            padding: 20px;
+            transition: margin-left 0.3s;
         }
         
         .main-content.shifted {
@@ -143,38 +228,48 @@
         }
         
         .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 162, 255, 0.64);
             text-align: center;
-            padding: 3rem 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1200x400') no-repeat center center;
-            background-size: cover;
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 2rem;
+            padding: 10px 20px;
         }
-        
+
         .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0;
+            color: #ffffff;
+            letter-spacing: 5px;
         }
-        
+
         .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
+            font-size: 15px;
+            font-weight: 800;
+            margin: 5px 0 0;
+            color: #ffffff;
+            letter-spacing: 3px;
         }
         
         .buildings {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 20px;
         }
         
         .building-card {
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
         }
         
         .building-card:hover {
@@ -182,19 +277,18 @@
         }
         
         .building-img {
-            height: 200px;
-            background-color: #ddd;
+            height: 180px;
             background-size: cover;
             background-position: center;
         }
         
         .building-info {
-            padding: 1.5rem;
+            padding: 15px;
         }
         
         .building-info h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
+            margin-bottom: 10px;
+            color: #004aad;
         }
         
         .modal {
@@ -204,86 +298,282 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            background-color: rgba(0,0,0,0.5);
             justify-content: center;
             align-items: center;
+            z-index: 1001;
         }
         
         .modal-content {
             background-color: white;
-            padding: 2rem;
+            padding: 20px;
             border-radius: 8px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
         }
         
         .close-btn {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 10px;
+            right: 10px;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--dark-color);
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 15px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 5px;
             font-weight: bold;
         }
         
         .form-group input {
             width: 100%;
-            padding: 0.75rem;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
         }
         
         .submit-btn {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: var(--primary-color);
+            background-color: #004aad;
             color: white;
+            padding: 10px 15px;
             border: none;
             border-radius: 4px;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            width: 100%;
+            font-weight: bold;
         }
         
-        .submit-btn:hover {
-            background-color: var(--secondary-color);
+        /* Building Layout Styles */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 60px);
         }
         
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-            
-            .nav-buttons {
-                display: none;
-            }
-            
-            .main-content.shifted {
-                margin-left: 0;
-            }
-            
-            .sidebar.active ~ .main-content {
-                margin-left: 0;
-            }
+        .logo-bar {
+            background-color: #004aad;
+            color: white;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .building-icon {
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        
+        #sidebar {
+            width: 250px;
+            background-color: white;
+            padding: 15px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #004aad;
+        }
+        
+        .dropdown {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dropdown:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .dropdown-content {
+            display: none;
+            padding-left: 15px;
+        }
+        
+        .dropdown-content div {
+            padding: 8px 0;
+            cursor: pointer;
+        }
+        
+        .dropdown-content div:hover {
+            color: #004aad;
+        }
+        
+        .view-rooms {
+            padding: 10px;
+            margin-top: 15px;
+            background-color: #004aad;
+            color: white;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .reserve-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .reserve-section a {
+            color: #004aad;
+            text-decoration: none;
+        }
+        
+        #main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .floor-map {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-height: 400px;
+            position: relative;
+            height: 500px;
+        }
+        
+        .room {
+            position: absolute;
+            padding: 10px;
+            background-color: #e6f2ff;
+            border: 1px solid #004aad;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .room:hover {
+            background-color: #cce0ff;
+        }
+        
+        .room.active {
+            background-color: #004aad;
+            color: white;
+        }
+        
+        .library {
+            width: 200px;
+            height: 100px;
+            top: 50px;
+            left: 100px;
+        }
+        
+        .conference {
+            width: 150px;
+            height: 80px;
+            top: 200px;
+            left: 150px;
+        }
+        
+        .room1 {
+            width: 100px;
+            height: 80px;
+            top: 350px;
+            left: 50px;
+        }
+        
+        .room2 {
+            width: 100px;
+            height: 80px;
+            top: 350px;
+            left: 200px;
+        }
+        
+        .room3 {
+            width: 100px;
+            height: 80px;
+            top: 350px;
+            left: 350px;
+        }
+        
+        .footer-bar {
+            background-color: #004aad;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        .time-btn {
+            background-color: #ffcc00;
+            color: #004aad;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        /* Reservation Modal Styles */
+        #reservationModal {
+            display: none;
+        }
+        
+        #reservationModal .modal-content {
+            width: 90%;
+            max-width: 900px;
+            padding: 20px;
+        }
+        
+        #reservationModal .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        #reservationModal .close:hover {
+            color: black;
+        }
+        
+        #date-select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #004aad;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
         }
     </style>
 </head>
@@ -292,160 +582,298 @@
         <div class="logo">
             <h1>Pamantasan ng Lungsod ng Pasig || <span>PLP SPACE</span></h1>
         </div>
-        <div class="hamburger">☰</div>
+        <div class="hamburger" id="mainHamburger">☰</div>
         <div class="nav-buttons">
             <button class="btn btn-secondary" id="loginBtn">Login</button>
-            <button class="btn btn-primary">ENTER</button>
+            <button class="btn btn-primary" id="enterBtn">ENTER</button>
         </div>
     </header>
     
-    <aside class="sidebar">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
         <ul class="sidebar-nav">
-            <li class="active">PAMANTASAN NG LUNGSOD NG PASIG - BUILDINGS</li>
-            <li>MAIN BUILDING</li>
-            <li>CHIM BUILDING</li>
-            <li>LIBRARY</li>
-            <li>SCIENCE LABORATORIES</li>
-            <li>ADMINISTRATION BUILDING</li>
-            <li>AUDITORIUM</li>
-            <li>GYMNASIUM</li>
+            <li class="active">Home</li>
+            <li>Buildings</li>
+            <li>Offices</li>
+            <li>Classrooms</li>
+            <li>Facilities</li>
+            <li>About</li>
+            <li>Contact</li>
         </ul>
-    </aside>
+    </div>
     
-    <main class="main-content">
-        <section class="hero" style="background-image: url('images/logo2.png'); background-size: cover; background-position: center; object-fit: fill;">
-            <h2>PLP BUILDING NAVIGATION</h2>
-            <p>Find your way around the Pamantasan ng Lungsod ng Pasig campus with our interactive building navigation system.</p>
-        </section>          
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeLogin">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Building Layout Modal -->
+    <div class="modal" id="buildingModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeBuilding">&times;</span>
+            <div id="buildingLayoutContent">
+                <!-- Building layout content will be loaded here -->
+            </div>
+        </div>
+    </div>
+    
+    <main class="main-content" id="mainContent">
+        <section class="hero" style="background-image: url('images/background2.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; height: 300px;">
+            <div class="hero-content">
+              <h2>PLP BUILDING NAVIGATION</h2>
+              <p>Find your way around the Pamantasan ng Lungsod ng Pasig campus with our interactive building navigation system.</p>
+            </div>
+          </section>
+          
         
-        <section class="buildings">
-            <div class="building-card">
-                <div class="building-img" style="background-image: url('images/bldg1.JPG');"></div>
-                <div class="building-info">
-                    <h3>MAIN BUILDING</h3>
-                    <p>The central hub of PLP, housing most administrative offices and classrooms.</p>
+        <!-- New Buildings Section -->
+        <section class="buildings-section">
+            <h2 class="section-title">University Buildings</h2>
+            <div class="buildings-container" id="buildingsContainer">
+                <!-- Building cards will be added dynamically by admin -->
+                <div class="building-card" onclick="showBuildingLayout('Main Building')">
+                    <div class="building-img" style="background-image: url('images/bldg1.JPG');"></div>
+                    <div class="building-info">
+                        <h3>MAIN BUILDING</h3>
+                        <p>The central hub of PLP, housing most administrative offices and classrooms.</p>
+                    </div>
+                </div>
+                
+                <div class="building-card" onclick="showBuildingLayout('CIHM Building')">
+                    <div class="building-img" style="background-image: url('images/bldg2.JPG');"></div>
+                    <div class="building-info">
+                        <h3>CHIM BUILDING</h3>
+                        <p>Home to the College of Hospitality and Industry Management programs.</p>
+                    </div>
+                </div>
+                
+                <div class="building-card" onclick="showBuildingLayout('Library')">
+                    <div class="building-img" style="background-image: url('images/SampleEvent1.png');"></div>
+                    <div class="building-info">
+                        <h3>LIBRARY</h3>
+                        <p>The university's knowledge center with extensive academic resources.</p>
+                    </div>
+                </div>
+                
+                <!-- Sample additional buildings that would be added by admin -->
+                <div class="building-card" onclick="showBuildingLayout('Science Building')">
+                    <div class="building-img" style="background-image: url('images/placeholder.jpg');"></div>
+                    <div class="building-info">
+                        <h3>SCIENCE BUILDING</h3>
+                        <p>State-of-the-art laboratories for science and research programs.</p>
+                    </div>
+                </div>
+                
+                <div class="building-card" onclick="showBuildingLayout('Gymnasium')">
+                    <div class="building-img" style="background-image: url('images/placeholder.jpg');"></div>
+                    <div class="building-info">
+                        <h3>GYMNASIUM</h3>
+                        <p>Sports and physical education facilities for students and faculty.</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="building-card">
-                <div class="building-img" style="background-image: url('images/bldg2.JPG');"></div>
-                <div class="building-info">
-                    <h3>CHIM BUILDING</h3>
-                    <p>Home to the College of Hospitality and Industry Management programs.</p>
+        </section>
+        
+        <!-- New Offices Section -->
+        <section class="offices-section">
+            <h2 class="section-title">University Offices</h2>
+            <div class="office-categories">
+                <div class="office-category">
+                    <h3 class="category-title">Administration</h3>
+                    <ul class="office-list">
+                        <li class="office-item" onclick="showOfficeInfo('Office of the President')">
+                            <span class="office-icon">👔</span> Office of the President
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Office of the VPAA')">
+                            <span class="office-icon">👔</span> Office of the VPAA
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Office of the Registrar')">
+                            <span class="office-icon">📋</span> Office of the Registrar
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Human Resources')">
+                            <span class="office-icon">👥</span> Human Resources
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            
-            <div class="building-card">
-                <div class="building-img" style="background-image: url('images/SampleEvent1.png');"></div>
-                <div class="building-info">
-                    <h3>LIBRARY</h3>
-                    <p>The university's knowledge center with extensive academic resources.</p>
+                
+                <div class="office-category">
+                    <h3 class="category-title">Student Services</h3>
+                    <ul class="office-list">
+                        <li class="office-item" onclick="showOfficeInfo('Student Services Office')">
+                            <span class="office-icon">🎓</span> Student Services Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Guidance Office')">
+                            <span class="office-icon">💬</span> Guidance Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Scholarship Office')">
+                            <span class="office-icon">💰</span> Scholarship Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Student Council')">
+                            <span class="office-icon">👥</span> Student Council
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="office-category">
+                    <h3 class="category-title">Academic Support</h3>
+                    <ul class="office-list">
+                        <li class="office-item" onclick="showOfficeInfo('Library')">
+                            <span class="office-icon">📚</span> Library
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('MIS Office')">
+                            <span class="office-icon">💻</span> MIS Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Research Office')">
+                            <span class="office-icon">🔬</span> Research Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('Quality Assurance')">
+                            <span class="office-icon">🏆</span> Quality Assurance
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="office-category">
+                    <h3 class="category-title">College Deans</h3>
+                    <ul class="office-list">
+                        <li class="office-item" onclick="showOfficeInfo('CBA Dean')">
+                            <span class="office-icon">👨‍🏫</span> CBA Dean's Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('CAS Dean')">
+                            <span class="office-icon">👩‍🏫</span> CAS Dean's Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('CIHM Dean')">
+                            <span class="office-icon">👨‍🍳</span> CIHM Dean's Office
+                        </li>
+                        <li class="office-item" onclick="showOfficeInfo('COED Dean')">
+                            <span class="office-icon">👩‍🏫</span> COED Dean's Office
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
     </main>
     
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-          <span class="close-btn">&times;</span>
-          <h2>Login to PLP SPACE</h2>
-          <form id="loginForm">
-            <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" id="username" required>
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" id="password" required>
-            </div>
-            <button type="submit" class="submit-btn">Login</button>
-            <p id="loginError" style="color: red; display: none;">Incorrect username or password</p>
-          </form>
-        </div>
-      </div>
-    
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-
-            // Hardcoded credentials
-            const validUsername = "PLPadmin";
-            const validPassword = "admin123";
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMsg = document.getElementById('loginError');
-
-            if (username === validUsername && password === validPassword) {
-            // Clear the form
-            document.getElementById('loginForm').reset();
-            // Redirect on success
-            window.location.href = "reserve.html";
-            } else {
-            // Show error message
-            errorMsg.style.display = "block";
+        // DOM Elements
+        const mainHamburger = document.getElementById('mainHamburger');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLogin = document.getElementById('closeLogin');
+        const buildingModal = document.getElementById('buildingModal');
+        const closeBuilding = document.getElementById('closeBuilding');
+        const buildingLayoutContent = document.getElementById('buildingLayoutContent');
+        
+        // Toggle sidebar
+        mainHamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        });
+        
+        // Login modal
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+        });
+        
+        closeLogin.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+            if (e.target === buildingModal) {
+                buildingModal.style.display = 'none';
             }
         });
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sidebar toggle
-            const hamburger = document.querySelector('.hamburger');
-            const sidebar = document.querySelector('.sidebar');
-            const mainContent = document.querySelector('.main-content');
+        
+        // Function to show building layout
+        function showBuildingLayout(buildingName) {
+            // Generate building layout content based on building name
+            let layoutHTML = `
+                <h2>${buildingName} Layout</h2>
+                <div class="floor-map">
+                    <div class="room library" onclick="selectRoom('Library')">Library</div>
+                    <div class="room conference" onclick="selectRoom('Conference Room')">Conference Room</div>
+                    <div class="room room1" onclick="selectRoom('Room 101')">Room 101</div>
+                    <div class="room room2" onclick="selectRoom('Room 102')">Room 102</div>
+                    <div class="room room3" onclick="selectRoom('Room 103')">Room 103</div>
+                </div>
+                <div class="reserve-section">
+                    <p>Selected: <span id="selectedRoom">None</span></p>
+                    <a href="#" onclick="showReservationModal()">Reserve this room</a>
+                </div>
+            `;
             
-            hamburger.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-                mainContent.classList.toggle('shifted');
-            });
-            
-            // Login modal
-            const loginBtn = document.getElementById('loginBtn');
-            const loginModal = document.getElementById('loginModal');
-            const closeBtn = document.querySelector('.close-btn');
-            
-            loginBtn.addEventListener('click', function() {
-                loginModal.style.display = 'flex';
-            });
-            
-            closeBtn.addEventListener('click', function() {
-                loginModal.style.display = 'none';
-            });
-            
-            window.addEventListener('click', function(event) {
-                if (event.target === loginModal) {
-                    loginModal.style.display = 'none';
-                }
-            });
-            
-            // Form submission
-            const loginForm = document.getElementById('loginForm');
-            
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                
-                // Here you would typically send this data to a server
-                console.log('Login attempt:', { username, password });
-                
-                // For demo purposes, just close the modal
-                loginModal.style.display = 'none';
-                alert('Login functionality would be implemented here');
-            });
-            
-            // Building navigation
-            const buildingItems = document.querySelectorAll('.sidebar-nav li');
-            
-            buildingItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    buildingItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // In a real app, this would load the selected building's content
-                    const buildingName = this.textContent.trim();
-                    console.log('Selected building:', buildingName);
-                });
-            });
+            buildingLayoutContent.innerHTML = layoutHTML;
+            buildingModal.style.display = 'flex';
+        }
+        
+        closeBuilding.addEventListener('click', () => {
+            buildingModal.style.display = 'none';
         });
+        
+        // Function to select a room (called from building layout)
+        function selectRoom(roomName) {
+            document.getElementById('selectedRoom').textContent = roomName;
+            // Highlight the selected room
+            document.querySelectorAll('.room').forEach(room => {
+                room.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        // Function to show office information
+        function showOfficeInfo(officeName) {
+            alert(`Showing information for ${officeName}\nThis would display detailed information about the office in a real implementation.`);
+        }
+        
+        // Function to show reservation modal
+        function showReservationModal() {
+            alert('Reservation modal would appear here in a full implementation.');
+        }
+        
+        // Function to add a new building (for admin use)
+        function addNewBuilding(buildingData) {
+            const container = document.getElementById('buildingsContainer');
+            const newCard = document.createElement('div');
+            newCard.className = 'building-card';
+            newCard.onclick = function() { showBuildingLayout(buildingData.name); };
+            
+            newCard.innerHTML = `
+                <div class="building-img" style="background-image: url('${buildingData.imageUrl}');"></div>
+                <div class="building-info">
+                    <h3>${buildingData.name.toUpperCase()}</h3>
+                    <p>${buildingData.description}</p>
+                </div>
+            `;
+            
+            container.appendChild(newCard);
+        }
+        
+        // Sample usage for admin to add a new building:
+        // addNewBuilding({
+        //     name: "New Building",
+        //     imageUrl: "images/new-building.jpg",
+        //     description: "Description of the new building"
+        // });
     </script>
 </body>
-</html>
+</html>s

@@ -223,7 +223,7 @@
 
     /* Hero Section */
     .hero {
-      margin-left: 80px;
+      margin-left: 0;
       position: relative;
     }
     
@@ -237,11 +237,11 @@
     .overlay-text {
       position: absolute;
       bottom: 0;
-      left: 0;
+      left: 20px;
       right: 0;
       text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 3rem;
+      font-weight: 800;
       color: var(--primary-color);
       background-color: rgba(255, 255, 255, 0.85);
       padding: 20px 0;
@@ -829,6 +829,162 @@
       max-height: 100%;
       object-fit: contain; /* keeps image aspect ratio while fitting */
     }
+
+    /* Featured Rooms Section */
+.featured-rooms-section {
+  margin: 60px auto;
+  padding: 0 60px;
+  margin-left: 100px;
+  max-width: 1400px;
+}
+
+.section-title {
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: var(--accent-color);
+  margin: 15px auto 0;
+}
+
+.room-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+.room-category {
+  background-color: var(--light-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.category-title {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.room-gallery {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--light-bg);
+}
+
+.room-gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.room-gallery::-webkit-scrollbar-track {
+  background: var(--light-bg);
+  border-radius: 10px;
+}
+
+.room-gallery::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 10px;
+}
+
+.room-card {
+  flex: 0 0 300px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.room-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.room-info {
+  padding: 20px;
+}
+
+.room-info h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.room-info p {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .featured-rooms-section {
+    padding: 0 30px;
+    margin-left: 80px;
+  }
+  
+  .room-category {
+    padding: 20px;
+  }
+  
+  .room-card {
+    flex: 0 0 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .category-title {
+    font-size: 1.5rem;
+  }
+  
+  .room-gallery {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 576px) {
+  .featured-rooms-section {
+    margin-left: 50px;
+    padding: 0 20px;
+  }
+  
+  .room-category {
+    padding: 15px;
+  }
+  
+  .room-card {
+    flex: 0 0 250px;
+  }
+  
+  .room-info {
+    padding: 15px;
+  }
+}
   </style>
 </head>
 <body>
@@ -853,9 +1009,9 @@
 
   <!-- Side Navigation -->
   <div id="sidebar" class="sidebar">
-    <div class="nav-item" onclick="location.href='RMMS.html'">
+    <div class="nav-item" onclick="location.href='Home.html'">
       <img src="images/home-icon.png" alt="Home" />
-      <span>Landing Page</span>
+      <span>Home</span>
     </div>
     
     <div class="nav-item" onclick="location.href='Init-Reserve.html'">
@@ -898,7 +1054,6 @@
     </div>
   </section>
 
-
   <div class="media-container">
     <!-- Video Section (Left) -->
     <div class="video-section">
@@ -939,6 +1094,95 @@
     </div>
   </div>
 
+      <!-- Featured Rooms Section -->
+    <div class="featured-rooms-section">
+      <h2 class="section-title">Featured Rooms</h2>
+      <div class="room-categories">
+        <!-- Academic Rooms -->
+        <div class="room-category">
+          <h3 class="category-title">Academic Rooms</h3>
+          <div class="room-gallery">
+            <div class="room-card">
+              <img src="images/room1.jpg" alt="Computer Laboratory">
+              <div class="room-info">
+                <h4>Computer Laboratory</h4>
+                <p>Building A, 2nd Floor</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/room2.jpg" alt="Science Laboratory">
+              <div class="room-info">
+                <h4>Science Laboratory</h4>
+                <p>Building B, 3rd Floor</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/room3.jpg" alt="Lecture Hall">
+              <div class="room-info">
+                <h4>Lecture Hall</h4>
+                <p>Main Building, 1st Floor</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Event Areas -->
+        <div class="room-category">
+          <h3 class="category-title">Event Areas</h3>
+          <div class="room-gallery">
+            <div class="room-card">
+              <img src="images/fransjie.jpg" alt="Auditorium">
+              <div class="room-info">
+                <h4>Auditorium</h4>
+                <p>Main Building, Ground Floor</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/belleza.jpg" alt="Conference Room">
+              <div class="room-info">
+                <h4>Conference Room</h4>
+                <p>Admin Building, 2nd Floor</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/event3.jpg" alt="Gymnasium">
+              <div class="room-info">
+                <h4>Gymnasium</h4>
+                <p>Building A, 8th Floor</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Open Spaces -->
+        <div class="room-category">
+          <h3 class="category-title">Open Spaces</h3>
+          <div class="room-gallery">
+            <div class="room-card">
+              <img src="images/open1.jpg" alt="University Facade">
+              <div class="room-info">
+                <h4>University Facade</h4>
+                <p>Central Campus</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/Aruiz.jpg" alt="Garden Area">
+              <div class="room-info">
+                <h4>Garden Area</h4>
+                <p>East Wing</p>
+              </div>
+            </div>
+            <div class="room-card">
+              <img src="images/ferdinand.jpg" alt="Student Lounge">
+              <div class="room-info">
+                <h4>Student Lounge</h4>
+                <p>Building A, Ground Floor</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <!-- College Switcher Section -->
   <div class="college-switcher-section">
     <div class="college-switcher-container">

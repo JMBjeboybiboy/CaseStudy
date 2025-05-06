@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMMS Admin Dashboard</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 70px;
+            --topbar-height: 60px;
+            --transition-speed: 0.3s;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overscroll-behavior-y: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: width var(--transition-speed);
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background-color: #1a252f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--topbar-height);
+        }
+
+        .sidebar-header h3 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-menu li {
+            position: relative;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .sidebar-menu li a:hover, 
+        .sidebar-menu li a.active {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .sidebar-menu li a i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+            min-width: 20px;
+        }
+
+        .sidebar-collapsed .menu-text {
+            display: none;
+        }
+
+        .sidebar-collapsed .sidebar-menu li a {
+            justify-content: center;
+        }
+
+        .sidebar-collapsed .sidebar-menu li a i {
+            margin-right: 0;
+            font-size: 1.5rem;
+        }
+
+        /* Topbar Styles */
+        .topbar {
+            height: var(--topbar-height);
+            background-color: #253144;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 999;
+            transition: left var(--transition-speed);
+        }
+
+        .sidebar-collapsed + .main-content .topbar {
+            left: var(--sidebar-collapsed-width);
+        }
+
+        .topbar-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            background-color: #cecece;
+            padding: 20px;
+            transition: margin-left var(--transition-speed);
+            margin-top: var(--topbar-height);
+        }
+
+        .sidebar-collapsed + .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 10px;
+        }
+
+        .subsection {
+            margin-bottom: 30px;
+        }
+
+        .subsection-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Table Styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .table th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .table tr:hover {
+            background-color: var(--light-gray);
+        }
+
+        .table img {
+            width: 80px;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--success-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Search and Filter */
+        .search-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            min-width: 150px;
+            padding: 8px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 4px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: var(--sidebar-collapsed-width);
+            }
+
+            .sidebar .menu-text {
+                display: none;
+            }
+
+            .sidebar .sidebar-menu li a {
+                justify-content: center;
+            }
+
+            .sidebar .sidebar-menu li a i {
+                margin-right: 0;
+                font-size: 1.5rem;
+            }
+
+            .main-content {
+                margin-left: var(--sidebar-collapsed-width);
+            }
+
+            .topbar {
+                left: var(--sidebar-collapsed-width);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .btn-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 class="menu-text">RMMS Admin</h3>
+            <button class="toggle-btn" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
+            <li><a href="#home-management"><i class="fas fa-home"></i><span class="menu-text">Home Page Management</span></a></li>
+            <li><a href="#video-section"><i class="fas fa-video"></i><span class="menu-text">Video Section</span></a></li>
+            <li><a href="#image-switcher"><i class="fas fa-images"></i><span class="menu-text">Image Switcher</span></a></li>
+            <li><a href="#featured-rooms"><i class="fas fa-star"></i><span class="menu-text">Featured Rooms</span></a></li>
+            <li><a href="#navigation-reservation"><i class="fas fa-map-marked-alt"></i><span class="menu-text">Navigation & Reservation</span></a></li>
+            <li><a href="#buildings"><i class="fas fa-building"></i><span class="menu-text">Buildings</span></a></li>
+            <li><a href="#floors"><i class="fas fa-layer-group"></i><span class="menu-text">Floors</span></a></li>
+            <li><a href="#rooms"><i class="fas fa-door-open"></i><span class="menu-text">Rooms</span></a></li>
+            <li><a href="#file-management"><i class="fas fa-file-alt"></i><span class="menu-text">File Management</span></a></li>
+            <li><a href="#settings"><i class="fas fa-cog"></i><span class="menu-text">Settings</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div class="topbar-title">Admin Dashboard</div>
+            <div class="admin-profile">
+                <div class="admin-avatar">A</div>
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section class="section" id="dashboard">
+            <h2 class="section-title">Dashboard Overview</h2>
+            <p>Welcome to the Room Management and Reservation System (RMMS) Admin Dashboard.</p>
+        </section>
+
+        <!-- Home Page Management Section -->
+        <section class="section" id="home-management">
+            <h2 class="section-title">Home Page Management</h2>
+            
+            <!-- Video Section -->
+            <div class="subsection" id="video-section">
+                <h3 class="subsection-title">Video Section</h3>
+                <div class="form-group">
+                    <label for="video-url">Video URL</label>
+                    <input type="text" id="video-url" class="form-control" placeholder="Enter YouTube or Vimeo URL">
+                </div>
+                <div class="form-group">
+                    <label for="video-description">Description</label>
+                    <textarea id="video-description" class="form-control" placeholder="Enter video description"></textarea>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary">Add Video</button>
+                    <button class="btn btn-warning">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+            
+            <!-- Image Switcher -->
+            <div class="subsection" id="image-switcher">
+                <h3 class="subsection-title">Image Switcher</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/80" alt="Placeholder"></td>
+                            <td>Welcome Event</td>
+                            <td>Intro to RMMS</td>
+                            <td>2025-06-01</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add New Image + Info</button>
+            </div>
+            
+            <!-- Featured Rooms -->
+            <div class="subsection" id="featured-rooms">
+                <h3 class="subsection-title">Featured Rooms</h3>
+                <div class="form-group">
+                    <label for="select-room">Select Room</label>
+                    <select id="select-room" class="form-control">
+                        <option value="">-- Select Room --</option>
+                        <option value="101">Room 101</option>
+                        <option value="202">Room 202</option>
+                        <option value="303">Room 303</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Mark as Featured</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <button class="btn btn-success">Save</button>
+            </div>
+        </section>
+
+        <!-- Navigation & Reservation Section -->
+        <section class="section" id="navigation-reservation">
+            <h2 class="section-title">Navigation & Reservation</h2>
+            
+            <!-- Buildings -->
+            <div class="subsection" id="buildings">
+                <h3 class="subsection-title">Buildings</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Floors</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Main Building</td>
+                            <td>8</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add Building</button>
+            </div>
+            
+            <!-- Floors -->
+            <div class="subsection" id="floors">
+                <h3 class="subsection-title">Floors</h3>
+                <div class="form-group">
+                    <label for="select-building">Select Building</label>
+                    <select id="select-building" class="form-control">
+                        <option value="">-- Select Building --</option>
+                        <option value="main">Main Building</option>
+                        <option value="science">Science Building</option>
+                        <option value="library">Library</option>
+                    </select>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Floor #</th>
+                            <th>Rooms</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+                <button class="btn btn-primary">Add Floor</button>
+            </div>
+            
+            <!-- Rooms -->
+            <div class="subsection" id="rooms">
+                <h3 class="subsection-title">Rooms</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room #</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>110</td>
+                            <td>Available</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>205</td>
+                            <td>Occupied</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add Room</button>
+            </div>
+        </section>
+
+        <!-- File Management Section -->
+        <section class="section" id="file-management">
+            <h2 class="section-title">File Management</h2>
+            <div class="search-filter">
+                <div class="search-box">
+                    <input type="text" class="form-control" placeholder="Search by building, room, or date">
+                </div>
+                <div class="filter-group">
+                    <select class="filter-select">
+                        <option value="">All Buildings</option>
+                        <option value="main">Main Building</option>
+                        <option value="science">Science Building</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">All Floors</option>
+                        <option value="1">Floor 1</option>
+                        <option value="2">Floor 2</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="available">Available</option>
+                        <option value="occupied">Occupied</option>
+                    </select>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Building</th>
+                        <th>Floor</th>
+                        <th>Room</th>
+                        <th>Status</th>
+                        <th>Reservation Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Main Building</td>
+                        <td>1</td>
+                        <td>110</td>
+                        <td>Available</td>
+                        <td>No reservations</td>
+                    </tr>
+                    <tr>
+                        <td>Main Building</td>
+                        <td>2</td>
+                        <td>205</td>
+                        <td>Occupied</td>
+                        <td>Reserved until 2025-07-15</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="btn-group">
+                <button class="btn btn-primary">Search</button>
+                <button class="btn btn-success">Print</button>
+                <button class="btn btn-warning">Export CSV</button>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="section" id="settings">
+            <h2 class="section-title">Settings</h2>
+            <p>System settings and configurations will be displayed here.</p>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const toggleBtn = document.getElementById('toggleSidebar');
+            const sidebar = document.getElementById('sidebar');
+            
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('sidebar-collapsed');
+            });
+
+            // Highlight active menu item based on scroll position
+            const sections = document.querySelectorAll('.section');
+            const menuItems = document.querySelectorAll('.sidebar-menu li a');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                menuItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href').includes(current)) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // Make sidebar links scroll smoothly
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
