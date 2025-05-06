@@ -170,6 +170,7 @@
             border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
         
         .office-item:last-child {
@@ -291,6 +292,7 @@
             color: #004aad;
         }
         
+        /* Office Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -309,9 +311,10 @@
             padding: 20px;
             border-radius: 8px;
             width: 90%;
-            max-width: 500px;
+            max-width: 700px;
             max-height: 90vh;
             overflow-y: auto;
+            position: relative;
         }
         
         .close-btn {
@@ -320,6 +323,91 @@
             right: 10px;
             font-size: 1.5rem;
             cursor: pointer;
+            color: #666;
+        }
+        
+        .close-btn:hover {
+            color: #004aad;
+        }
+        
+        /* Office Info Modal Layout */
+        .office-modal-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        @media (min-width: 768px) {
+            .office-modal-content {
+                flex-direction: row;
+            }
+        }
+        
+        .office-image-container {
+            flex: 1;
+            min-height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+        
+        .office-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .office-name {
+            color: #004aad;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .office-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .head-label {
+            font-weight: bold;
+            color: #004aad;
+        }
+        
+        .head-name {
+            background-color: #f0f7ff;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .office-hours, .office-description, .office-purposes {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        .office-hours h4, .office-description h4, .office-purposes h4 {
+            color: #004aad;
+            margin-bottom: 5px;
+        }
+        
+        .modal-ok-btn {
+            background-color: #004aad;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+        
+        .modal-ok-btn:hover {
+            background-color: #003d8f;
         }
         
         .form-group {
@@ -631,6 +719,36 @@
         </div>
     </div>
     
+    <!-- Office Info Modal -->
+    <div class="modal" id="officeModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeOfficeModal">&times;</span>
+            <div class="office-modal-content">
+                <div class="office-image-container" id="officeImageContainer"></div>
+                <div class="office-details">
+                    <h2 class="office-name" id="officeName">Office Name</h2>
+                    <div class="office-head">
+                        <span class="head-label">Head:</span>
+                        <span class="head-name" id="officeHead">Name of Head</span>
+                    </div>
+                    <div class="office-hours">
+                        <h4>Working Hours</h4>
+                        <p id="officeHours">Monday to Friday, 8:00 AM - 5:00 PM</p>
+                    </div>
+                    <div class="office-description">
+                        <h4>Description</h4>
+                        <p id="officeDescription">Description of the office goes here.</p>
+                    </div>
+                    <div class="office-purposes">
+                        <h4>Purposes</h4>
+                        <p id="officePurposes">Main purposes and functions of this office.</p>
+                    </div>
+                    <button class="modal-ok-btn" id="officeModalOk">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <main class="main-content" id="mainContent">
         <section class="hero" style="background-image: url('images/background2.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 100%; height: 300px;">
             <div class="hero-content">
@@ -695,16 +813,16 @@
                 <div class="office-category">
                     <h3 class="category-title">Administration</h3>
                     <ul class="office-list">
-                        <li class="office-item" onclick="showOfficeInfo('Office of the President')">
+                        <li class="office-item" onclick="showOfficeInfo('Office of the President', 'President', 'Dr. Maria Santos', 'Monday-Friday: 8:00 AM - 5:00 PM', 'The highest administrative office in the university responsible for overall governance and strategic direction.', 'Setting university policies, representing the institution, and ensuring academic excellence.', 'images/office-president.jpg')">
                             <span class="office-icon">👔</span> Office of the President
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Office of the VPAA')">
+                        <li class="office-item" onclick="showOfficeInfo('Office of the VPAA', 'VPAA', 'Dr. Juan Dela Cruz', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Oversees all academic programs and ensures the quality of education in the university.', 'Academic planning, faculty development, curriculum review, and accreditation.', 'images/office-vpaa.jpg')">
                             <span class="office-icon">👔</span> Office of the VPAA
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Office of the Registrar')">
+                        <li class="office-item" onclick="showOfficeInfo('Office of the Registrar', 'Registrar', 'Ms. Anna Reyes', 'Monday-Friday: 8:00 AM - 5:00 PM, Saturday: 8:00 AM - 12:00 PM', 'Manages student records, enrollment, and academic documentation.', 'Maintaining student records, processing grades, issuing transcripts and diplomas.', 'images/office-registrar.jpg')">
                             <span class="office-icon">📋</span> Office of the Registrar
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Human Resources')">
+                        <li class="office-item" onclick="showOfficeInfo('Human Resources', 'HR Head', 'Mr. Carlos Mendoza', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Manages university personnel including hiring, benefits, and employee relations.', 'Recruitment, staff development, benefits administration, and policy implementation.', 'images/office-hr.jpg')">
                             <span class="office-icon">👥</span> Human Resources
                         </li>
                     </ul>
@@ -713,16 +831,16 @@
                 <div class="office-category">
                     <h3 class="category-title">Student Services</h3>
                     <ul class="office-list">
-                        <li class="office-item" onclick="showOfficeInfo('Student Services Office')">
+                        <li class="office-item" onclick="showOfficeInfo('Student Services Office', 'Director', 'Ms. Lorna Garcia', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Provides comprehensive support services to enhance student life and development.', 'Student activities, counseling, health services, and student organization support.', 'images/office-student.jpg')">
                             <span class="office-icon">🎓</span> Student Services Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Guidance Office')">
+                        <li class="office-item" onclick="showOfficeInfo('Guidance Office', 'Counselor', 'Ms. Teresa Cruz', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Provides counseling and psychological services to students.', 'Personal counseling, career guidance, and mental health support.', 'images/office-guidance.jpg')">
                             <span class="office-icon">💬</span> Guidance Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Scholarship Office')">
+                        <li class="office-item" onclick="showOfficeInfo('Scholarship Office', 'Coordinator', 'Mr. Robert Tan', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Administers scholarship programs and financial aid for students.', 'Scholarship processing, financial aid distribution, and donor relations.', 'images/office-scholarship.jpg')">
                             <span class="office-icon">💰</span> Scholarship Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Student Council')">
+                        <li class="office-item" onclick="showOfficeInfo('Student Council', 'President', 'John Doe', 'Monday-Friday: 9:00 AM - 4:00 PM', 'The official student government representing the student body.', 'Student advocacy, event organization, and student welfare programs.', 'images/office-council.jpg')">
                             <span class="office-icon">👥</span> Student Council
                         </li>
                     </ul>
@@ -731,16 +849,16 @@
                 <div class="office-category">
                     <h3 class="category-title">Academic Support</h3>
                     <ul class="office-list">
-                        <li class="office-item" onclick="showOfficeInfo('Library')">
+                        <li class="office-item" onclick="showOfficeInfo('Library', 'Librarian', 'Ms. Elena Torres', 'Monday-Friday: 8:00 AM - 7:00 PM, Saturday: 9:00 AM - 3:00 PM', 'The university library providing access to academic resources and study spaces.', 'Resource management, research support, and information literacy programs.', 'images/office-library.jpg')">
                             <span class="office-icon">📚</span> Library
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('MIS Office')">
+                        <li class="office-item" onclick="showOfficeInfo('MIS Office', 'Director', 'Engr. Mark Lopez', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Manages the university\'s information technology systems and infrastructure.', 'Network administration, system development, and technical support.', 'images/office-mis.jpg')">
                             <span class="office-icon">💻</span> MIS Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Research Office')">
+                        <li class="office-item" onclick="showOfficeInfo('Research Office', 'Director', 'Dr. Sofia Ramirez', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Coordinates research activities and promotes academic research culture.', 'Research grants, publication support, and research collaboration.', 'images/office-research.jpg')">
                             <span class="office-icon">🔬</span> Research Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('Quality Assurance')">
+                        <li class="office-item" onclick="showOfficeInfo('Quality Assurance', 'Director', 'Dr. James Wilson', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Ensures the quality of academic programs and institutional standards.', 'Accreditation, program assessment, and quality improvement.', 'images/office-qa.jpg')">
                             <span class="office-icon">🏆</span> Quality Assurance
                         </li>
                     </ul>
@@ -749,16 +867,16 @@
                 <div class="office-category">
                     <h3 class="category-title">College Deans</h3>
                     <ul class="office-list">
-                        <li class="office-item" onclick="showOfficeInfo('CBA Dean')">
+                        <li class="office-item" onclick="showOfficeInfo('CBA Dean\'s Office', 'Dean', 'Dr. Patricia Lim', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Administrative office for the College of Business Administration.', 'Program development, faculty supervision, and student academic guidance.', 'images/office-cba.jpg')">
                             <span class="office-icon">👨‍🏫</span> CBA Dean's Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('CAS Dean')">
+                        <li class="office-item" onclick="showOfficeInfo('CAS Dean\'s Office', 'Dean', 'Dr. Michael Chen', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Administrative office for the College of Arts and Sciences.', 'Curriculum oversight, faculty development, and student academic support.', 'images/office-cas.jpg')">
                             <span class="office-icon">👩‍🏫</span> CAS Dean's Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('CIHM Dean')">
+                        <li class="office-item" onclick="showOfficeInfo('CIHM Dean\'s Office', 'Dean', 'Chef Antonio Reyes', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Administrative office for the College of International Hospitality Management.', 'Industry partnerships, program accreditation, and student training.', 'images/office-cihm.jpg')">
                             <span class="office-icon">👨‍🍳</span> CIHM Dean's Office
                         </li>
-                        <li class="office-item" onclick="showOfficeInfo('COED Dean')">
+                        <li class="office-item" onclick="showOfficeInfo('COED Dean\'s Office', 'Dean', 'Dr. Susan Tan', 'Monday-Friday: 8:00 AM - 5:00 PM', 'Administrative office for the College of Education.', 'Teacher education programs, field training, and academic research.', 'images/office-coed.jpg')">
                             <span class="office-icon">👩‍🏫</span> COED Dean's Office
                         </li>
                     </ul>
@@ -778,6 +896,15 @@
         const buildingModal = document.getElementById('buildingModal');
         const closeBuilding = document.getElementById('closeBuilding');
         const buildingLayoutContent = document.getElementById('buildingLayoutContent');
+        const officeModal = document.getElementById('officeModal');
+        const closeOfficeModal = document.getElementById('closeOfficeModal');
+        const officeModalOk = document.getElementById('officeModalOk');
+        const officeImageContainer = document.getElementById('officeImageContainer');
+        const officeName = document.getElementById('officeName');
+        const officeHead = document.getElementById('officeHead');
+        const officeHours = document.getElementById('officeHours');
+        const officeDescription = document.getElementById('officeDescription');
+        const officePurposes = document.getElementById('officePurposes');
         
         // Toggle sidebar
         mainHamburger.addEventListener('click', () => {
@@ -794,6 +921,15 @@
             loginModal.style.display = 'none';
         });
         
+        // Office modal
+        closeOfficeModal.addEventListener('click', () => {
+            officeModal.style.display = 'none';
+        });
+        
+        officeModalOk.addEventListener('click', () => {
+            officeModal.style.display = 'none';
+        });
+        
         // Close modals when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
@@ -801,6 +937,9 @@
             }
             if (e.target === buildingModal) {
                 buildingModal.style.display = 'none';
+            }
+            if (e.target === officeModal) {
+                officeModal.style.display = 'none';
             }
         });
         
@@ -830,6 +969,21 @@
             buildingModal.style.display = 'none';
         });
         
+        // Function to show office information in modal
+        function showOfficeInfo(name, headLabel, headName, hours, description, purposes, imageUrl) {
+            officeName.textContent = name;
+            officeHead.textContent = headName;
+            officeHours.textContent = hours;
+            officeDescription.textContent = description;
+            officePurposes.textContent = purposes;
+            
+            // Set image (using placeholder if imageUrl is not provided)
+            const imagePath = imageUrl || 'images/office-placeholder.jpg';
+            officeImageContainer.style.backgroundImage = `url('${imagePath}')`;
+            
+            officeModal.style.display = 'flex';
+        }
+        
         // Function to select a room (called from building layout)
         function selectRoom(roomName) {
             document.getElementById('selectedRoom').textContent = roomName;
@@ -838,11 +992,6 @@
                 room.classList.remove('active');
             });
             event.target.classList.add('active');
-        }
-        
-        // Function to show office information
-        function showOfficeInfo(officeName) {
-            alert(`Showing information for ${officeName}\nThis would display detailed information about the office in a real implementation.`);
         }
         
         // Function to show reservation modal
@@ -867,13 +1016,6 @@
             
             container.appendChild(newCard);
         }
-        
-        // Sample usage for admin to add a new building:
-        // addNewBuilding({
-        //     name: "New Building",
-        //     imageUrl: "images/new-building.jpg",
-        //     description: "Description of the new building"
-        // });
     </script>
 </body>
-</html>s
+</html>

@@ -209,6 +209,11 @@
             color: var(--dark-gray);
             border-bottom: 1px solid var(--medium-gray);
             padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .subsection {
@@ -450,13 +455,7 @@
         <ul class="sidebar-menu">
             <li><a href="#dashboard" class="active"><i class="fas fa-tachometer-alt"></i><span class="menu-text">Dashboard</span></a></li>
             <li><a href="#home-management"><i class="fas fa-home"></i><span class="menu-text">Home Page Management</span></a></li>
-            <li><a href="#video-section"><i class="fas fa-video"></i><span class="menu-text">Video Section</span></a></li>
-            <li><a href="#image-switcher"><i class="fas fa-images"></i><span class="menu-text">Image Switcher</span></a></li>
-            <li><a href="#featured-rooms"><i class="fas fa-star"></i><span class="menu-text">Featured Rooms</span></a></li>
-            <li><a href="#navigation-reservation"><i class="fas fa-map-marked-alt"></i><span class="menu-text">Navigation & Reservation</span></a></li>
-            <li><a href="#buildings"><i class="fas fa-building"></i><span class="menu-text">Buildings</span></a></li>
-            <li><a href="#floors"><i class="fas fa-layer-group"></i><span class="menu-text">Floors</span></a></li>
-            <li><a href="#rooms"><i class="fas fa-door-open"></i><span class="menu-text">Rooms</span></a></li>
+            <li><a href="#building-navigation"><i class="fas fa-map-marked-alt"></i><span class="menu-text">Building Navigation</span></a></li>
             <li><a href="#file-management"><i class="fas fa-file-alt"></i><span class="menu-text">File Management</span></a></li>
             <li><a href="#settings"><i class="fas fa-cog"></i><span class="menu-text">Settings</span></a></li>
         </ul>
@@ -475,34 +474,150 @@
 
         <!-- Dashboard Section -->
         <section class="section" id="dashboard">
-            <h2 class="section-title">Dashboard Overview</h2>
-            <p>Welcome to the Room Management and Reservation System (RMMS) Admin Dashboard.</p>
+            <h2 class="section-title">Dashboard Overview <button class="btn btn-success">Save Changes</button></h2>
+            
+            <!-- Reservation Requests Table -->
+            <div class="subsection">
+                <h3 class="subsection-title">Reservation Requests</h3>
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" class="form-control" placeholder="Search by building, room, client, or date">
+                    </div>
+                    <div class="filter-group">
+                        <select class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="cancelled">Cancelled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                        <select class="filter-select">
+                            <option value="">All Client Types</option>
+                            <option value="plpian">PLPian</option>
+                            <option value="guest">Guest</option>
+                        </select>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Room</th>
+                            <th>Time Slots</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Reserved By</th>
+                            <th>Capacity</th>
+                            <th>Client Name</th>
+                            <th>Client ID</th>
+                            <th>Client Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Main Building</td>
+                            <td>2</td>
+                            <td>205</td>
+                            <td>09:00 - 11:00</td>
+                            <td>2025-06-15</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>PLPian</td>
+                            <td>30</td>
+                            <td>John Doe</td>
+                            <td>2020-12345</td>
+                            <td>john.doe@plp.edu.ph</td>
+                            <td class="action-btns">
+                                <button class="btn btn-success action-btn">Approve</button>
+                                <button class="btn btn-danger action-btn">Cancel</button>
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-secondary action-btn">Disable</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Science Building</td>
+                            <td>3</td>
+                            <td>310</td>
+                            <td>13:00 - 15:00</td>
+                            <td>2025-06-16</td>
+                            <td><span class="status-badge status-approved">Approved</span></td>
+                            <td>Guest</td>
+                            <td>50</td>
+                            <td>Jane Smith</td>
+                            <td>GUEST-001</td>
+                            <td>jane.smith@example.com</td>
+                            <td class="action-btns">
+                                <button class="btn btn-danger action-btn">Cancel</button>
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-secondary action-btn">Disable</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Library</td>
+                            <td>1</td>
+                            <td>Auditorium</td>
+                            <td>10:00 - 12:00</td>
+                            <td>2025-06-20</td>
+                            <td><span class="status-badge status-cancelled">Cancelled</span></td>
+                            <td>PLPian</td>
+                            <td>100</td>
+                            <td>Mike Johnson</td>
+                            <td>2019-54321</td>
+                            <td>mike.johnson@plp.edu.ph</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-secondary action-btn">Disable</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Main Building</td>
+                            <td>4</td>
+                            <td>410</td>
+                            <td>14:00 - 16:00</td>
+                            <td>2025-06-18</td>
+                            <td><span class="status-badge status-disabled">Disabled</span></td>
+                            <td>Guest</td>
+                            <td>25</td>
+                            <td>Sarah Williams</td>
+                            <td>GUEST-002</td>
+                            <td>sarah.w@example.com</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-primary action-btn">Enable</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-group">
+                    <button class="btn btn-primary">Print</button>
+                    <button class="btn btn-success">Export CSV</button>
+                </div>
+            </div>
         </section>
 
         <!-- Home Page Management Section -->
         <section class="section" id="home-management">
-            <h2 class="section-title">Home Page Management</h2>
+            <h2 class="section-title">Home Page Management <button class="btn btn-success">Save Changes</button></h2>
             
             <!-- Video Section -->
-            <div class="subsection" id="video-section">
+            <div class="subsection">
                 <h3 class="subsection-title">Video Section</h3>
                 <div class="form-group">
                     <label for="video-url">Video URL</label>
-                    <input type="text" id="video-url" class="form-control" placeholder="Enter YouTube or Vimeo URL">
+                    <input type="text" id="video-url" class="form-control" placeholder="Enter YouTube or Vimeo URL" value="https://www.youtube.com/watch?v=example123">
                 </div>
                 <div class="form-group">
                     <label for="video-description">Description</label>
-                    <textarea id="video-description" class="form-control" placeholder="Enter video description"></textarea>
+                    <textarea id="video-description" class="form-control" placeholder="Enter video description">Welcome to our university campus tour video</textarea>
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-primary">Add Video</button>
-                    <button class="btn btn-warning">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-primary">Update Video</button>
                 </div>
             </div>
             
             <!-- Image Switcher -->
-            <div class="subsection" id="image-switcher">
+            <div class="subsection">
                 <h3 class="subsection-title">Image Switcher</h3>
                 <table class="table">
                     <thead>
@@ -525,53 +640,356 @@
                                 <button class="btn btn-danger action-btn">Delete</button>
                             </td>
                         </tr>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/80" alt="Placeholder"></td>
+                            <td>Campus Tour</td>
+                            <td>Explore our facilities</td>
+                            <td>2025-05-15</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <button class="btn btn-primary">Add New Image + Info</button>
             </div>
             
             <!-- Featured Rooms -->
-            <div class="subsection" id="featured-rooms">
+            <div class="subsection">
                 <h3 class="subsection-title">Featured Rooms</h3>
-                <div class="form-group">
-                    <label for="select-room">Select Room</label>
-                    <select id="select-room" class="form-control">
-                        <option value="">-- Select Room --</option>
-                        <option value="101">Room 101</option>
-                        <option value="202">Room 202</option>
-                        <option value="303">Room 303</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Mark as Featured</label>
-                    <label class="toggle-switch">
-                        <input type="checkbox">
-                        <span class="slider"></span>
-                    </label>
-                </div>
-                <button class="btn btn-success">Save</button>
+                
+                <!-- Academic Rooms -->
+                <h4>Academic Rooms</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Room 101</td>
+                            <td>Main Building</td>
+                            <td>1</td>
+                            <td>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Event Areas -->
+                <h4>Event Areas</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Auditorium</td>
+                            <td>Library</td>
+                            <td>1</td>
+                            <td>
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Open Spaces -->
+                <h4>Open Spaces</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Room</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quadrangle</td>
+                            <td>Main Building</td>
+                            <td>G</td>
+                            <td>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="btn btn-primary">Add Featured Room</button>
+            </div>
+            
+            <!-- College Switcher -->
+            <div class="subsection">
+                <h3 class="subsection-title">College Switcher</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>College Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/80" alt="College Icon" width="80"></td>
+                            <td>College of Computer Studies</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/80" alt="College Icon" width="80"></td>
+                            <td>College of Engineering</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add College</button>
             </div>
         </section>
 
-        <!-- Navigation & Reservation Section -->
-        <section class="section" id="navigation-reservation">
-            <h2 class="section-title">Navigation & Reservation</h2>
+        <!-- Building Navigation Section -->
+        <section class="section" id="building-navigation">
+            <h2 class="section-title">Building Navigation <button class="btn btn-success">Save Changes</button></h2>
+            
+            <!-- Hero Section -->
+            <div class="subsection">
+                <h3 class="subsection-title">Hero Section</h3>
+                <div class="form-group">
+                    <label for="hero-image">Hero Image</label>
+                    <input type="file" id="hero-image" class="form-control">
+                    <small>Current image:</small>
+                    <img src="https://via.placeholder.com/800x400" alt="Current Hero Image" style="max-width: 100%; margin-top: 10px;">
+                </div>
+                <div class="form-group">
+                    <label for="hero-header">Header Text</label>
+                    <input type="text" id="hero-header" class="form-control" value="Explore Our Campus Facilities">
+                </div>
+                <div class="form-group">
+                    <label for="hero-description">Description</label>
+                    <textarea id="hero-description" class="form-control">Navigate through our campus buildings and find the offices you need.</textarea>
+                </div>
+            </div>
+            
+            <!-- Building Cards -->
+            <div class="subsection">
+                <h3 class="subsection-title">Building Cards</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Building Name</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/100" alt="Building" width="100"></td>
+                            <td>Main Building</td>
+                            <td>The central building housing most administrative offices and classrooms.</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://via.placeholder.com/100" alt="Building" width="100"></td>
+                            <td>Science Building</td>
+                            <td>Home to our science laboratories and research facilities.</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">Add Building Card</button>
+            </div>
+            
+            <!-- Offices Section -->
+            <div class="subsection">
+                <h3 class="subsection-title">Offices</h3>
+                
+                <!-- Administration Offices -->
+                <h4>Administration</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Office Name</th>
+                            <th>Description</th>
+                            <th>Head of Office</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>President's Office</td>
+                            <td>Office of the University President</td>
+                            <td>Dr. Juan Dela Cruz</td>
+                            <td><img src="https://via.placeholder.com/80" alt="Office" width="80"></td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Student Services -->
+                <h4>Student Services</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Office Name</th>
+                            <th>Description</th>
+                            <th>Head of Office</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Registrar's Office</td>
+                            <td>Handles student records and registration</td>
+                            <td>Ms. Maria Santos</td>
+                            <td><img src="https://via.placeholder.com/80" alt="Office" width="80"></td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Academic Support -->
+                <h4>Academic Support</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Office Name</th>
+                            <th>Description</th>
+                            <th>Head of Office</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Library</td>
+                            <td>University library and learning resources</td>
+                            <td>Mr. Robert Johnson</td>
+                            <td><img src="https://via.placeholder.com/80" alt="Office" width="80"></td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Deans Offices -->
+                <h4>Deans Offices</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Office Name</th>
+                            <th>Description</th>
+                            <th>Head of Office</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>College of Computer Studies</td>
+                            <td>Dean's Office for Computer Studies</td>
+                            <td>Dr. Alan Turing</td>
+                            <td><img src="https://via.placeholder.com/80" alt="Office" width="80"></td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <button class="btn btn-primary">Add Office</button>
+            </div>
+        </section>
+
+        <!-- File Management Section -->
+        <section class="section" id="file-management">
+            <h2 class="section-title">File Management <button class="btn btn-success">Save Changes</button></h2>
             
             <!-- Buildings -->
-            <div class="subsection" id="buildings">
+            <div class="subsection">
                 <h3 class="subsection-title">Buildings</h3>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Building ID</th>
+                            <th>Building Name</th>
                             <th>Floors</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td>B001</td>
                             <td>Main Building</td>
                             <td>8</td>
+                            <td class="action-btns">
+                                <button class="btn btn-warning action-btn">Edit</button>
+                                <button class="btn btn-danger action-btn">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>B002</td>
+                            <td>Science Building</td>
+                            <td>5</td>
                             <td class="action-btns">
                                 <button class="btn btn-warning action-btn">Edit</button>
                                 <button class="btn btn-danger action-btn">Delete</button>
@@ -582,53 +1000,57 @@
                 <button class="btn btn-primary">Add Building</button>
             </div>
             
-            <!-- Floors -->
-            <div class="subsection" id="floors">
-                <h3 class="subsection-title">Floors</h3>
+            <!-- Floors and Rooms -->
+            <div class="subsection">
+                <h3 class="subsection-title">Floors and Rooms</h3>
                 <div class="form-group">
-                    <label for="select-building">Select Building</label>
-                    <select id="select-building" class="form-control">
+                    <label for="select-building-rooms">Select Building</label>
+                    <select id="select-building-rooms" class="form-control">
                         <option value="">-- Select Building --</option>
-                        <option value="main">Main Building</option>
-                        <option value="science">Science Building</option>
-                        <option value="library">Library</option>
+                        <option value="B001">Main Building</option>
+                        <option value="B002">Science Building</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-floor">Select Floor</label>
+                    <select id="select-floor" class="form-control">
+                        <option value="">-- Select Floor --</option>
+                        <option value="1">Floor 1</option>
+                        <option value="2">Floor 2</option>
                     </select>
                 </div>
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Floor #</th>
-                            <th>Rooms</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                </table>
-                <button class="btn btn-primary">Add Floor</button>
-            </div>
-            
-            <!-- Rooms -->
-            <div class="subsection" id="rooms">
-                <h3 class="subsection-title">Rooms</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Room #</th>
-                            <th>Status</th>
+                            <th>Room ID</th>
+                            <th>Room Name</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Capacity</th>
+                            <th>Category</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>110</td>
-                            <td>Available</td>
+                            <td>R101</td>
+                            <td>Room 101</td>
+                            <td>Main Building</td>
+                            <td>1</td>
+                            <td>30</td>
+                            <td>Classroom</td>
                             <td class="action-btns">
                                 <button class="btn btn-warning action-btn">Edit</button>
                                 <button class="btn btn-danger action-btn">Delete</button>
                             </td>
                         </tr>
                         <tr>
-                            <td>205</td>
-                            <td>Occupied</td>
+                            <td>R205</td>
+                            <td>Computer Lab</td>
+                            <td>Main Building</td>
+                            <td>2</td>
+                            <td>25</td>
+                            <td>Laboratory</td>
                             <td class="action-btns">
                                 <button class="btn btn-warning action-btn">Edit</button>
                                 <button class="btn btn-danger action-btn">Delete</button>
@@ -640,68 +1062,9 @@
             </div>
         </section>
 
-        <!-- File Management Section -->
-        <section class="section" id="file-management">
-            <h2 class="section-title">File Management</h2>
-            <div class="search-filter">
-                <div class="search-box">
-                    <input type="text" class="form-control" placeholder="Search by building, room, or date">
-                </div>
-                <div class="filter-group">
-                    <select class="filter-select">
-                        <option value="">All Buildings</option>
-                        <option value="main">Main Building</option>
-                        <option value="science">Science Building</option>
-                    </select>
-                    <select class="filter-select">
-                        <option value="">All Floors</option>
-                        <option value="1">Floor 1</option>
-                        <option value="2">Floor 2</option>
-                    </select>
-                    <select class="filter-select">
-                        <option value="">All Statuses</option>
-                        <option value="available">Available</option>
-                        <option value="occupied">Occupied</option>
-                    </select>
-                </div>
-            </div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Building</th>
-                        <th>Floor</th>
-                        <th>Room</th>
-                        <th>Status</th>
-                        <th>Reservation Info</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Main Building</td>
-                        <td>1</td>
-                        <td>110</td>
-                        <td>Available</td>
-                        <td>No reservations</td>
-                    </tr>
-                    <tr>
-                        <td>Main Building</td>
-                        <td>2</td>
-                        <td>205</td>
-                        <td>Occupied</td>
-                        <td>Reserved until 2025-07-15</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="btn-group">
-                <button class="btn btn-primary">Search</button>
-                <button class="btn btn-success">Print</button>
-                <button class="btn btn-warning">Export CSV</button>
-            </div>
-        </section>
-
         <!-- Settings Section -->
         <section class="section" id="settings">
-            <h2 class="section-title">Settings</h2>
+            <h2 class="section-title">Settings <button class="btn btn-success">Save Changes</button></h2>
             <p>System settings and configurations will be displayed here.</p>
         </section>
     </div>
