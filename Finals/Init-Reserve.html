@@ -213,6 +213,9 @@
             background-color: #f0f0f0;
             font-weight: bold;
         }
+        .sidebar.show {
+    left: 0; /* visible when 'show' class is added */
+}
         
         .sidebar-nav li:hover {
             background-color: #f5f5f5;
@@ -671,10 +674,7 @@
             <h1>Pamantasan ng Lungsod ng Pasig || <span>PLP SPACE</span></h1>
         </div>
         <div class="hamburger" id="mainHamburger">☰</div>
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" id="loginBtn">Login</button>
-            <button class="btn btn-primary" id="enterBtn">ENTER</button>
-        </div>
+
     </header>
     
     <!-- Sidebar Navigation -->
@@ -688,25 +688,6 @@
             <li>About</li>
             <li>Contact</li>
         </ul>
-    </div>
-    
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-btn" id="closeLogin">&times;</span>
-            <h2>Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="submit-btn">Login</button>
-            </form>
-        </div>
     </div>
     
     <!-- Building Layout Modal -->
