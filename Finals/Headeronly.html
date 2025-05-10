@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PLP Building Navigation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #173468;
+      --white: #ffffff;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 70px;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: 70px;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
+    }
+    
+    .left-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo {
+      height: 50px;
+    }
+    
+    .title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    
+    .datetime {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+      
+      header {
+        height: 60px;
+      }
+      
+      .logo {
+        height: 40px;
+      }
+      
+      .title {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      body {
+        padding-top: 50px;
+      }
+      
+      header {
+        height: 50px;
+      }
+      
+      .title {
+        font-size: 0.9rem;
+      }
+      
+      .datetime span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Simplified Header -->
+  <header>
+    <div class="header-container">
+      <div class="left-section">
+        <img src="images/logo.png" alt="PLP Logo" class="logo" />
+        <span class="title">PAMANTASAN NG LUNGSOD NG PASIG</span>
+      </div>
+      <div class="datetime">
+        <i class="fas fa-clock"></i> <span id="datetime">Loading...</span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Update time display
+      function updateDateTime() {
+        const now = new Date();
+        const options = { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        };
+        document.getElementById('datetime').textContent = now.toLocaleDateString('en-PH', options);
+      }
+      
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+    });
+  </script>
+</body>
+</html>
