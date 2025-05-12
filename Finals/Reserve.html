@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLP Room Management System - Request Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333333;
+        }
+        
+        .top-nav {
+            background-color: #3f51b5;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            color: white;
+        }
+        
+        .top-nav h1 {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .user-info {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #c5cae9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
+            color: #3f51b5;
+            font-size: 12px;
+        }
+        
+        .breadcrumb {
+            padding: 20px 30px;
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        .page-title {
+            padding: 0 30px 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .main-form {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin: 0 30px;
+            padding: 20px;
+        }
+        
+        .room-banner {
+            background-color: #e8eaf6;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .room-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .room-details {
+            font-size: 14px;
+            color: #666666;
+        }
+        
+        .change-room-btn {
+            background-color: white;
+            border: 1px solid #3f51b5;
+            border-radius: 5px;
+            padding: 8px 15px;
+            color: #3f51b5;
+            font-size: 14px;
+            float: right;
+            cursor: pointer;
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .form-label {
+            font-size: 14px;
+            color: #666666;
+            margin-right: 10px;
+            min-width: 120px;
+        }
+        
+        .form-input {
+            border: 1px solid #c5cae9;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 14px;
+            min-width: 200px;
+            margin-right: 15px;
+        }
+        
+        .time-input {
+            width: 150px;
+        }
+        
+        .dropdown-arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 5px solid #666666;
+            margin-left: 10px;
+        }
+        
+        .notes-input {
+            border: 1px solid #c5cae9;
+            border-radius: 4px;
+            padding: 10px 15px;
+            font-size: 14px;
+            width: calc(100% - 30px);
+            height: 60px;
+            margin-top: 5px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #3f51b5;
+            border-radius: 2px;
+            margin-right: 5px;
+            position: relative;
+        }
+        
+        .checkbox.checked::after {
+            content: "";
+            position: absolute;
+            left: 3px;
+            top: 3px;
+            width: 10px;
+            height: 5px;
+            border-left: 2px solid #3f51b5;
+            border-bottom: 2px solid #3f51b5;
+            transform: rotate(-45deg);
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+        
+        .submit-btn {
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        
+        .cancel-btn {
+            background-color: white;
+            color: #3f51b5;
+            border: 1px solid #3f51b5;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <h1>PLP Room Management System</h1>
+        <div class="user-info">
+            <span>John Doe</span>
+            <div class="user-circle">JD</div>
+        </div>
+    </div>
+    
+    <div class="breadcrumb">Dashboard > Request Reservation</div>
+    
+    <div class="page-title">Request Reservation</div>
+    
+    <div class="main-form">
+        <div class="room-banner">
+            <div class="room-title">Room 101</div>
+            <div class="room-details">Lecture Hall | 1st Floor | Capacity: 30 people</div>
+            <div class="room-details">Equipment: Projector, Computer, Audio System, Whiteboard</div>
+            <button class="change-room-btn">Change Room</button>
+            <div style="clear: both;"></div>
+        </div>
+        
+        <div class="form-section">
+            <div class="section-title">Date & Time</div>
+            <div class="form-row">
+                <div class="form-input">05/11/2025</div>
+                <span>From</span>
+                <div class="form-input time-input">09:00 AM</div>
+                <span>To</span>
+                <div class="form-input time-input">11:00 AM</div>
+                <span>(2 hours)</span>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="section-title">Reservation Details</div>
+            <div class="form-row">
+                <span class="form-label">Purpose:</span>
+                <div class="form-input">Class Lecture <span class="dropdown-arrow"></span></div>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Expected Attendees:</span>
+                <div class="form-input" style="width: 100px;">25</div>
+                <span>people</span>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Title/Subject:</span>
+                <div class="form-input" style="width: 540px;">Introduction to Database Systems</div>
+            </div>
+            <div class="form-row" style="display: block;">
+                <span class="form-label">Additional Notes:</span>
+                <textarea class="notes-input">Need room setup 15 minutes early. Will require audio system and computer access.</textarea>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Equipment Needed:</span>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Projector</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Computer</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Audio System</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox"></div>
+                    <span>Video Conf.</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Whiteboard</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-buttons">
+            <button class="cancel-btn">Cancel</button>
+            <button class="submit-btn">Submit Request</button>
+        </div>
+    </div>
+</body>
+</html>

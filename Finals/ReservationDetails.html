@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Home | PLP Building Navigation</title>
+  <title>Reservation Request | PLP Building Navigation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -200,83 +200,185 @@
       width: 100%;
     }
 
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin: 40px auto 20px;
-      transition: all 0.5s ease;
+    .breadcrumb {
+      padding: 10px 0;
+      font-size: 14px;
+      color: #666666;
     }
-  
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
+    
+    .page-title {
+      padding: 10px 0 20px;
+      font-size: 24px;
+      font-weight: bold;
     }
-  
-    .card {
+    
+    .main-form {
       background-color: white;
-      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+      padding: 20px;
       box-shadow: var(--shadow);
-      width: 250px;
-      text-align: center;
-      padding-bottom: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: fadeSlideUp 0.8s ease forwards;
     }
-  
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    
+    .room-banner {
+      background-color: #e8eaf6;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
     }
-  
-    .card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px 8px 0 0;
-    }
-  
-    .card h3 {
-      margin: 1rem 0 0.5rem;
+    
+    .room-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 5px;
       color: var(--primary-color);
     }
-  
-    .card p {
-      padding: 0 1rem 1rem;
-      font-size: 0.9rem;
-      color: #444;
+    
+    .room-details {
+      font-size: 14px;
+      color: #666666;
     }
-  
-    .card-button {
-      display: inline-block;
+    
+    .change-room-btn {
+      background-color: white;
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 8px 15px;
+      color: var(--primary-color);
+      font-size: 14px;
+      float: right;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .change-room-btn:hover {
       background-color: var(--primary-color);
       color: white;
-      padding: 0.5rem 1rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+    }
+    
+    .form-section {
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+    }
+    
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .form-label {
+      font-size: 14px;
+      color: #666666;
+      margin-right: 10px;
+      min-width: 120px;
+    }
+    
+    .form-input {
+      border: 1px solid #c5cae9;
       border-radius: 4px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
+      padding: 10px 15px;
+      font-size: 14px;
+      min-width: 200px;
+      margin-right: 15px;
+    }
+    
+    .time-input {
+      width: 150px;
+    }
+    
+    .dropdown-arrow {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #666666;
+      margin-left: 10px;
+    }
+    
+    .notes-input {
+      border: 1px solid #c5cae9;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 14px;
+      width: calc(100% - 30px);
+      height: 60px;
+      margin-top: 5px;
+      resize: vertical;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
       cursor: pointer;
     }
-  
-    .card-button:hover {
-      background-color: var(--secondary-color);
+    
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--primary-color);
+      border-radius: 2px;
+      margin-right: 5px;
+      position: relative;
+      transition: all 0.2s ease;
     }
-
-    /* Footer Styles */
-    footer {
-      text-align: center;
-      padding: 1rem;
+    
+    .checkbox.checked::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 10px;
+      height: 5px;
+      border-left: 2px solid var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      transform: rotate(-45deg);
+    }
+    
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 30px;
+    }
+    
+    .submit-btn {
       background-color: var(--primary-color);
       color: white;
-      transition: all 0.5s ease;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left: 20px;
+      transition: all 0.3s ease;
     }
-  
-    footer a {
-      color: white;
-      text-decoration: underline;
+    
+    .submit-btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .cancel-btn {
+      background-color: white;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .cancel-btn:hover {
+      background-color: #f0f0f0;
     }
 
     /* Responsive Design */
@@ -316,15 +418,25 @@
 
       main {
         padding-left: 80px;
+        padding-right: 1rem;
       }
 
-      .card-container {
+      .form-row {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
       }
-  
-      .card {
-        width: 90%;
+
+      .form-label {
+        margin-bottom: 5px;
+      }
+
+      .form-input {
+        margin-bottom: 10px;
+        width: 100%;
+      }
+
+      .checkbox-group {
+        margin-bottom: 10px;
       }
     }
     
@@ -373,6 +485,15 @@
       main {
         padding-left: 70px;
         padding-right: 1rem;
+      }
+
+      .form-buttons {
+        flex-direction: column;
+      }
+
+      .submit-btn, .cancel-btn {
+        width: 100%;
+        margin: 10px 0 0 0;
       }
     }
   </style>
@@ -434,47 +555,81 @@
   </div>
 
   <main>
-    <section class="card-container" id="mainCards">
-      <div class="card">
-        <img src="images/logos/check-icon.png" alt="Availability" loading="lazy">
-        <h3>Check Availability</h3>
-        <p>Browse our list of available rooms and check real-time availability. This helps ensure that the room you need is free before you make a reservation.</p>
-        <a href="Availability.html" class="card-button">View Rooms</a>
-      </div>
-
-      <div class="card">
-        <img src="images/logos/reserve-icon.png" alt="Reserve" loading="lazy">
-        <h3>Reserve a Room</h3>
-        <p>Quickly and easily reserve a room for your class, event, or meeting. Simply choose your preferred date, time, and room from the available options.</p>
-        <a href="Reserve.html" class="card-button">View Rooms</a>
-      </div>
-
-      <div class="card">
-        <img src="images/logos/requests-icon.png" alt="MyRequests" loading="lazy">
-        <h3>Your Reservations</h3>
-        <p>Check the details of your existing room reservations, including dates, times, and locations. You can check if your booking is approved.</p>
-        <a href="MyRequests.html" class="card-button">Learn More</a>
-      </div>
-
-      <div class="card">
-        <img src="images/logo.png" alt="About PLP" loading="lazy">
-        <h3>About PLP</h3>
-        <p>Discover what Pamantasan ng Lungsod ng Pasig (PLP) stands for—its mission, vision, core values, and some of our Highlighted Events.</p>
-        <a href="AboutPLP.html" class="card-button">About PLP</a>
-      </div>
-
-      <div class="card">
-        <img src="images/logos/about-icon.png" alt="About Us" loading="lazy">
-        <h3>About Us</h3>
-        <p>Learn about what RMMS is, its key features, and its importance. Meet the developer team and discover their goals and roles in building this system.</p>
-        <a href="AboutUs.html" class="card-button">Learn More</a>
-      </div>
-    </section>
+    <div class="breadcrumb">Dashboard > Request Reservation</div>
+    
+    <div class="page-title">Request Reservation</div>
+    
+    <div class="main-form">
+        <div class="room-banner">
+            <div class="room-title">Room 101</div>
+            <div class="room-details">Lecture Hall | 1st Floor | Capacity: 30 people</div>
+            <div class="room-details">Equipment: Projector, Computer, Audio System, Whiteboard</div>
+            <button class="change-room-btn">Change Room</button>
+            <div style="clear: both;"></div>
+        </div>
+        
+        <div class="form-section">
+            <div class="section-title">Date & Time</div>
+            <div class="form-row">
+                <div class="form-input">05/11/2025</div>
+                <span>From</span>
+                <div class="form-input time-input">09:00 AM</div>
+                <span>To</span>
+                <div class="form-input time-input">11:00 AM</div>
+                <span>(2 hours)</span>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="section-title">Reservation Details</div>
+            <div class="form-row">
+                <span class="form-label">Purpose:</span>
+                <div class="form-input">Class Lecture <span class="dropdown-arrow"></span></div>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Expected Attendees:</span>
+                <div class="form-input" style="width: 100px;">25</div>
+                <span>people</span>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Title/Subject:</span>
+                <div class="form-input" style="width: 540px;">Introduction to Database Systems</div>
+            </div>
+            <div class="form-row" style="display: block;">
+                <span class="form-label">Additional Notes:</span>
+                <textarea class="notes-input">Need room setup 15 minutes early. Will require audio system and computer access.</textarea>
+            </div>
+            <div class="form-row">
+                <span class="form-label">Equipment Needed:</span>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Projector</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Computer</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Audio System</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox"></div>
+                    <span>Video Conf.</span>
+                </div>
+                <div class="checkbox-group">
+                    <div class="checkbox checked"></div>
+                    <span>Whiteboard</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-buttons">
+            <button class="cancel-btn">Cancel</button>
+            <button class="submit-btn">Submit Request</button>
+        </div>
+    </div>
   </main>
-
-  <footer class="footer" id="footer">
-    &copy; 2025 Pamantasan Ng Lungsod Ng Pasig || Room Management Monitoring System ||
-  </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -510,9 +665,35 @@
         // window.location.href = '/logout';
       });
 
-      window.onload = function() {
-        window.scrollTo(0, 0);
-      };
+      // Checkbox functionality
+      document.querySelectorAll('.checkbox-group').forEach(group => {
+        group.addEventListener('click', function() {
+          const checkbox = this.querySelector('.checkbox');
+          checkbox.classList.toggle('checked');
+        });
+      });
+
+      // Change room button functionality
+      document.querySelector('.change-room-btn').addEventListener('click', function() {
+        alert('Redirecting to room selection...');
+        // Typically you would redirect to room selection page
+        // window.location.href = '/availability';
+      });
+
+      // Form submission
+      document.querySelector('.submit-btn').addEventListener('click', function() {
+        alert('Reservation request submitted!');
+        // Typically you would submit form data here
+        // window.location.href = '/confirmation';
+      });
+
+      // Cancel button functionality
+      document.querySelector('.cancel-btn').addEventListener('click', function() {
+        if(confirm('Are you sure you want to cancel this reservation?')) {
+          // Typically you would redirect back
+          window.location.href = 'Home.html';
+        }
+      });
     });
   </script>
 </body>
