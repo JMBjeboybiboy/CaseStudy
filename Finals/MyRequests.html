@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PLP Building Navigation</title>
+  <title>My Requests | PLP Building Navigation</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -13,6 +13,11 @@
       --text-color: #333;
       --light-bg: #f8f9fa;
       --white: #ffffff;
+      --shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      --success: #4caf50;
+      --warning: #ff9800;
+      --danger: #f44336;
+      --pending: #9c27b0;
     }
     
     html, body {
@@ -20,6 +25,10 @@
       margin: 0;
       padding: 0;
       scroll-behavior: smooth;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-color);
+      background-color: var(--white);
+      line-height: 1.6;
     }
     
     * {
@@ -29,11 +38,7 @@
     }
     
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--white);
-      color: var(--text-color);
       overflow-x: hidden;
-      line-height: 1.6;
       padding-top: 70px;
     }
 
@@ -190,6 +195,242 @@
       display: inline;
     }
 
+    /* Main Content Styles */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 2rem 0 100px;
+      width: 100%;
+    }
+
+    .page-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .filter-bar {
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .filter-label {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+    
+    select, input[type="date"] {
+      padding: 8px 12px;
+      border: 1px solid #c5cae9;
+      border-radius: 4px;
+      background-color: white;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .reservation-table {
+      width: 100%;
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th {
+      background-color: var(--light-bg);
+      padding: 12px 15px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-block;
+      text-align: center;
+      min-width: 100px;
+    }
+    
+    .status-approved {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+    
+    .status-pending {
+      background-color: rgba(156, 39, 176, 0.1);
+      color: var(--pending);
+      border: 1px solid var(--pending);
+    }
+    
+    .status-rejected {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    
+    .action-btn {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 5px;
+      transition: all 0.3s;
+    }
+    
+    .view-btn {
+      background-color: rgba(63, 81, 181, 0.1);
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    
+    .view-btn:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .cancel-btn {
+      background-color: rgba(244, 67, 54, 0.1);
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    
+    .cancel-btn:hover {
+      background-color: var(--danger);
+      color: white;
+    }
+    
+    .modify-btn {
+      background-color: rgba(255, 152, 0, 0.1);
+      color: var(--warning);
+      border: 1px solid var(--warning);
+    }
+    
+    .modify-btn:hover {
+      background-color: var(--warning);
+      color: white;
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 5px;
+    }
+    
+    .pagination button {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: white;
+      border: 1px solid #e0e0e0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .pagination button.active {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+    
+    .pagination button:hover:not(.active) {
+      background-color: var(--light-bg);
+    }
+    
+    footer {
+      background-color: white;
+      padding: 20px 0;
+      margin-top: 40px;
+      border-top: 1px solid #e0e0e0;
+      color: #666666;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .no-reservations {
+      padding: 40px;
+      text-align: center;
+      color: #666666;
+    }
+    
+    .no-reservations h3 {
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       body {
@@ -223,6 +464,28 @@
       
       .user-name {
         display: none;
+      }
+
+      main {
+        padding-left: 80px;
+        padding-right: 1rem;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filter-group {
+        width: 100%;
+      }
+      
+      select, input[type="date"] {
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
       }
     }
     
@@ -266,6 +529,21 @@
       
       .logout-btn i {
         margin-right: 0;
+      }
+
+      main {
+        padding-left: 70px;
+        padding-right: 1rem;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 10px;
       }
     }
   </style>
@@ -326,6 +604,119 @@
     </div>
   </div>
 
+  <main>
+    <div class="page-title">
+      <i class="fas fa-calendar-alt"></i>
+      My Reservation History
+    </div>
+    
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-label">Status:</span>
+        <select id="status-filter">
+          <option value="all">All</option>
+          <option value="approved">Approved</option>
+          <option value="pending">Pending</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      
+      <div class="filter-group">
+        <span class="filter-label">From:</span>
+        <input type="date" id="from-date">
+      </div>
+      
+      <div class="filter-group">
+        <span class="filter-label">To:</span>
+        <input type="date" id="to-date">
+      </div>
+      
+      <button class="btn btn-primary">Apply Filters</button>
+      <button class="btn btn-outline">Reset</button>
+    </div>
+    
+    <div class="reservation-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Room</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Purpose</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Conference Room A</td>
+            <td>May 15, 2025</td>
+            <td>10:00 AM - 12:00 PM</td>
+            <td>Team Meeting</td>
+            <td><span class="status-badge status-approved">Approved</span></td>
+            <td>
+              <button class="action-btn view-btn">View</button>
+              <button class="action-btn cancel-btn">Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Lecture Hall B</td>
+            <td>May 20, 2025</td>
+            <td>2:00 PM - 4:00 PM</td>
+            <td>Guest Lecture</td>
+            <td><span class="status-badge status-pending">Pending</span></td>
+            <td>
+              <button class="action-btn view-btn">View</button>
+              <button class="action-btn modify-btn">Modify</button>
+              <button class="action-btn cancel-btn">Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Study Room 103</td>
+            <td>May 8, 2025</td>
+            <td>3:00 PM - 5:00 PM</td>
+            <td>Study Group</td>
+            <td><span class="status-badge status-rejected">Rejected</span></td>
+            <td>
+              <button class="action-btn view-btn">View</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Computer Lab 2</td>
+            <td>May 25, 2025</td>
+            <td>9:00 AM - 11:00 AM</td>
+            <td>Workshop</td>
+            <td><span class="status-badge status-pending">Pending</span></td>
+            <td>
+              <button class="action-btn view-btn">View</button>
+              <button class="action-btn modify-btn">Modify</button>
+              <button class="action-btn cancel-btn">Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Seminar Room D</td>
+            <td>June 5, 2025</td>
+            <td>1:00 PM - 3:00 PM</td>
+            <td>Department Meeting</td>
+            <td><span class="status-badge status-approved">Approved</span></td>
+            <td>
+              <button class="action-btn view-btn">View</button>
+              <button class="action-btn cancel-btn">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="pagination">
+      <button>«</button>
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>»</button>
+    </div>
+  </main>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Update time display
@@ -358,6 +749,62 @@
         alert('Logging out...');
         // Typically you would redirect to a logout endpoint
         // window.location.href = '/logout';
+      });
+
+      // Filter functionality
+      document.querySelector('.btn-primary').addEventListener('click', function() {
+        const status = document.getElementById('status-filter').value;
+        const fromDate = document.getElementById('from-date').value;
+        const toDate = document.getElementById('to-date').value;
+        
+        // In a real application, you would filter the table here
+        alert(`Applying filters: Status=${status}, From=${fromDate}, To=${toDate}`);
+      });
+
+      // Reset functionality
+      document.querySelector('.btn-outline').addEventListener('click', function() {
+        document.getElementById('status-filter').value = 'all';
+        document.getElementById('from-date').value = '';
+        document.getElementById('to-date').value = '';
+      });
+
+      // Action buttons functionality
+      document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const room = row.cells[0].textContent;
+          alert(`Viewing details for reservation: ${room}`);
+        });
+      });
+
+      document.querySelectorAll('.modify-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const room = row.cells[0].textContent;
+          alert(`Modifying reservation for: ${room}`);
+        });
+      });
+
+      document.querySelectorAll('.cancel-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const room = row.cells[0].textContent;
+          if(confirm(`Are you sure you want to cancel your reservation for ${room}?`)) {
+            alert(`Reservation for ${room} has been cancelled`);
+            // In a real application, you would update the status here
+          }
+        });
+      });
+
+      // Pagination functionality
+      document.querySelectorAll('.pagination button').forEach(btn => {
+        btn.addEventListener('click', function() {
+          if(!this.classList.contains('active')) {
+            document.querySelector('.pagination .active').classList.remove('active');
+            this.classList.add('active');
+            // In a real application, you would load the new page of results here
+          }
+        });
       });
     });
   </script>

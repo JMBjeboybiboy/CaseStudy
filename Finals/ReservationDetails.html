@@ -294,6 +294,10 @@
       width: 150px;
     }
     
+    .date-input {
+      width: 180px;
+    }
+    
     .dropdown-arrow {
       display: inline-block;
       width: 0;
@@ -555,8 +559,7 @@
   </div>
 
   <main>
-    <div class="breadcrumb">Dashboard > Request Reservation</div>
-    
+
     <div class="page-title">Request Reservation</div>
     
     <div class="main-form">
@@ -571,12 +574,68 @@
         <div class="form-section">
             <div class="section-title">Date & Time</div>
             <div class="form-row">
-                <div class="form-input">05/11/2025</div>
-                <span>From</span>
-                <div class="form-input time-input">09:00 AM</div>
-                <span>To</span>
-                <div class="form-input time-input">11:00 AM</div>
-                <span>(2 hours)</span>
+                <span>Date:</span>
+                <input type="date" id="reservation-date" class="form-input date-input">
+                <span>From:  </span>
+        <select class="form-input time-input">
+            <option value="07:30">07:30 AM</option>
+            <option value="08:00">08:00 AM</option>
+            <option value="08:30">08:30 AM</option>
+            <option value="09:00" selected>09:00 AM</option>
+            <option value="09:30">09:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="13:30">01:30 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="14:30">02:30 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="15:30">03:30 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="16:30">04:30 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="17:30">05:30 PM</option>
+            <option value="18:00">06:00 PM</option>
+            <option value="18:30">06:30 PM</option>
+            <option value="19:00">07:00 PM</option>
+            <option value="19:30">07:30 PM</option>
+            <option value="20:00">08:00 PM</option>
+            <option value="20:30">08:30 PM</option>
+        </select>
+                 <span>To:  </span>
+        <select class="form-input time-input">
+            <option value="08:00">08:00 AM</option>
+            <option value="08:30">08:30 AM</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="09:30">09:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00" selected>11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="13:30">01:30 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="14:30">02:30 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="15:30">03:30 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="16:30">04:30 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="17:30">05:30 PM</option>
+            <option value="18:00">06:00 PM</option>
+            <option value="18:30">06:30 PM</option>
+            <option value="19:00">07:00 PM</option>
+            <option value="19:30">07:30 PM</option>
+            <option value="20:00">08:00 PM</option>
+            <option value="20:30">08:30 PM</option>
+            <option value="21:00">09:00 PM</option>
+        </select>
             </div>
         </div>
         
@@ -651,6 +710,12 @@
       
       updateDateTime();
       setInterval(updateDateTime, 1000);
+      
+      // Set up date input
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('reservation-date');
+      dateInput.value = today;
+      dateInput.min = today;
       
       // You would typically fetch the user's name from your authentication system
       // For demonstration, we'll use a placeholder

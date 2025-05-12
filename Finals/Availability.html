@@ -246,6 +246,7 @@
 
     .filter-item {
       flex-grow: 1;
+      min-width: 150px;
     }
 
     .filter-label {
@@ -597,16 +598,8 @@
         <div class="filter-item">
           <label class="filter-label">Date</label>
           <input type="date" id="filter-date" class="filter-input">
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const today = new Date().toISOString().split("T")[0];
-    const dateInput = document.getElementById("filter-date");
-    dateInput.value = today;    // Set today's date as default
-    dateInput.min = today;      // Disable past dates
-  });
-</script>
         </div>
+        
         <div class="filter-item">
           <label class="filter-label">From</label>
           <select class="filter-select">
@@ -678,7 +671,7 @@
         <div class="filter-item">
           <label class="filter-label">Capacity</label>
           <select class="filter-select">
-            <option value="any">Any capacity</option>
+            <option value="All">Any capacity</option>
             <option value="10">10+ people</option>
             <option value="20">20+ people</option>
             <option value="30">30+ people</option>
@@ -689,10 +682,27 @@
 
         <div class="filter-item">
           <label class="filter-label">Building</label>
+          <select id="building" class="filter-select" onchange="updateFloors()">
+            <option value="">All Buildings</option>
+            <option value="Main Building">MAIN BUILDING</option>
+            <option value="CIHM Building">CIHM BUILDING</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label class="filter-label">Floor</label>
+          <select id="floor" class="filter-select" disabled>
+            <option value="">Select building first</option>
+          </select>
+        </div>
+
+        <div class="filter-item">
+          <label class="filter-label">Type Of Room</label>
           <select class="filter-select">
-            <option value="All">All</option>
-            <option value="building_1">MAIN BUILDING</option>
-            <option value="building_2">CIHM BUILDING</option>
+            <option value="All">All Types</option>
+            <option value="Classroom">Classroom</option>
+            <option value="Laboratory">Laboratory</option>
+            <option value="EventSpace">Event Space</option>
           </select>
         </div>
       </div>
@@ -865,6 +875,12 @@
         document.getElementById('datetime').textContent = now.toLocaleDateString('en-PH', options);
       }
       
+      // Set default date to today and disable past dates
+      const today = new Date().toISOString().split("T")[0];
+      const dateInput = document.getElementById("filter-date");
+      dateInput.value = today;
+      dateInput.min = today;
+      
       updateDateTime();
       setInterval(updateDateTime, 1000);
       
@@ -893,6 +909,27 @@
         });
       });
     });
+    
+    function updateFloors() {
+      const buildingSelect = document.getElementById('building');
+      const floorSelect = document.getElementById('floor');
+      
+      // Reset floor options
+      floorSelect.innerHTML = '<option value="">All Floors</option>';
+      floorSelect.disabled = !buildingSelect.value;
+      
+      if (buildingSelect.value === "Main Building") {
+        // Add floors for Main Building (1-9)
+        for (let i = 1; i <= 9; i++) {
+          floorSelect.innerHTML += `<option value="${i}">Floor ${i}</option>`;
+        }
+      } else if (buildingSelect.value === "CIHM Building") {
+        // Add floors for CIHM Building (1-6)
+        for (let i = 1; i <= 6; i++) {
+          floorSelect.innerHTML += `<option value="${i}">Floor ${i}</option>`;
+        }
+      }
+    }
   </script>
 </body>
 </html>
